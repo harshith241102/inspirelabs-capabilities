@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+*.local
+npm-debug.log*
+
+# Build info / generated tooling output
+*.tsbuildinfo
+screens-out
+.claude

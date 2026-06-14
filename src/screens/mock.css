@@ -1,0 +1,211 @@
+/* Built, clearly-labelled mock visuals (no invented numbers).
+   Used where no approved screenshot exists: comparison shortlist, AudienceSeed
+   reporting, Measure dashboard, monitoring board. */
+
+.mock {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--float);
+  overflow: hidden;
+  width: 100%;
+}
+.mock__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--card-bd);
+  background: #fbfbfc;
+}
+.mock__bar img {
+  height: 18px;
+  width: auto;
+}
+.mock__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.mock__bar .mock__spacer {
+  flex: 1;
+}
+.mock__pad {
+  padding: 16px 18px;
+}
+
+/* ---- Comparison shortlist ---- */
+.cmp {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cmp__head {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 8px;
+  padding: 0 10px 6px;
+}
+.cmp__head span {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-align: center;
+}
+.cmp__head span:first-child {
+  text-align: left;
+}
+.cmp__row {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--card-bd);
+  border-radius: 9px;
+  background: #fff;
+}
+.cmp__row--you {
+  border: 2px solid var(--orange);
+  box-shadow: 0 8px 20px rgba(255, 122, 69, 0.12);
+}
+.cmp__name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+}
+.cmp__avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #eef0f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grey);
+}
+.cmp__row--you .cmp__avatar {
+  background: var(--orange);
+  color: #fff;
+}
+.cmp__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 1.5px solid var(--c5);
+}
+.cmp__dot--on {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.cmp__row--you .cmp__dot--on {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+/* ---- Report / dashboard mock ---- */
+.rpt {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.rpt__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.rpt__kpi {
+  border: 1px solid var(--card-bd);
+  border-radius: 9px;
+  padding: 11px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: #fff;
+}
+.rpt__kpi-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.rpt__kpi-value {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--muted-text);
+}
+.rpt__kpi-value strong {
+  color: var(--ink);
+}
+.rpt__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 110px;
+  padding: 0 4px;
+}
+.rpt__bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.rpt__bar-fill {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  background: var(--as);
+  min-height: 8px;
+}
+.rpt__bar-fill--accent {
+  background: var(--orange);
+}
+.rpt__bar-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey);
+  text-align: center;
+  line-height: 1.1;
+}
+.rpt__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--card-bd);
+  border-radius: 8px;
+}
+.rpt__row-label {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+@media (max-width: 860px) {
+  .rpt__kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cmp__head,
+  .cmp__row {
+    grid-template-columns: 1.2fr repeat(4, 1fr);
+  }
+}

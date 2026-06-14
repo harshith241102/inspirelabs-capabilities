@@ -1,0 +1,121 @@
+/* Shared footer row used by several content screens */
+.s-footer-row {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.s-footer-row .cta-row {
+  margin-top: 2px;
+}
+
+/* Screen 2 hero expansion */
+.hero2 {
+  display: grid;
+  grid-template-columns: 1.05fr auto 0.95fr;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 34px);
+  width: 100%;
+}
+.hero2__cap {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+.hero2__surface {
+  min-width: 0;
+}
+.hero2__surface .shot {
+  height: clamp(240px, 34vh, 360px);
+}
+.hero2__arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--orange);
+}
+.hero2__arrow-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.hero2__modules {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+.hero2__tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  padding: 11px 15px;
+  box-shadow: var(--float-sm);
+}
+.hero2__tile:nth-child(2) {
+  border-color: var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 12px 28px rgba(255, 122, 69, 0.12);
+}
+.hero2__tile-ico {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.hero2__tile:nth-child(2) .hero2__tile-ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.hero2__tile-label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: clamp(13.5px, 1vw, 15.5px);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.hero2__fixed {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--grey);
+}
+.hero2__fixed svg {
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+  .hero2 {
+    grid-template-columns: 1fr;
+  }
+  .hero2__arrow {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .hero2__arrow svg {
+    transform: rotate(90deg);
+  }
+  .hero2__surface .shot {
+    height: 260px;
+  }
+}

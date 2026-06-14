@@ -1,0 +1,172 @@
+/* Activation surfaces (screens 15-19) + shared two-column collapses. */
+
+.proofstat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  box-shadow: var(--float-sm);
+}
+.proofstat__num {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: clamp(26px, 2.6vw, 34px);
+  letter-spacing: -0.02em;
+  color: var(--orange-text);
+  line-height: 1;
+}
+.proofstat__label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--body);
+}
+
+.ecotag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-headline);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 999px;
+  padding: 8px 14px;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.ecotag svg {
+  color: var(--orange);
+}
+.ecotag:hover {
+  border-color: var(--orange);
+  color: var(--orange-text);
+  transform: translateY(-2px);
+}
+.ecotag:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* Channel command surface (screen 18) */
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+  width: 100%;
+}
+.channel-tile {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  padding: 12px 14px;
+  box-shadow: var(--float-sm);
+  text-align: left;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.channel-tile:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+.channel-tile:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.channel-tile__ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.channel-tile__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* Campaign moment board (screen 19) */
+.moments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+.moment {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--card-bd);
+  background: #fff;
+  box-shadow: var(--float-sm);
+  text-align: left;
+  overflow: hidden;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.moment::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--orange);
+  opacity: 0.6;
+}
+.moment:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.moment:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.moment__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.moment__note {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--body);
+}
+
+/* Shared two-column collapses */
+@media (max-width: 860px) {
+  .split-map,
+  .two-up {
+    grid-template-columns: 1fr !important;
+  }
+  .channel-grid,
+  .moments {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .channel-grid,
+  .moments {
+    grid-template-columns: 1fr;
+  }
+}

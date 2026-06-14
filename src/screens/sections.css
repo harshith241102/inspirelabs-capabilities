@@ -1,0 +1,188 @@
+/* Shared styles for repositioning + overview + proof scenes (screens 3-6, 34-36). */
+
+/* ---- Expansion map (screen 3) ---- */
+.expand {
+  display: grid;
+  grid-template-columns: 0.9fr auto 1.1fr;
+  gap: clamp(16px, 2.5vw, 36px);
+  align-items: center;
+  width: 100%;
+}
+.expand__proof {
+  background: var(--ink);
+  border-radius: 16px;
+  padding: 18px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--float);
+}
+.expand__proof .shot {
+  height: 180px;
+}
+.expand__proof-label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+}
+.expand__proof-sub {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: #b9bcc6;
+  line-height: 1.45;
+}
+.expand__arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--orange);
+}
+.expand__arrow span {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.expand__nodes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---- Pre-brand journey (screen 4) ---- */
+.journey-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  background: rgba(255, 122, 69, 0.08);
+  border: 1px solid rgba(255, 122, 69, 0.3);
+  border-radius: 8px;
+  padding: 7px 12px;
+}
+
+/* ---- Growth system overview (screen 6) ---- */
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+.overview__rail {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.overview__block {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.overview__card {
+  flex: 1;
+  background: #fff;
+  border: 1.5px solid var(--card-bd);
+  border-radius: 13px;
+  padding: 16px 13px;
+  box-shadow: var(--float-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  min-width: 0;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.overview__card:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.overview__card:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+.overview__step {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange-text);
+}
+.overview__ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+.overview__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: clamp(12px, 0.95vw, 14px);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.18;
+}
+.overview__link {
+  color: var(--c4);
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+.overview__proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--net);
+  border: 1px dashed var(--c5);
+  border-radius: 12px;
+  padding: 13px 18px;
+}
+.overview__proof-label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+.overview__proof-sub {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--body);
+}
+
+@media (max-width: 860px) {
+  .expand {
+    grid-template-columns: 1fr;
+  }
+  .expand__arrow {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .expand__arrow svg {
+    transform: rotate(90deg);
+  }
+  .overview__rail {
+    flex-direction: column;
+  }
+  .overview__block {
+    flex-direction: column;
+  }
+  .overview__link {
+    transform: rotate(90deg);
+    padding: 6px 0;
+  }
+}

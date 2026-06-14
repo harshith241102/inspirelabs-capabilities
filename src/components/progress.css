@@ -1,0 +1,77 @@
+.rail {
+  position: fixed;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+  z-index: 40;
+  pointer-events: auto;
+}
+.rail ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rail__dot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  background: none;
+  border: 0;
+  padding: 5px 2px;
+  width: 100%;
+}
+.rail__tick {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--c5);
+  transition: background 0.2s ease, width 0.2s ease;
+  flex-shrink: 0;
+}
+.rail__dot.is-past .rail__tick {
+  background: var(--c4);
+}
+.rail__dot.is-active .rail__tick {
+  background: var(--orange);
+  width: 30px;
+}
+.rail__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.rail__dot:hover .rail__label,
+.rail__dot.is-active .rail__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+.rail__dot.is-active .rail__label {
+  color: var(--orange-text);
+}
+.rail__dot:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* On dark screens, lighten ticks for contrast */
+.screen--dark ~ .rail,
+body:has(.screen--dark) .rail {
+  /* fallback handled by JS-set data attr in App if needed */
+}
+
+@media (max-width: 860px) {
+  .rail {
+    display: none;
+  }
+}

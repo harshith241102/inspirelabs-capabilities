@@ -1,0 +1,173 @@
+/* Shared layout helpers used across capability screens. */
+
+/* Primary CTA with a secondary AI support chip stacked quietly below it. */
+.cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Clickable surface list (opens drawers) */
+.surface-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.surface-list__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  padding: 11px 14px;
+  box-shadow: var(--float-sm);
+  text-align: left;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.surface-list__item:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.surface-list__item:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.surface-list__ico {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.surface-list__label {
+  flex: 1;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.surface-list__more {
+  color: var(--c4);
+  flex-shrink: 0;
+}
+
+/* Metric field strip */
+.metric-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Small mono section label */
+.mini-cap {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+
+/* Two-column content + figure that should fill the body height */
+.fill-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+
+/* Generic clickable tile used in family/overview maps */
+.opentile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+  min-width: 0;
+}
+.opentile:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.opentile:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.opentile__head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.opentile__ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.opentile__ico--accent {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.opentile__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: clamp(14px, 1.05vw, 16px);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.opentile__body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--body);
+}
+.opentile__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  margin-top: auto;
+}
+.screen--dark .opentile {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+.screen--dark .opentile__title {
+  color: #fff;
+}
+.screen--dark .opentile__body {
+  color: #b9bcc6;
+}
+.screen--dark .opentile__ico {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
