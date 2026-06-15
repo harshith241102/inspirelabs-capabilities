@@ -299,6 +299,10 @@ a {
 
 /* Net / takeaway box (orange left border, neutral fill, never warm) */
 .s-net {
+  /* The takeaway is a full-width bottom anchor, not a small floating box. It
+     is always the sole child of its slide footer, so 100% width fills the
+     space the removed CTA left, uniformly across every slide. */
+  width: 100%;
   background: var(--net);
   border: 1px solid var(--border);
   border-left: 3px solid var(--orange);
