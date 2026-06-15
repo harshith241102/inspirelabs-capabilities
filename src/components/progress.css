@@ -1,141 +1,85 @@
 .rail {
   position: fixed;
   top: 50%;
-  right: 22px;
+  right: 20px;
   transform: translateY(-50%);
   z-index: 40;
-  /* Fixed tick column. Labels live to its left as absolute overlays, so the
-     rail's width is the dash column only and never varies by label length. */
-  width: 30px;
-  pointer-events: auto;
-  --rail-progress: 0;
+}
+
+/* Enclosing frame: the frosted/opaque surface comes from .chrome-glass; this
+   sets the shape, width, and padding. Frosted at rest, opaque on hover. */
+.rail__frame {
+  width: 168px;
+  padding: 8px;
+  border-radius: 16px;
 }
 .rail ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* every dot shares the same right edge */
-  /* Row pitch must clear the revealed label chip (~20px) so the hover labels
-     never overlap or cram together. */
-  gap: 16px;
-  position: relative;
-  z-index: 1; /* ticks sit above the connecting spine */
+  gap: 1px;
 }
 
-/* Connecting spine: a thin vertical line behind the ticks, linking them top to
-   bottom. It is purely decorative and absolutely positioned, so it never
-   participates in the tick flex layout and cannot shift a dash. The 9.5px
-   top/bottom inset (8px row padding + half a 3px tick) lands the line exactly
-   on the first and last tick centres, so the orange fill terminates on a tick. */
-.rail__spine {
-  position: absolute;
-  top: 9.5px;
-  bottom: 9.5px;
-  /* Sits just inside the shared right edge, centred under the dash column. */
-  right: 10px;
-  width: 1.5px;
-  border-radius: 999px;
-  background: var(--c5);
-  opacity: 0.55;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-/* Orange progress fill: grows from the top down to the active tick centre. */
-.rail__spine-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: calc(var(--rail-progress, 0) * 100%);
-  background: var(--orange);
-  border-radius: 999px;
-  transition: height 0.22s ease;
-}
-
-/* Each dot is a fixed-width tick column. The label is taken out of flow
-   (position: absolute) so its width can never shift the tick. The tick is
-   right-aligned, so every dash sits on one vertical axis and the active dash
-   grows leftward from that shared right edge instead of moving sideways. */
-.rail__dot {
-  position: relative;
+/* One section row: marker + name, always legible. */
+.rail__row {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  width: 30px;
+  gap: 10px;
+  padding: 8px 12px;
   background: none;
   border: 0;
-  padding: 8px 0;
+  border-radius: 9px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s ease;
 }
-.rail__tick {
-  width: 22px;
-  height: 3px;
-  border-radius: 999px;
+.rail__row:hover {
+  background: rgba(14, 15, 10, 0.045);
+}
+.rail__row:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.rail__marker {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: var(--c5);
-  transition: background 0.2s ease, width 0.2s ease, box-shadow 0.2s ease;
   flex-shrink: 0;
+  transition: background 0.16s ease, box-shadow 0.16s ease;
 }
-.rail__dot.is-past .rail__tick {
+.rail__name {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+/* Past sections: muted. */
+.rail__row.is-past .rail__marker {
   background: var(--c4);
 }
-.rail__dot.is-active .rail__tick {
+.rail__row.is-past .rail__name {
+  color: var(--muted-text);
+}
+
+/* Current section: the single orange focal, visible even when the frame is
+   frosted so the viewer always knows where they are. */
+.rail__row.is-active {
+  background: #fff7f3;
+}
+.rail__row.is-active .rail__marker {
   background: var(--orange);
-  width: 30px; /* grows leftward from the shared right edge, no sideways shift */
-  box-shadow: var(--float-sm);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18);
 }
-
-/* Hover/focus label: absolute, placed to the LEFT of the rail. It never takes
-   part in the tick flex layout, so it cannot move any dash. */
-.rail__label {
-  position: absolute;
-  right: 44px;
-  top: 50%;
-  transform: translateY(-50%) translateX(6px);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--sub);
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  white-space: nowrap;
-  pointer-events: none;
-  /* Refined pill chip so it never visually merges with slide content. */
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 3px 9px;
-  box-shadow: var(--float-sm);
-}
-/* Reveal the non-active labels on hover/focus with opacity + transform only
-   (no layout change, so the ticks never move). */
-.rail:hover .rail__label,
-.rail__dot:focus-visible .rail__label {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-}
-
-/* The CURRENT section's label always persists beside its active tick, so the
-   viewer always knows where they are. It carries the single orange accent
-   (crisp opaque border + orange text), staying put on hover. */
-.rail__dot.is-active .rail__label {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
+.rail__row.is-active .rail__name {
   color: var(--orange-text);
-  border-color: var(--orange);
-}
-
-.rail__dot:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
-  border-radius: 999px;
-}
-
-/* On dark screens, lighten ticks for contrast */
-.screen--dark ~ .rail,
-body:has(.screen--dark) .rail {
-  /* fallback handled by JS-set data attr in App if needed */
+  font-weight: 700;
 }
 
 @media (max-width: 860px) {

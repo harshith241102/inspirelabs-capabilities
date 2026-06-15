@@ -23,18 +23,10 @@ html[data-drawer-open] .decknav {
   align-items: center;
   gap: 6px;
   padding: 6px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--border);
   border-radius: 999px;
-  box-shadow: var(--float);
-  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 .decknav__cluster:hover {
   transform: translateY(-2px);
-  border-color: var(--card-bd);
-  box-shadow: var(--float-lg);
 }
 /* Quiet contextual hint: the current slide's CTA, shown only when there is a
    next slide. Secondary by design (mono eyebrow + small ink label), never a
@@ -74,32 +66,32 @@ html[data-drawer-open] .decknav {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #fff;
+  background: transparent;
   border: 1px solid var(--card-bd);
   color: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--float-sm);
   transition: border-color 0.18s ease, transform 0.18s ease, color 0.18s ease,
     background-color 0.18s ease, opacity 0.18s ease;
 }
 .decknav__arrow:hover:not(:disabled) {
   border-color: var(--orange);
   color: var(--orange-text);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
-/* Next is the primary action: opaque orange focal (the one accent on this
-   control), inverting the chevron to white. Prev stays the quiet sibling. */
+/* Next is softened: an orange outline at rest, filling solid orange only when
+   the pointer reaches it - confident without being heavy. Prev is the quiet
+   sibling. Both blend into the frosted cluster until you interact. */
 .decknav__arrow--next {
+  border-color: var(--orange);
+  color: var(--orange-text);
+}
+.decknav__arrow--next:hover:not(:disabled) {
   background: var(--orange);
   border-color: var(--orange);
   color: #fff;
-}
-.decknav__arrow--next:hover:not(:disabled) {
-  background: var(--orange-deep);
-  border-color: var(--orange-deep);
-  color: #fff;
+  transform: translateY(-1px);
 }
 .decknav__arrow:disabled {
   opacity: 0.35;
@@ -118,21 +110,13 @@ html[data-drawer-open] .decknav {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--grey);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 11px 18px;
-  box-shadow: var(--float-sm);
-  transition: border-color 0.18s ease, color 0.18s ease, transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: color 0.18s ease, transform 0.2s ease;
 }
 .decknav__jump:hover {
-  border-color: var(--orange);
   color: var(--orange-text);
   transform: translateY(-2px);
-  box-shadow: var(--float);
 }
 .decknav__jump:focus-visible {
   outline: 3px solid var(--orange);

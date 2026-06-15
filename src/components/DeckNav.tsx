@@ -24,16 +24,16 @@ export function DeckNav() {
   return (
     <div className="decknav" role="group" aria-label="Deck navigation">
       {showJump && (
-        <button type="button" className="decknav__jump" onClick={() => goTo(ROADMAP_INDEX)}>
+        <button type="button" className="decknav__jump chrome-glass" onClick={() => goTo(ROADMAP_INDEX)}>
           Jump to roadmap
         </button>
       )}
       {showBackToRoadmap && (
-        <button type="button" className="decknav__jump" onClick={() => goTo(ROADMAP_INDEX)}>
+        <button type="button" className="decknav__jump chrome-glass" onClick={() => goTo(ROADMAP_INDEX)}>
           Back to roadmap
         </button>
       )}
-      <div className="decknav__cluster">
+      <div className="decknav__cluster chrome-glass">
         <button
           type="button"
           className="decknav__arrow"

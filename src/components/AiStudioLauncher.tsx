@@ -25,7 +25,7 @@ export function AiStudioLauncher() {
   return (
     <button
       type="button"
-      className="ai-launch"
+      className="ai-launch chrome-glass"
       onClick={() => drawer.open(aiDrawers[context])}
       aria-label="Open AI Growth Studio contextual reference for this slide"
     >

@@ -11,19 +11,13 @@
   align-items: center;
   gap: 12px;
   padding: 9px 22px 9px 9px;
-  background: #fff;
-  border: 1px solid var(--card-bd);
   border-radius: 999px;
-  box-shadow: var(--float-lg);
   text-align: left;
   color: var(--ink);
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .ai-launch:hover {
-  border-color: var(--orange);
   transform: translateY(-2px);
-  box-shadow: var(--float-lg);
 }
 .ai-launch:focus-visible {
   outline: 3px solid var(--orange);
