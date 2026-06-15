@@ -30,6 +30,7 @@ function pngSize(file) {
   await p.evaluate(() => document.fonts && document.fonts.ready);
 
   const domFails = [];
+  const warns = [];
   for (let i = 0; i < TOTAL; i++) {
     const m = await p.evaluate((idx) => {
       const deck = document.querySelector('.deck');
@@ -38,7 +39,7 @@ function pngSize(file) {
       deck.scrollTop = el.offsetTop;
       const stage = el.querySelector('.screen__stage');
       if (!stage) return { missing: true };
-      return {
+      const base = {
         ow: stage.offsetWidth,
         oh: stage.offsetHeight,
         sw: stage.scrollWidth,
@@ -46,12 +47,33 @@ function pngSize(file) {
         cw: stage.clientWidth,
         ch: stage.clientHeight,
       };
+      // Natural-height probe: the stage clips with overflow:hidden, so a screen
+      // whose content is taller than 1080 reports no scroll overflow but visibly
+      // clips/overlaps. Measure the unconstrained content height.
+      const prevH = stage.style.height, prevO = stage.style.overflow;
+      stage.style.height = 'auto';
+      stage.style.overflow = 'visible';
+      const natural = Math.round(stage.scrollHeight);
+      // Also probe horizontal natural width of the inner content.
+      let naturalW = 0;
+      stage.querySelectorAll(':scope > *').forEach((c) => {
+        naturalW = Math.max(naturalW, Math.round(c.scrollWidth));
+      });
+      stage.style.height = prevH;
+      stage.style.overflow = prevO;
+      base.natural = natural;
+      base.naturalW = naturalW;
+      return base;
     }, i);
     if (!m) { domFails.push(`s${i}: screen/stage not found`); continue; }
     if (m.missing) { domFails.push(`s${i}: no .screen__stage`); continue; }
     if (m.ow !== 1920 || m.oh !== 1080) domFails.push(`s${i}: stage ${m.ow}x${m.oh} (expected 1920x1080)`);
     if (m.sw > m.cw + SLACK) domFails.push(`s${i}: horizontal overflow ${m.sw} > ${m.cw}`);
     if (m.sh > m.ch + SLACK) domFails.push(`s${i}: vertical overflow ${m.sh} > ${m.ch}`);
+    // Natural-height probe is a heuristic WARNING (it over-reports for screens
+    // whose dominant visual is a flex:1 fill-and-crop image). Severe values are
+    // the ones to inspect; visual QA is the ground truth.
+    if (m.natural > 1180) warns.push(`s${i}: tall content, natural ${m.natural}px (inspect)`);
   }
   await b.close();
 
@@ -73,6 +95,10 @@ function pngSize(file) {
 
   console.log('=== DOM CANVAS GATE ===');
   console.log(domFails.length ? domFails.join('\n') : `OK: all ${TOTAL} stages 1920x1080, no overflow`);
+  if (warns.length) {
+    console.log('\n--- WARNINGS (heuristic, inspect visually) ---');
+    console.log(warns.join('\n'));
+  }
   console.log('\n=== SCREENSHOT DIMENSION GATE ===');
   console.log(shotFails.length ? shotFails.join('\n') : `OK: ${shotCount} frames all 1920x1080, no screen-NaN.png`);
 

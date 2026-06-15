@@ -5,6 +5,7 @@ import { Icon, type IconName } from '../primitives/icons';
 import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
+import './s24.css';
 
 /* ------------------------------------------------------------------
    Screen 24 - AudienceSeed activation pipeline (operating-board).
