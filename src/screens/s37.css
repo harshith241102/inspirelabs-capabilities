@@ -75,40 +75,45 @@
   flex-direction: column;
   gap: 16px;
 }
-.s37-sumgrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.s37-sumcell {
+.s37-basis {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 16px 18px;
-  border-radius: 14px;
+  gap: 11px;
+}
+.s37-basis__item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 18px;
+  border-radius: 13px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.s37-sumcell--accent {
-  border-color: var(--orange);
-  background: rgba(255, 122, 69, 0.1);
-}
-.s37-sumcell__k {
-  font-size: 11px;
+  font-family: var(--font-headline);
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9498a3;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  color: #fff;
 }
-.s37-sumcell--accent .s37-sumcell__k {
+.s37-basis__ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 122, 69, 0.14);
   color: var(--orange);
 }
-.s37-sumcell__v {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.2;
-  color: #fff;
+.s37-basis__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .s37-next {

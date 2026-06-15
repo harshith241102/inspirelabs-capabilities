@@ -2,8 +2,10 @@ import { Screen } from '../primitives/Screen';
 import { DeckHeader, AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
+import { useApp } from '../state/store';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
+import { labelFor } from '../content/setup';
 import type { EvidenceStatus } from '../primitives/ui';
 import './s35.css';
 
@@ -29,6 +31,13 @@ const metrics: { label: string; group: string; status: EvidenceStatus; icon: Ico
 export default function Screen35() {
   const c = copy[35];
   const drawer = useDrawer();
+  // Allowed proof-area personalisation: setup category + priority only FRAME the
+  // case-study placeholder (the lens). No invented metrics, logos, or results.
+  const { setup, setupComplete } = useApp();
+  const catLabel = labelFor.category(setup.category);
+  const priLabel = labelFor.priority(setup.growth_priority);
+  const framed = setupComplete && setup.category !== 'other';
+  const identityName = framed ? `A ${catLabel} brand` : 'Named brand or category';
 
   const openMetric = (label: string, group: string, status: EvidenceStatus) =>
     drawer.open({
@@ -87,8 +96,14 @@ export default function Screen35() {
               <div className="s35-top">
                 <div className="s35-id">
                   <span className="s35-field-k mono">Brand or category</span>
-                  <span className="s35-id__name">Named brand or category</span>
-                  <EvidenceTag status="pending" />
+                  <span className="s35-id__name">{identityName}</span>
+                  {framed ? (
+                    <span className="s35-id__lens mono">
+                      Framed to your {catLabel} category, {priLabel.toLowerCase()}
+                    </span>
+                  ) : (
+                    <EvidenceTag status="pending" />
+                  )}
                 </div>
                 <div className="s35-problem">
                   <span className="s35-field-k mono">Growth problem</span>

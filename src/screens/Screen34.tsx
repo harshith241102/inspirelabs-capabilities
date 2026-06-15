@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, AdvanceCta, EvidenceTag, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -88,6 +88,13 @@ export default function Screen34() {
   const [selected, setSelected] = useState<Category>(
     setupComplete ? resolveInitial(setup.category) : 'commerce_marketplace',
   );
+
+  // All screens mount at page load, before setup is completed, so sync the
+  // proof lens to the setup category once setup is done (or changed). A later
+  // manual category pick is preserved (this only runs when setup changes).
+  useEffect(() => {
+    if (setupComplete) setSelected(resolveInitial(setup.category));
+  }, [setupComplete, setup.category]);
 
   const selectedLabel = categoryOptions.find((o) => o.value === selected)?.label ?? 'Other';
   const proof = proofByCategory[selected];

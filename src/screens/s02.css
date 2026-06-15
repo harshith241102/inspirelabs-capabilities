@@ -91,21 +91,13 @@
   text-transform: uppercase;
   color: var(--grey);
 }
-.s02-tailor {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
+.s02-expand__note {
   align-self: flex-start;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.35;
-  color: var(--ink);
-  background: var(--net);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--orange);
-  border-radius: 10px;
-  padding: 11px 16px;
+  color: var(--muted-text);
 }
 .s02-tailor svg {
   color: var(--orange);

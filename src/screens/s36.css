@@ -1,117 +1,41 @@
-/* Screen 36 - Tailored partnership roadmap (roadmap-board archetype).
+/* Screen 36 - Fixed partnership roadmap (roadmap-board archetype).
    One dominant visual: four partnership stages on a left-to-right track,
    separated by proof gates. Stage 1 is in motion (the single orange focal);
-   the rest stay locked behind their gate. Compact tailoring controls sit in
-   the header beside the headline; Start over is a tertiary text link; the
-   primary CTA owns the bottom-left safe zone. Authored fixed-px for 1920x1080. */
+   the rest stay locked behind their gate. Identical for every reader, no setup
+   personalisation and no inline tuning controls. Start over is a tertiary text
+   link; the primary CTA owns the bottom-left safe zone. Fixed-px for 1920x1080. */
 
-/* ---- Header: personalised headline left, compact tune controls right ---- */
+/* ---- Header: fixed headline, no tune controls ---- */
 .s36-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 48px;
-}
-.s36-headline {
-  min-width: 0;
+  flex-shrink: 0;
 }
 .s36-title {
-  margin-top: 18px;
-  font-size: 50px;
-  max-width: 22ch;
+  margin-top: 20px;
+  font-size: 52px;
+  max-width: 24ch;
 }
 .s36-sub {
   margin-top: 14px;
-  font-size: 19px;
-  max-width: 62ch;
+  font-size: 21px;
+  max-width: 70ch;
 }
 
-/* Tailoring controls (attached to the visual, not stacked under the CTA) */
-.s36-tune {
-  flex-shrink: 0;
-  width: 532px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 18px 20px;
-  background: #fff;
-  border: 1px solid var(--card-bd);
-  border-radius: 16px;
-  box-shadow: var(--float-sm);
-}
-.s36-tune__head {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--grey);
-}
-.s36-tune__head svg {
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.9;
-}
-.s36-tune__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.s36-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-.s36-field__label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--grey);
-}
-.s36-select {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 100%;
-  font-family: var(--font-headline);
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--ink);
-  padding: 11px 36px 11px 14px;
-  background-color: var(--net);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236f7583' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 13px center;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease;
-}
-.s36-select:hover {
-  border-color: var(--grey);
-}
-.s36-select:focus-visible {
-  outline: none;
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.22);
-}
-
-/* ---- Body: the dominant board, then a legend strip ---- */
+/* ---- Body: the dominant board fills the canvas, then a legend strip ---- */
 .s36-body {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 26px;
-  padding: 26px 0 8px;
+  gap: 22px;
+  padding: 30px 0 6px;
 }
 
-/* The board: 4 stage cells, each holding a stage card + the link after it */
+/* The board: 4 stage cells, each holding a stage card + the link after it.
+   It grows to fill the available height so the stages are large and there is
+   no blank space. */
 .s36-board {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: stretch;

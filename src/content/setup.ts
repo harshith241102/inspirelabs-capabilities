@@ -1,6 +1,10 @@
 /* Setup options + personalisation logic.
    Transcribed from 02_INTERACTION_AND_CTA_MODEL.md.
-   Setup tailors ONLY: Screen 2 opening, Screen 34 highlight, Screen 36 roadmap, lead context. */
+   Setup answers personalise ONLY the intro (Screen 2 opening) and the
+   proof-by-category / case-study area (Screens 34 and 35). The lead-context
+   payload is captured internally but never surfaced after those screens.
+   Everything else (capability sequence, module emphasis, the roadmap, the
+   contact close) is a FIXED narrative, identical for every reader. */
 
 export type Familiarity = 'new_to_inspirelabs' | 'know_grabon' | 'worked_with_grabon';
 
@@ -90,76 +94,11 @@ export const openingTailoring: Record<Familiarity, { headline: string; support: 
   },
 };
 
-/* ---- Screen 36 roadmap personalisation (verbatim emphasis + commitment examples) ---- */
-export const roadmapPersonalisation: Record<
-  GrowthPriority,
-  { emphasis: string; commitments: string[] }
-> = {
-  sales_orders: {
-    emphasis: 'commerce-intent surfaces, promotional surfaces, owned distribution, tracked orders',
-    commitments: ['orders', 'sales', 'conversion rate', 'coupon reveals', 'outbound clicks'],
-  },
-  leads_signups: {
-    emphasis: 'partner ecosystems, affiliate platforms, channel amplification, lead capture',
-    commitments: ['leads', 'signups', 'CPA', 'CTR', 'partner-wise contribution'],
-  },
-  app_installs_registrations: {
-    emphasis:
-      'offer-led acquisition, channel amplification, partner surfaces, tracked registrations',
-    commitments: ['installs', 'registrations', 'CPI where available', 'CTR', 'conversion rate'],
-  },
-  offer_led_acquisition: {
-    emphasis:
-      'GrabOn, promotional surfaces, AudienceSeed offer intelligence, retargeting input quality',
-    commitments: ['coupon reveals', 'outbound clicks', 'offer format response', 'sales'],
-  },
-  organic_visibility: {
-    emphasis: 'Alternatives.co, RankDrive, WriteGenius, search and discovery agents',
-    commitments: ['organic traffic', 'keyword growth', 'branded search', 'comparison-led traffic'],
-  },
-  creator_influencer_growth: {
-    emphasis: 'GrabShare, creator briefs, social sharing, creator-wise performance',
-    commitments: ['reach', 'engagement', 'clicks', 'creator-wise conversions', 'ROAS'],
-  },
-  partner_ecosystem_expansion: {
-    emphasis:
-      'strategic partnerships, partner-owned surfaces, co-branded offers, partner-wise contribution',
-    commitments: [
-      'potential reachable audience',
-      'actual reach if available',
-      'leads',
-      'orders',
-      'partner-wise contribution',
-    ],
-  },
-  reduce_execution_overhead: {
-    emphasis: 'AI Growth Studio, reporting cadence, monitoring agents, asset output support',
-    commitments: [
-      'reporting turnaround time',
-      'asset output volume',
-      'manual effort reduction',
-      'next-cycle actions',
-    ],
-  },
-  not_sure: {
-    emphasis: 'objective definition, category signal review, first activation path selection',
-    commitments: ['objective', 'activation scope', 'KPI definition', 'tracking setup'],
-  },
-};
-
-/* Recommended capability mix per priority, composed from the locked capability architecture.
-   Capabilities are never suppressed; this only sets emphasis order for the roadmap board. */
-export const capabilityMixByPriority: Record<GrowthPriority, string[]> = {
-  sales_orders: ['Capture Commerce Intent', 'Owned Distribution', 'AudienceSeed', 'Growth Commitments'],
-  leads_signups: ['Strategic Partnerships', 'Affiliate Platforms', 'Channel Amplification', 'Growth Commitments'],
-  app_installs_registrations: ['Promotional Surfaces', 'Channel Amplification', 'Strategic Partnerships', 'Growth Commitments'],
-  offer_led_acquisition: ['GrabOn Surfaces', 'AudienceSeed Offer Intelligence', 'Owned Distribution', 'Growth Commitments'],
-  organic_visibility: ['Alternatives.co', 'AI Growth Studio', 'Capture Commerce Intent', 'Growth Commitments'],
-  creator_influencer_growth: ['GrabShare', 'AI Creator Agents', 'Channel Amplification', 'Growth Commitments'],
-  partner_ecosystem_expansion: ['Strategic Partnerships', 'Affiliate Platforms', 'AudienceSeed', 'Growth Commitments'],
-  reduce_execution_overhead: ['AI Growth Studio', 'Monitoring Agents', 'AudienceSeed Reporting', 'Growth Commitments'],
-  not_sure: ['Capture Commerce Intent', 'Distribute Demand', 'AudienceSeed', 'Growth Commitments'],
-};
+/* The roadmap (Screen 36) is a FIXED stage-gated partnership roadmap, identical
+   for every reader. The per-priority roadmap-emphasis and capability-mix tables
+   were removed in the personalisation correction pass: setup no longer changes
+   the roadmap, capability sequence, module emphasis, CTA logic, or the contact
+   close. Only the intro (Screen 2) and the proof-by-category area (34, 35) adapt. */
 
 export const labelFor = {
   familiarity: (v: Familiarity) => familiarityOptions.find((o) => o.value === v)?.label ?? '',

@@ -31,10 +31,10 @@ export const copy: Record<number, ScreenCopy> = {
     eyebrow: 'Setup',
     headline: 'Help us tailor this to your brand.',
     subheadline:
-      'Answer a few quick questions so we can make the opening and partnership roadmap more relevant to your context.',
+      'Answer a few quick questions so we can make the intro and the proof-by-category slides more relevant to your context.',
     support: 'The core experience stays fixed.',
     cta: 'Continue',
-    drawer: 'Your answers tailor the opening and final roadmap. They do not create a separate journey.',
+    drawer: 'Your answers tailor only the intro and the proof-by-category slides. They do not create a separate journey, and the rest of the walkthrough is the same for every reader.',
   },
   2: {
     eyebrow: 'Repositioning',
@@ -382,20 +382,19 @@ export const copy: Record<number, ScreenCopy> = {
   },
   36: {
     eyebrow: 'Partnership roadmap',
-    // headline personalised by setup category in component
+    headline: 'Build a dedicated growth partnership.',
     subheadline:
-      'Based on your growth priority, the roadmap can combine the right surfaces, shopper signals, AI Growth Studio support, measurable commitments, and proof inputs.',
+      'A stage-gated partnership roadmap. Each stage unlocks only when its proof gate is met, the same way for every brand.',
     support: 'This is a partnership roadmap, not a short-term activation menu.',
-    cards: ['Selected category', 'Growth priority', 'Capability mix', 'Relevant surfaces', 'Measurable commitments', 'Proof needed', 'Discussion areas'],
+    cards: ['First activation path', 'Prove the path', 'Review decision', 'Expand the partnership'],
     cta: 'Map the partnership roadmap',
-    drawer: 'Edit your category or priority to refresh the roadmap emphasis.',
-    fallback: 'Build a dedicated growth partnership for your brand.',
+    drawer: 'A fixed stage-gated roadmap. Each stage unlocks when its proof gate is met.',
   },
   37: {
     eyebrow: 'Next step',
     headline: 'Let us map the growth partnership roadmap.',
-    subheadline: 'Share your details and the Inspirelabs team can turn this into a category-specific partnership discussion.',
-    support: 'Your setup choices and selected interests will help prepare the conversation.',
+    subheadline: 'Share your details and the Inspirelabs team can turn this into a proof-led partnership discussion.',
+    support: 'The same proof-led partnership conversation applies to every brand we work with.',
     cards: ['Name', 'Work email', 'Company', 'Phone optional', 'Website optional', 'Message optional'],
     cta: 'Send roadmap request',
   },

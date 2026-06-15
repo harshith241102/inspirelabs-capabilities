@@ -4,151 +4,88 @@ import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useApp } from '../state/store';
 import { copy } from '../content/copy';
-import {
-  categoryOptions,
-  priorityOptions,
-  roadmapPersonalisation,
-  capabilityMixByPriority,
-  labelFor,
-} from '../content/setup';
 import './s36.css';
 
 type StageState = 'active' | 'locked';
 
+/* Fixed stage-gated partnership roadmap. Identical for every reader: setup
+   answers do NOT change the roadmap. Stage 1 is the single orange focal (in
+   motion); every later stage stays locked behind a proof gate. No invented
+   dates, budgets, numbers, or category/priority personalisation. */
+const stages: {
+  no: string;
+  icon: IconName;
+  label: string;
+  when: string;
+  owner: { head: string; lines: string[] };
+  gate: string;
+  state: StageState;
+}[] = [
+  {
+    no: '01',
+    icon: 'rocket',
+    label: 'First activation path',
+    when: 'Where the partnership starts',
+    owner: {
+      head: 'Capability owners',
+      lines: ['Capture commerce intent', 'Owned distribution', 'Growth commitments'],
+    },
+    gate: 'Objective and tracking agreed',
+    state: 'active',
+  },
+  {
+    no: '02',
+    icon: 'signal',
+    label: 'Prove the path',
+    when: 'Unlocks once tracking is live',
+    owner: {
+      head: 'Surfaces in play',
+      lines: ['Commerce surfaces', 'Owned distribution', 'Activation surfaces'],
+    },
+    gate: 'First measurable signal observed',
+    state: 'locked',
+  },
+  {
+    no: '03',
+    icon: 'target',
+    label: 'Review decision',
+    when: 'Unlocks once a signal is observed',
+    owner: {
+      head: 'Measured against',
+      lines: ['Agreed KPIs', 'Tracked actions', 'Reporting cadence'],
+    },
+    gate: 'Evidence reviewed together',
+    state: 'locked',
+  },
+  {
+    no: '04',
+    icon: 'network',
+    label: 'Expand the partnership',
+    when: 'Unlocks on approved evidence',
+    owner: {
+      head: 'Proof still needed',
+      lines: ['Category proof', 'Validated case study', 'Approved metrics and logos'],
+    },
+    gate: 'Expansion path approved',
+    state: 'locked',
+  },
+];
+
 export default function Screen36() {
   const c = copy[36];
-  const { setup, setupComplete, setSetupValue, markRoadmapClicked, goTo } = useApp();
-
-  const catLabel = labelFor.category(setup.category);
-  const priLabel = labelFor.priority(setup.growth_priority);
-  const pers = roadmapPersonalisation[setup.growth_priority];
-  const mix = capabilityMixByPriority[setup.growth_priority];
-  const surfaces = pers.emphasis
-    .split(', ')
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1));
-
-  const headline =
-    setupComplete && setup.category !== 'other'
-      ? `Build a dedicated growth partnership for ${catLabel}.`
-      : c.fallback!;
-
-  /* Stage-gated partnership roadmap. Stage 1 is the single orange focal (in
-     motion). Every later stage stays locked behind a proof gate. The personalised
-     setup (category + priority) only sets emphasis order inside the stages, it
-     never branches the fixed journey. No invented dates, budgets, or numbers. */
-  const stages: {
-    no: string;
-    icon: IconName;
-    label: string;
-    when: string;
-    owner: { head: string; lines: string[] };
-    gate: string;
-    state: StageState;
-  }[] = [
-    {
-      no: '01',
-      icon: 'rocket',
-      label: 'First activation path',
-      when: 'Where the partnership starts',
-      owner: {
-        head: 'Capability owners',
-        lines: mix.slice(0, 3),
-      },
-      gate: 'Objective and tracking agreed',
-      state: 'active',
-    },
-    {
-      no: '02',
-      icon: 'signal',
-      label: 'Prove the path',
-      when: 'Unlocks once tracking is live',
-      owner: {
-        head: 'Surfaces in play',
-        lines: surfaces.slice(0, 3),
-      },
-      gate: 'First measurable signal observed',
-      state: 'locked',
-    },
-    {
-      no: '03',
-      icon: 'target',
-      label: 'Review decision',
-      when: 'Unlocks once a signal is observed',
-      owner: {
-        head: 'Measured against',
-        lines: pers.commitments.slice(0, 3),
-      },
-      gate: 'Evidence reviewed together',
-      state: 'locked',
-    },
-    {
-      no: '04',
-      icon: 'network',
-      label: 'Expand the partnership',
-      when: 'Unlocks on approved evidence',
-      owner: {
-        head: 'Proof still needed',
-        lines: [`${catLabel} category proof`, 'Validated case study', 'Approved metrics and logos'],
-      },
-      gate: 'Expansion path approved',
-      state: 'locked',
-    },
-  ];
+  const { markRoadmapClicked, goTo } = useApp();
 
   return (
-    <Screen index={36} tone="light" id="roadmap" label="Tailored growth partnership roadmap">
+    <Screen index={36} tone="light" id="roadmap" label="Partnership roadmap">
       <header className="s-header s36-header">
-        <div className="s36-headline">
-          <Reveal from="up" distance={12}>
-            <span className="eyebrow">{c.eyebrow}</span>
-          </Reveal>
-          <Reveal i={1} key={headline}>
-            <h1 className="s-title s-title--wide s36-title">{headline}</h1>
-          </Reveal>
-          <Reveal i={2}>
-            <p className="s-sub s36-sub">{c.subheadline}</p>
-          </Reveal>
-        </div>
-
-        {/* Compact tailoring controls, attached to the visual rather than stacked
-            under the primary CTA. Editing either select re-tunes the board. */}
-        <Reveal i={1} from="right" distance={16} className="s36-tune">
-          <span className="s36-tune__head mono">
-            <Icon name="refresh" size={13} />
-            Tune the roadmap
-          </span>
-          <div className="s36-tune__row">
-            <label className="s36-field" htmlFor="rm-cat">
-              <span className="s36-field__label mono">Category</span>
-              <select
-                id="rm-cat"
-                className="s36-select"
-                value={setup.category}
-                onChange={(e) => setSetupValue('category', e.target.value as never)}
-              >
-                {categoryOptions.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="s36-field" htmlFor="rm-pri">
-              <span className="s36-field__label mono">Growth priority</span>
-              <select
-                id="rm-pri"
-                className="s36-select"
-                value={setup.growth_priority}
-                onChange={(e) => setSetupValue('growth_priority', e.target.value as never)}
-              >
-                {priorityOptions.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+        <Reveal from="up" distance={12}>
+          <span className="eyebrow">{c.eyebrow}</span>
+        </Reveal>
+        <Reveal i={1}>
+          <h1 className="s-title s-title--wide s36-title">{c.headline}</h1>
+        </Reveal>
+        <Reveal i={2}>
+          <p className="s-sub s36-sub">{c.subheadline}</p>
         </Reveal>
       </header>
 
@@ -157,7 +94,10 @@ export default function Screen36() {
           {stages.map((s, i) => (
             <div className="s36-cell" key={s.no} role="listitem">
               <Reveal i={i} from="up" distance={16} className="s36-stage-wrap">
-                <article className={`s36-stage is-${s.state}`} aria-label={`${s.label}, ${s.state === 'active' ? 'in motion' : 'locked'}`}>
+                <article
+                  className={`s36-stage is-${s.state}`}
+                  aria-label={`${s.label}, ${s.state === 'active' ? 'in motion' : 'locked'}`}
+                >
                   <div className="s36-stage__top">
                     <span className="s36-stage__no mono">{s.no}</span>
                     <span className="s36-stage__state mono">
@@ -201,7 +141,10 @@ export default function Screen36() {
               </Reveal>
 
               {i < stages.length - 1 && (
-                <div className={`s36-link ${s.state === 'active' ? 'is-live' : 'is-locked'}`} aria-hidden="true">
+                <div
+                  className={`s36-link ${s.state === 'active' ? 'is-live' : 'is-locked'}`}
+                  aria-hidden="true"
+                >
                   <span className="s36-link__bar" />
                   <span className="s36-link__node">
                     <Icon name={s.state === 'active' ? 'arrow' : 'shield'} size={13} />
@@ -215,8 +158,8 @@ export default function Screen36() {
         <div className="s36-legend">
           <EvidenceTag status="pending">Evidence-gated</EvidenceTag>
           <span className="s36-legend__text">
-            Tailored for {catLabel}, {priLabel.toLowerCase()}. Each stage stays locked until its proof is in. This is a
-            partnership roadmap, not a short-term activation menu.
+            Each stage stays locked until its proof is in. The same partnership roadmap applies to
+            every brand. This is a partnership roadmap, not a short-term activation menu.
           </span>
         </div>
       </div>

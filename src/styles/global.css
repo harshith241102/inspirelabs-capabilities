@@ -816,31 +816,22 @@ html[data-export] *::after {
 }
 
 /* ============================================================
-   MOBILE COMPANION  (<= 860px)
-   The same 1920x1080 canvas, scaled to device WIDTH and stacked in
-   normal flow. Each screen is exactly one fully-visible scaled slide
-   (no step controls, no scroll-snap stepping, no blank header-only
-   states). Legibility tradeoff is documented as a known limitation.
+   MOBILE  (<= 860px)
+   Mobile uses the SAME one-slide-per-viewport scaled deck as desktop:
+   each screen fills the viewport and the reader swipes one slide at a
+   time. This avoids the shrunken "slide strip" where several tiny 16:9
+   slides appear in one viewport. A 16:9 slide is inherently letterboxed
+   on a portrait phone; it is pinned to the top of the viewport so it is
+   visible immediately, with the deck nav for stepping. (A future option
+   is bespoke per-screen mobile stacking; this keeps one source of truth.)
    ============================================================ */
 
 @media (max-width: 860px) {
-  .deck {
-    scroll-snap-type: none;
-    scroll-behavior: auto;
-  }
-  .screen {
-    display: block;
-    width: 100%;
-    height: calc(var(--canvas-h) * var(--m-scale));
-    min-height: 0;
-    overflow: hidden;
-  }
+  /* The base rules already give one centred, scaled slide per viewport with
+     snap. Keep that (no stacked strip); just soften the slide framing so it
+     reads as a clean deck viewer on the dark stage. */
   .screen__stage {
-    transform: scale(var(--m-scale));
-    transform-origin: top left;
-    box-shadow: none;
-  }
-  .screen + .screen .screen__stage {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    transform: scale(var(--deck-scale));
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
   }
 }

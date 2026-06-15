@@ -5,11 +5,21 @@
    implication panel. Honest evidence tags, no invented case numbers.
    Authored fixed px for 1920x1080. */
 
+/* The case headline is long; shrink it so the proof card fits the canvas. */
+#case-format .s-title {
+  font-size: 42px;
+  max-width: 30ch;
+}
+#case-format .s-sub {
+  font-size: 18px;
+  margin-top: 12px;
+}
+
 .s35-body {
   flex: 1;
   min-height: 0;
   display: flex;
-  padding: 22px 0 20px;
+  padding: 16px 0 16px;
 }
 .s35-cardwrap {
   flex: 1;
@@ -35,7 +45,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 18px 28px;
+  padding: 13px 26px;
   border-bottom: 1px solid var(--border);
   background: #fbfbfc;
   flex-shrink: 0;
@@ -115,10 +125,10 @@
 .s35-card__body {
   flex: 1;
   min-height: 0;
-  padding: 26px 28px 28px;
+  padding: 16px 26px 18px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 11px;
 }
 
 /* shared field kicker */
@@ -134,15 +144,15 @@
 .s35-top {
   display: grid;
   grid-template-columns: 0.78fr 1fr;
-  gap: 22px;
+  gap: 18px;
   flex-shrink: 0;
 }
 .s35-id {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 7px;
   align-items: flex-start;
-  padding: 20px 22px;
+  padding: 14px 20px;
   background: var(--net);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -150,16 +160,22 @@
 .s35-id__name {
   font-family: var(--font-headline);
   font-weight: 700;
-  font-size: 24px;
+  font-size: 21px;
   line-height: 1.15;
   letter-spacing: -0.015em;
   color: var(--ink);
 }
+.s35-id__lens {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--orange-text);
+}
 .s35-problem {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  padding: 20px 22px;
+  gap: 7px;
+  padding: 14px 20px;
   background: #fafbfc;
   border: 1px solid var(--card-bd);
   border-radius: 14px;
@@ -167,8 +183,8 @@
 .s35-problem__text {
   font-family: var(--font-headline);
   font-weight: 600;
-  font-size: 19px;
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.38;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
@@ -177,14 +193,14 @@
 .s35-meta {
   display: grid;
   grid-template-columns: 1fr 0.62fr;
-  gap: 22px;
+  gap: 18px;
   flex-shrink: 0;
 }
 .s35-meta__block {
   display: flex;
   flex-direction: column;
-  gap: 11px;
-  padding: 16px 20px;
+  gap: 9px;
+  padding: 11px 16px;
   background: #fafbfc;
   border: 1px solid var(--card-bd);
   border-radius: 14px;
@@ -210,9 +226,9 @@
 .s35-meta__period {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 7px;
   align-items: flex-start;
-  padding: 16px 20px;
+  padding: 11px 16px;
   background: #fafbfc;
   border: 1px solid var(--card-bd);
   border-radius: 14px;
@@ -240,7 +256,7 @@
   min-height: 0;
   display: grid;
   grid-template-columns: 1.28fr 1fr;
-  gap: 22px;
+  gap: 18px;
 }
 
 /* metrics moved */
@@ -248,7 +264,8 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 20px 22px;
+  overflow: hidden;
+  padding: 14px 18px;
   background: #fafbfc;
   border: 1px solid var(--card-bd);
   border-radius: 14px;
@@ -258,7 +275,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 13px;
+  margin-bottom: 10px;
   flex-shrink: 0;
 }
 .s35-metrics__title {
@@ -276,15 +293,16 @@
 .s35-metric-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   flex: 1;
-  justify-content: center;
+  min-height: 0;
+  justify-content: space-between;
 }
 .s35-metric {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 13px 16px;
+  gap: 12px;
+  padding: 7px 14px;
   background: #fff;
   border: 1px solid var(--card-bd);
   border-radius: 12px;
@@ -301,9 +319,9 @@
   outline-offset: 2px;
 }
 .s35-metric__ico {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
   background: #f5f6f8;
   border: 1px solid var(--card-bd);
   display: flex;
@@ -322,22 +340,26 @@
 .s35-metric__txt {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
   min-width: 0;
   flex: 1;
 }
 .s35-metric__label {
   font-family: var(--font-headline);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--ink);
   letter-spacing: -0.01em;
 }
 .s35-metric__group {
   font-family: var(--font-body);
-  font-size: 12.5px;
-  line-height: 1.35;
+  font-size: 12px;
+  line-height: 1.3;
   color: var(--muted-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 .s35-metric__more {
   color: var(--grey);
@@ -352,7 +374,7 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 24px 26px;
+  padding: 18px 22px;
   background: #fff;
   border: 2px solid var(--orange);
   border-radius: 14px;
@@ -366,21 +388,21 @@
   flex-shrink: 0;
 }
 .s35-why__lead {
-  margin-top: 14px;
+  margin-top: 12px;
   font-family: var(--font-headline);
   font-weight: 600;
-  font-size: 20px;
-  line-height: 1.36;
+  font-size: 18px;
+  line-height: 1.34;
   letter-spacing: -0.015em;
   color: var(--ink);
 }
 .s35-why__foot {
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid var(--card-bd);
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
 }
 .s35-why__note {
   font-family: var(--font-body);

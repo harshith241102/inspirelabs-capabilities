@@ -4,11 +4,21 @@
    control room. Authored for the 1920x1080 canvas, fixed px only. The single
    orange focal is the human-review column + the live studio pulse. */
 
+/* Long headline; shrink it so the control room fits the canvas. */
+#agent-map .s-title {
+  font-size: 42px;
+  max-width: 32ch;
+}
+#agent-map .s-sub {
+  font-size: 18px;
+  margin-top: 12px;
+}
+
 .s27-body {
   flex: 1;
   min-height: 0;
   display: flex;
-  padding: 22px 0 18px;
+  padding: 16px 0 14px;
 }
 .s27-roomwrap {
   flex: 1;
@@ -35,7 +45,7 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  height: 64px;
+  height: 56px;
   padding: 0 24px;
   background: #fbfbfc;
   border-bottom: 1px solid var(--border);
@@ -104,7 +114,8 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 18px 20px 20px;
+  overflow: hidden;
+  padding: 14px 18px 14px;
   border-right: 1px solid var(--card-bd);
 }
 .s27-col--out { border-right: none; }
@@ -117,8 +128,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-bottom: 14px;
-  margin-bottom: 14px;
+  padding-bottom: 11px;
+  margin-bottom: 11px;
   border-bottom: 1px solid var(--card-bd);
 }
 .s27-col__ico {
@@ -158,16 +169,18 @@
 .s27-streams {
   flex: 1;
   min-height: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 6px;
 }
 .s27-stream {
   display: flex;
   align-items: center;
   gap: 13px;
   width: 100%;
-  padding: 9px 13px;
+  padding: 7px 12px;
   background: #fff;
   border: 1px solid var(--card-bd);
   border-radius: 11px;
@@ -276,15 +289,16 @@
 .s27-review {
   flex: 1;
   min-height: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .s27-rev {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 13px 15px;
+  gap: 6px;
+  padding: 10px 14px;
   background: #fff;
   border: 1px solid var(--card-bd);
   border-radius: 11px;
@@ -372,15 +386,17 @@
 .s27-out {
   flex: 1;
   min-height: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 8px;
 }
 .s27-outrow {
   display: flex;
   align-items: center;
   gap: 11px;
-  padding: 13px 14px;
+  padding: 10px 14px;
   background: var(--net);
   border: 1px solid var(--card-bd);
   border-radius: 11px;

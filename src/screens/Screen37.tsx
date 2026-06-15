@@ -4,19 +4,19 @@ import { Reveal } from '../primitives/Reveal';
 import { Icon } from '../primitives/icons';
 import { useApp } from '../state/store';
 import { copy } from '../content/copy';
-import { labelFor } from '../content/setup';
 import { ASSETS } from '../lib/assets';
 import './s37.css';
 
-/* What-happens-next sequence (no invented dates or SLAs). */
+/* What-happens-next sequence. Proof-led and the same for every brand; no setup
+   summary, no category or priority language, no invented dates or SLAs. */
 const nextSteps: { title: string; body: string }[] = [
   {
-    title: 'We read your context',
-    body: 'Your category, growth priority, and the parts of the system you explored come through with this request.',
+    title: 'We read your request',
+    body: 'Your details reach the Inspirelabs partnership team. There is no separate journey to repeat.',
   },
   {
-    title: 'We prepare a category-specific view',
-    body: 'The Inspirelabs team shapes a partnership discussion around your priority, not a generic pitch.',
+    title: 'We prepare a proof-led view',
+    body: 'We shape a partnership discussion around proof and measurable commitments, not a generic pitch.',
   },
   {
     title: 'We map the roadmap together',
@@ -24,9 +24,16 @@ const nextSteps: { title: string; body: string }[] = [
   },
 ];
 
+/* What the partnership discussion is built on (fixed proof-led framing). */
+const partnershipBasis: { label: string; icon: 'signal' | 'shield' | 'target' }[] = [
+  { label: 'Proof by category, not a generic pitch', icon: 'signal' },
+  { label: 'A stage-gated roadmap with proof gates', icon: 'shield' },
+  { label: 'Measurable growth commitments', icon: 'target' },
+];
+
 export default function Screen37() {
   const c = copy[37];
-  const { submitContact, lead, setup, setupComplete } = useApp();
+  const { submitContact } = useApp();
   const [submitted, setSubmitted] = useState(false);
   const [showOptional, setShowOptional] = useState(false);
   const [form, setForm] = useState({ name: '', work_email: '', company: '', phone: '', website: '', message: '' });
@@ -47,19 +54,6 @@ export default function Screen37() {
     setSubmitted(true);
   };
 
-  /* Roadmap summary chips drawn from setup; never invents values. */
-  const summaryChips = setupComplete
-    ? [
-        { k: 'Category', v: labelFor.category(setup.category) },
-        { k: 'Growth priority', v: labelFor.priority(setup.growth_priority) },
-        { k: 'Familiarity', v: labelFor.familiarity(setup.familiarity) },
-      ]
-    : [
-        { k: 'Category', v: 'To confirm together' },
-        { k: 'Growth priority', v: 'To confirm together' },
-        { k: 'Familiarity', v: 'To confirm together' },
-      ];
-
   return (
     <Screen index={37} tone="dark" id="contact" label="Contact and next step">
       <div className="s37">
@@ -79,22 +73,20 @@ export default function Screen37() {
         </header>
 
         <div className="s37-body">
-          {/* LEFT: roadmap summary + what happens next */}
+          {/* LEFT: proof-led partnership framing + what happens next */}
           <Reveal from="up" distance={16} className="s37-brief">
             <div className="s37-brief__sum">
-              <span className="s37-brief__kicker mono">Roadmap request summary</span>
-              <div className="s37-sumgrid">
-                {summaryChips.map((s) => (
-                  <div className="s37-sumcell" key={s.k}>
-                    <span className="s37-sumcell__k mono">{s.k}</span>
-                    <span className="s37-sumcell__v">{s.v}</span>
-                  </div>
+              <span className="s37-brief__kicker mono">What the discussion is built on</span>
+              <ul className="s37-basis">
+                {partnershipBasis.map((b) => (
+                  <li className="s37-basis__item" key={b.label}>
+                    <span className="s37-basis__ico">
+                      <Icon name={b.icon} size={15} />
+                    </span>
+                    <span>{b.label}</span>
+                  </li>
                 ))}
-                <div className="s37-sumcell s37-sumcell--accent">
-                  <span className="s37-sumcell__k mono">Explored</span>
-                  <span className="s37-sumcell__v">{lead.screens_completed} of 38 screens</span>
-                </div>
-              </div>
+              </ul>
             </div>
 
             <div className="s37-next">
@@ -121,14 +113,9 @@ export default function Screen37() {
               </span>
               <h2 className="s37-thanks__title">Thank you. Your roadmap request is in.</h2>
               <p className="s37-thanks__body">
-                The Inspirelabs team will prepare a category-specific partnership discussion using your setup choices and
-                the parts of the system you explored.
+                The Inspirelabs team will prepare a proof-led partnership discussion, built around the
+                stage-gated roadmap and measurable growth commitments.
               </p>
-              <div className="s37-thanks__chips">
-                <span className="s37-tag">{lead.screens_completed} screens explored</span>
-                {lead.category && <span className="s37-tag">{labelFor.category(lead.category)}</span>}
-                {lead.growth_priority && <span className="s37-tag">{labelFor.priority(lead.growth_priority)}</span>}
-              </div>
               <div className="s37-pending">
                 <Icon name="shield" size={15} />
                 <span>
@@ -190,8 +177,8 @@ export default function Screen37() {
                 </button>
 
                 <p className="s37-consent">
-                  By sending this, you agree the Inspirelabs team can use these details and your setup choices to prepare
-                  the partnership discussion. We do not share them outside that purpose.
+                  By sending this, you agree the Inspirelabs team can use these details to prepare the
+                  partnership discussion. We do not share them outside that purpose.
                 </p>
                 <div className="s37-pending">
                   <Icon name="shield" size={15} />

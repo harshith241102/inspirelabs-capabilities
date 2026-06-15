@@ -12,7 +12,6 @@ import {
   priorityOptions,
   labelFor,
   openingTailoring,
-  capabilityMixByPriority,
 } from '../content/setup';
 import './s01.css';
 
@@ -22,27 +21,25 @@ export default function Screen01() {
   const drawer = useDrawer();
 
   const opening = openingTailoring[setup.familiarity];
-  const mix = capabilityMixByPriority[setup.growth_priority];
 
   const openUsage = () =>
     drawer.open({
       id: 'setup-usage',
       kind: 'info',
       eyebrow: 'How this is used',
-      title: 'Your answers tailor the opening and final roadmap.',
+      title: 'Your answers tailor only the intro and the proof-by-category slides.',
       sections: [
         { heading: 'What this is', body: c.drawer ?? '' },
         {
           heading: 'What it changes',
           items: [
-            'The opening repositioning headline',
-            'The category highlight on the proof screen',
-            'The final partnership roadmap emphasis',
+            'The intro repositioning headline and short support copy',
+            'The category lens on the proof-by-category slides',
           ],
         },
         {
           heading: 'What it does not change',
-          body: 'The core capability journey stays fixed for every reader. There is no role selector and no separate journey.',
+          body: 'The capability walkthrough, the partnership roadmap, and the contact close are the same for every reader. There is no role selector and no separate journey.',
         },
       ],
     });
@@ -173,7 +170,7 @@ export default function Screen01() {
             <div className="s01-summary__top">
               <span className="s01-summary__kicker">
                 <Icon name="compass" size={14} />
-                Tailored for you
+                Your intro preview
               </span>
               <h2 className="s01-summary__head">{opening.headline}</h2>
             </div>
@@ -187,21 +184,18 @@ export default function Screen01() {
                 <span className="s01-srow__k">Category</span>
                 <span className="s01-srow__v">{labelFor.category(setup.category)}</span>
               </div>
-              <div className="s01-srow s01-srow--accent">
+              <div className="s01-srow">
                 <span className="s01-srow__k">Priority</span>
                 <span className="s01-srow__v">{labelFor.priority(setup.growth_priority)}</span>
               </div>
             </div>
 
-            <div className="s01-summary__mix">
-              <span className="s01-summary__mixlabel">Roadmap will lead with</span>
-              <div className="s01-mixchips">
-                {mix.map((m) => (
-                  <span key={m} className="s01-mixchip">
-                    {m}
-                  </span>
-                ))}
-              </div>
+            <div className="s01-summary__scope">
+              <Icon name="layers" size={14} />
+              <span>
+                These shape only the intro opening and the proof-by-category slides. The capability
+                walkthrough, roadmap, and contact close are the same for every reader.
+              </span>
             </div>
 
             <p className="s01-summary__foot">{opening.support}</p>
