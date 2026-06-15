@@ -175,7 +175,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (!target) return;
     // Instant + deterministic. CSS smooth-scroll fights mandatory snap and made
     // keyboard Home/End/Arrow jumps take ~3s; export QA needs exact positioning.
-    target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    // Deck advances horizontally (left to right), so align on the inline axis.
+    target.scrollIntoView({ behavior: 'auto', inline: 'start', block: 'nearest' });
   }, []);
 
   const next = useCallback(() => goTo(Math.min(currentIndex + 1, total - 1)), [currentIndex, total, goTo]);

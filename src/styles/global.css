@@ -116,9 +116,11 @@ a {
 .deck {
   height: 100vh;
   height: 100svh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-snap-type: y mandatory;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
   /* Nav is JS-driven (instant + deterministic). CSS smooth-scroll fights
      mandatory snap and caused multi-second keyboard jumps. */
   scroll-behavior: auto;
@@ -134,7 +136,8 @@ a {
    the neutral backdrop (letterboxed when the viewport is not 16:9). */
 .screen {
   position: relative;
-  width: 100%;
+  width: 100vw;
+  flex-shrink: 0;
   height: 100vh;
   height: 100svh;
   scroll-snap-align: start;

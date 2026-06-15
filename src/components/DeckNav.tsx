@@ -36,7 +36,7 @@ export function DeckNav() {
           disabled={currentIndex === 0}
           aria-label="Previous screen"
         >
-          <Icon name="arrow" size={18} style={{ transform: 'rotate(-90deg)' }} />
+          <Icon name="arrow" size={18} style={{ transform: 'rotate(180deg)' }} />
         </button>
         <button
           type="button"
@@ -45,7 +45,7 @@ export function DeckNav() {
           disabled={currentIndex === total - 1}
           aria-label="Next screen"
         >
-          <Icon name="arrow" size={18} style={{ transform: 'rotate(90deg)' }} />
+          <Icon name="arrow" size={18} />
         </button>
       </div>
     </div>

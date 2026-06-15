@@ -79,7 +79,7 @@ const TOTAL = 38;
           const deck = document.querySelector('.deck');
           const el = document.querySelector(`[data-screen-index="${idx}"]`);
           if (!deck || !el) return false;
-          deck.scrollTop = el.offsetTop;
+          deck.scrollLeft = el.offsetLeft;
           return true;
         }, i);
         if (!ok) {

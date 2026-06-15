@@ -36,7 +36,7 @@ function pngSize(file) {
       const deck = document.querySelector('.deck');
       const el = document.querySelector(`[data-screen-index="${idx}"]`);
       if (!deck || !el) return null;
-      deck.scrollTop = el.offsetTop;
+      deck.scrollLeft = el.offsetLeft;
       const stage = el.querySelector('.screen__stage');
       if (!stage) return { missing: true };
       const base = {
