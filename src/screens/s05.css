@@ -275,6 +275,7 @@
 /* Footer: one-line takeaway + the single primary CTA in its safe zone */
 .s05-foot {
   flex-shrink: 0;
+  flex-direction: row-reverse;
   display: flex;
   align-items: center;
   justify-content: space-between;

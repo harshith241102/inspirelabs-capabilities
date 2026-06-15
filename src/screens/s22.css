@@ -505,6 +505,7 @@
 
 .s22-foot {
   flex-shrink: 0;
+  flex-direction: row-reverse;
   display: flex;
   align-items: center;
   justify-content: space-between;

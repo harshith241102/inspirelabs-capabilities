@@ -43,20 +43,25 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--grey);
+  color: var(--orange-text);
   opacity: 0;
   transform: translateX(6px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
   pointer-events: none;
+  /* Readable chip so it never visually merges with slide content on hover */
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 8px;
+  box-shadow: var(--float-sm);
 }
-.rail__dot:hover .rail__label,
-.rail__dot.is-active .rail__label {
+/* Labels reveal on hover/focus only, so the resting rail is a thin tick column
+   in the right safe-zone gutter and never overlaps slide content. */
+.rail:hover .rail__label,
+.rail__dot:focus-visible .rail__label {
   opacity: 1;
   transform: translateX(0);
-}
-.rail__dot.is-active .rail__label {
-  color: var(--orange-text);
 }
 .rail__dot:focus-visible {
   outline: 2px solid var(--orange);

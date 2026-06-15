@@ -337,6 +337,7 @@
 /* ---------- footer: net takeaway + single primary CTA ---------- */
 .s29-foot {
   flex-shrink: 0;
+  flex-direction: row-reverse;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
