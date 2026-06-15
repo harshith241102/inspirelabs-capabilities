@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta } from '../primitives/ui';
+import { DeckHeader } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
@@ -155,9 +155,6 @@ export default function Screen03() {
           <p className="s03-net__text">
             <strong>The role of GrabOn gets stronger inside the broader Inspirelabs system.</strong>
           </p>
-        </div>
-        <div className="cta-row">
-          <AdvanceCta label={c.cta} to={4} />
         </div>
       </footer>
     </Screen>

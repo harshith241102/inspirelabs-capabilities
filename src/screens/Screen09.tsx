@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag, MockTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { ProductLogo } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
@@ -151,8 +151,7 @@ export default function Screen09() {
       </div>
 
       <div className="s09-foot">
-        <AdvanceCta label={c.cta} to={10} />
-        <span className="s09-foot__note mono">{c.support}</span>
+        <NetBox>{c.support}</NetBox>
       </div>
     </Screen>
   );

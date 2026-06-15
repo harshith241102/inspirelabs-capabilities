@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useApp } from '../state/store';
@@ -182,8 +182,7 @@ export default function Screen35() {
       </div>
 
       <footer className="s35-foot">
-        <AdvanceCta label={c.cta} to={36} />
-        <p className="s35-foot__note">{c.support}</p>
+        <NetBox>{c.support}</NetBox>
       </footer>
     </Screen>
   );

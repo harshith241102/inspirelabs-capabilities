@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag, MockTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon } from '../primitives/icons';
 import { useApp } from '../state/store';
@@ -225,10 +225,7 @@ export default function Screen34() {
       </div>
 
       <footer className="s34-foot">
-        <div className="s34-foot__cta">
-          <AdvanceCta label={c.cta} to={35} />
-          <span className="s34-foot__note">{c.support}</span>
-        </div>
+        <NetBox>{c.support}</NetBox>
       </footer>
     </Screen>
   );

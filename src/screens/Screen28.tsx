@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag } from '../primitives/ui';
 import { AnnotatedShot, FlowStrip, type FlowState } from '../primitives/deck';
 import { useDrawer } from '../components/Drawer';
 import { Icon } from '../primitives/icons';
@@ -92,10 +92,6 @@ export default function Screen28() {
             <EvidenceTag status="pending">Human review before publish</EvidenceTag>
           </button>
         </div>
-      </div>
-
-      <div className="s28-foot">
-        <AdvanceCta label={c.cta} to={29} />
       </div>
     </Screen>
   );

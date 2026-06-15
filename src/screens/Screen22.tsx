@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -238,7 +238,6 @@ export default function Screen22() {
         </div>
         <div className="s22-foot__cta">
           <EvidenceTag status="approved">Approved-use signals only</EvidenceTag>
-          <AdvanceCta label={c.cta} to={23} />
         </div>
       </footer>
     </Screen>

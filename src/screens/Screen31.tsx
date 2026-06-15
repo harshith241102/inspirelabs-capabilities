@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag } from '../primitives/ui';
+import { DeckHeader, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -244,8 +244,7 @@ export default function Screen31() {
       </div>
 
       <div className="s31-foot">
-        <AdvanceCta label={c.cta} to={32} />
-        <p className="s31-foot__note">{c.support}</p>
+        <NetBox>{c.support}</NetBox>
       </div>
     </Screen>
   );

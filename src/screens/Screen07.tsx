@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
+import { MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Icon, type IconName } from '../primitives/icons';
 import { copy } from '../content/copy';
 import { ASSETS } from '../lib/assets';
@@ -139,8 +139,7 @@ export default function Screen07() {
       </div>
 
       <footer className="s07-foot">
-        <p className="s07-note">{c.support}</p>
-        <AdvanceCta label={c.cta} to={8} />
+        <NetBox>{c.support}</NetBox>
       </footer>
     </Screen>
   );

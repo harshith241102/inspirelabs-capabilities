@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta } from '../primitives/ui';
+import { DeckHeader, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useApp } from '../state/store';
@@ -88,8 +88,7 @@ export default function Screen06() {
       </div>
 
       <footer className="s06-foot">
-        <p className="s06-net">{c.support}</p>
-        <AdvanceCta label={c.cta} to={7} />
+        <NetBox>{c.support}</NetBox>
       </footer>
     </Screen>
   );

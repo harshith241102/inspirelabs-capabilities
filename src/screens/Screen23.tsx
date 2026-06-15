@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -161,8 +161,7 @@ export default function Screen23() {
       </div>
 
       <div className="s23-foot">
-        <AdvanceCta label={c.cta} to={24} />
-        <p className="s23-foot__note">{c.support}</p>
+        <NetBox>{c.support}</NetBox>
       </div>
     </Screen>
   );

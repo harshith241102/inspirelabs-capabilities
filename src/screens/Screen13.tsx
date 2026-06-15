@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
 import { Icon, type IconName } from '../primitives/icons';
 import { copy } from '../content/copy';
@@ -81,10 +81,6 @@ export default function Screen13() {
             </span>
           </div>
         </aside>
-      </div>
-
-      <div className="s13-foot">
-        <AdvanceCta label={c.cta} to={14} />
       </div>
     </Screen>
   );

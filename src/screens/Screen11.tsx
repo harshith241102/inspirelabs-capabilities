@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { copy } from '../content/copy';
@@ -128,7 +128,6 @@ export default function Screen11() {
       </div>
 
       <div className="s11-foot">
-        <AdvanceCta label={c.cta} to={12} />
         <span className="s11-foot__note mono">Owned and activation surfaces stay separate</span>
       </div>
     </Screen>

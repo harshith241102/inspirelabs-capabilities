@@ -1,13 +1,17 @@
 import { useApp } from '../state/store';
 import { Icon } from '../primitives/icons';
+import { copy } from '../content/copy';
 import { JUMP_UNLOCK_INDEX, ROADMAP_INDEX } from '../content/sections';
 import { IS_EXPORT } from '../lib/deckMode';
 import './decknav.css';
 
 /**
  * Quiet deck controls: prev / next arrows + secondary "Jump to roadmap".
- * Hidden on cover + setup so entry stays cinematic, and fully hidden in
- * export mode so screenshots carry no navigation chrome.
+ * The only next/previous navigation in the deck (slides carry no embedded
+ * advance buttons). The current slide's contextual next label lives here on
+ * the next control's accessible name, not inside the slide. Hidden on cover +
+ * setup so entry stays cinematic, and fully hidden in export mode so
+ * screenshots carry no navigation chrome.
  */
 export function DeckNav() {
   const { currentIndex, total, next, prev, goTo } = useApp();
@@ -15,6 +19,7 @@ export function DeckNav() {
 
   const showJump = currentIndex > JUMP_UNLOCK_INDEX && currentIndex < ROADMAP_INDEX;
   const showBackToRoadmap = currentIndex > ROADMAP_INDEX;
+  const nextCta = currentIndex < total - 1 ? copy[currentIndex]?.cta : undefined;
 
   return (
     <div className="decknav" role="group" aria-label="Deck navigation">
@@ -43,7 +48,7 @@ export function DeckNav() {
           className="decknav__arrow"
           onClick={next}
           disabled={currentIndex === total - 1}
-          aria-label="Next screen"
+          aria-label={nextCta ? `Next: ${nextCta}` : 'Next screen'}
         >
           <Icon name="arrow" size={18} />
         </button>

@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -155,7 +155,6 @@ export default function Screen33() {
         <div className="s33-net">
           <p className="s33-net__text">{c.support}</p>
         </div>
-        <AdvanceCta label={c.cta} to={34} />
       </footer>
     </Screen>
   );

@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag } from '../primitives/ui';
+import { DeckHeader, MockTag } from '../primitives/ui';
 import { DeckStage } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
@@ -58,7 +58,6 @@ export default function Screen32() {
     <Screen index={32} tone="light" id="commitments" label="Measurable growth commitments">
       <DeckStage
         header={<DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />}
-        cta={<AdvanceCta label={c.cta} to={33} />}
       >
         <Reveal className="s32-board">
           {/* Board chrome: title bar reads as one operating standard */}

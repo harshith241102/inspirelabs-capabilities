@@ -1,7 +1,6 @@
 import { Screen } from '../primitives/Screen';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { AdvanceCta } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
 import { useApp } from '../state/store';
 import { copy } from '../content/copy';
@@ -99,9 +98,6 @@ export default function Screen02() {
       </div>
 
       <footer className="s02-foot">
-        <div className="cta-row">
-          <AdvanceCta label={c.cta} to={3} />
-        </div>
         <p className="s02-fixed mono">
           <Icon name="layers" size={14} />
           The walkthrough is the same for every reader. Only this intro and the proof-by-category slides adapt to your setup.

@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -236,7 +236,6 @@ export default function Screen26() {
 
       <footer className="s26-foot">
         <div className="s26-foot__cta">
-          <AdvanceCta label={c.cta} to={27} />
           <button type="button" className="s26-guardlink" onClick={openGuardrails}>
             <Icon name="shield" size={15} />
             See the guardrails

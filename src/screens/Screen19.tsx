@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, NetBox, EvidenceTag, MockTag } from '../primitives/ui';
+import { DeckHeader, NetBox, EvidenceTag, MockTag } from '../primitives/ui';
 import { FlowStrip } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
@@ -198,9 +198,6 @@ export default function Screen19() {
 
       <footer className="s-footer-row">
         <NetBox>{c.support}</NetBox>
-        <div className="cta-row">
-          <AdvanceCta label={c.cta} to={20} />
-        </div>
       </footer>
     </Screen>
   );

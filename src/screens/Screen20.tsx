@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, MockTag } from '../primitives/ui';
+import { DeckHeader, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -165,7 +165,6 @@ export default function Screen20() {
 
       <footer className="s20-foot">
         <div className="s20-foot__cta">
-          <AdvanceCta label={c.cta} to={21} />
           <button type="button" className="s20-guardlink" onClick={openIsNot}>
             <Icon name="shield" size={15} />
             What AudienceSeed is not

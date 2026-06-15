@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { AdvanceCta, EvidenceTag } from '../primitives/ui';
+import { EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useApp } from '../state/store';
@@ -73,7 +73,7 @@ const stages: {
 
 export default function Screen36() {
   const c = copy[36];
-  const { markRoadmapClicked, goTo } = useApp();
+  const { goTo } = useApp();
 
   return (
     <Screen index={36} tone="light" id="roadmap" label="Partnership roadmap">
@@ -166,7 +166,6 @@ export default function Screen36() {
 
       <footer className="s36-foot">
         <div className="s36-cta">
-          <AdvanceCta label={c.cta} to={37} onClick={markRoadmapClicked} />
           <button type="button" className="s36-restart" onClick={() => goTo(0)}>
             <Icon name="refresh" size={13} />
             Start over
