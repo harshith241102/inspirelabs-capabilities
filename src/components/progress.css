@@ -4,23 +4,32 @@
   right: 22px;
   transform: translateY(-50%);
   z-index: 40;
+  /* Fixed tick column. Labels live to its left as absolute overlays, so the
+     rail's width is the dash column only and never varies by label length. */
+  width: 30px;
   pointer-events: auto;
 }
 .rail ul {
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: flex-end; /* every dot shares the same right edge */
   gap: 4px;
 }
+
+/* Each dot is a fixed-width tick column. The label is taken out of flow
+   (position: absolute) so its width can never shift the tick. The tick is
+   right-aligned, so every dash sits on one vertical axis and the active dash
+   grows leftward from that shared right edge instead of moving sideways. */
 .rail__dot {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 9px;
+  width: 30px;
   background: none;
   border: 0;
-  padding: 5px 2px;
-  width: 100%;
+  padding: 6px 0;
 }
 .rail__tick {
   width: 22px;
@@ -35,9 +44,16 @@
 }
 .rail__dot.is-active .rail__tick {
   background: var(--orange);
-  width: 30px;
+  width: 30px; /* grows leftward from the shared right edge, no sideways shift */
 }
+
+/* Hover/focus label: absolute, placed to the LEFT of the rail. It never takes
+   part in the tick flex layout, so it cannot move any dash. */
 .rail__label {
+  position: absolute;
+  right: 44px;
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 600;
@@ -45,7 +61,6 @@
   text-transform: uppercase;
   color: var(--orange-text);
   opacity: 0;
-  transform: translateX(6px);
   transition: opacity 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
   pointer-events: none;
@@ -56,12 +71,11 @@
   padding: 3px 8px;
   box-shadow: var(--float-sm);
 }
-/* Labels reveal on hover/focus only, so the resting rail is a thin tick column
-   in the right safe-zone gutter and never overlaps slide content. */
+/* Reveal on hover/focus with opacity + transform only (no layout change). */
 .rail:hover .rail__label,
 .rail__dot:focus-visible .rail__label {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(-50%) translateX(0);
 }
 .rail__dot:focus-visible {
   outline: 2px solid var(--orange);
