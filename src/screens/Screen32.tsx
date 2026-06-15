@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, MockTag } from '../primitives/ui';
+import { DeckHeader, MockTag, NetBox } from '../primitives/ui';
 import { DeckStage } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
@@ -58,6 +58,11 @@ export default function Screen32() {
     <Screen index={32} tone="light" id="commitments" label="Measurable growth commitments">
       <DeckStage
         header={<DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />}
+        cta={
+          <footer className="s32-foot">
+            <NetBox>{c.support}</NetBox>
+          </footer>
+        }
       >
         <Reveal className="s32-board">
           {/* Board chrome: title bar reads as one operating standard */}
@@ -113,12 +118,6 @@ export default function Screen32() {
                 </Reveal>
               );
             })}
-          </div>
-
-          {/* Accountability baseline: the loop that keeps the system honest */}
-          <div className="s32-base">
-            <span className="s32-base__line" aria-hidden="true" />
-            <span className="s32-base__net">{c.support}</span>
           </div>
         </Reveal>
       </DeckStage>

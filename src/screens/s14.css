@@ -78,12 +78,6 @@
   gap: 18px;
   min-height: 0;
 }
-.s14-lead {
-  font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--body);
-}
 .s14-rail {
   display: flex;
   flex-direction: column;
@@ -208,14 +202,9 @@
   padding: 5px 10px;
 }
 
-/* ---------- Footer: one primary CTA, AI chip quiet + separated ---------- */
+/* ---------- Footer: single full-width takeaway box ---------- */
 .s14-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-.s14-foot__chip {
-  display: flex;
+  display: block;
+  margin-top: 16px;
 }

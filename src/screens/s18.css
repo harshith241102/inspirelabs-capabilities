@@ -341,11 +341,8 @@
   color: var(--grey);
 }
 
-/* ---------- CTA safe zone ---------- */
+/* ---------- Net takeaway ---------- */
 .s18-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  display: block;
 }

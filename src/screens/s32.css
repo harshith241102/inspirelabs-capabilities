@@ -249,27 +249,12 @@
   color: var(--orange-text);
 }
 
-/* ---------- Accountability baseline ---------- */
-.s32-base {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 18px 30px;
-  background: var(--net);
-  border-top: 1px solid var(--border);
-}
-.s32-base__line {
-  width: 4px;
-  align-self: stretch;
-  border-radius: 4px;
-  background: var(--orange);
-  flex-shrink: 0;
-}
-.s32-base__net {
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--ink);
+/* ---------- Bottom takeaway footer ---------- */
+/* Single full-width Net box pinned to the bottom of the slide (the DeckStage
+   cta slot is already flex-shrink:0, so the board above gives up the freed
+   space and the footer anchors the slide). */
+.s32-foot {
+  flex: 1 1 auto;
+  width: 100%;
+  display: block;
 }

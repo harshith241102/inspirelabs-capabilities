@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -145,6 +145,10 @@ export default function Screen18() {
           </div>
         </Reveal>
       </div>
+
+      <footer className="s18-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

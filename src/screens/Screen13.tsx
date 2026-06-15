@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
 import { Icon, type IconName } from '../primitives/icons';
 import { copy } from '../content/copy';
@@ -55,8 +55,6 @@ export default function Screen13() {
         />
 
         <aside className="s13-side">
-          <p className="s13-lead">{c.support}</p>
-
           <ol className="s13-flow" aria-label="How an offer moves through GrabCash">
             {steps.map((s, i) => (
               <li key={s.n} className="s13-step">
@@ -82,6 +80,10 @@ export default function Screen13() {
           </div>
         </aside>
       </div>
+
+      <footer className="s13-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

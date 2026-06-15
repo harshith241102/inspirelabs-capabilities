@@ -20,12 +20,6 @@
   gap: 18px;
   min-height: 0;
 }
-.s10-lead {
-  font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--body);
-}
 .s10-personas {
   display: flex;
   flex-direction: column;
@@ -378,8 +372,6 @@
 
 .s10-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  display: block;
+  margin-top: 4px;
 }

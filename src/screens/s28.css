@@ -127,7 +127,7 @@
   stroke-width: 1.7;
   flex-shrink: 0;
 }
-.s28-support__text {
+.s28-support__label {
   flex: 1;
   min-width: 0;
   font-family: var(--font-body);
@@ -153,11 +153,14 @@
   outline-offset: 3px;
 }
 
-/* CTA safe zone: primary advance left, quiet AI chip pushed to the right */
+/* Bottom takeaway: a single full-width NetBox anchors the slide, matching the
+   other content slides. Block footer with a small top gap; the flex body above
+   gives up the freed space so the canvas stays within 1080px. */
 .s28-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  display: block;
+  margin-top: 14px;
+}
+.s28-foot .s-net {
+  width: 100%;
 }

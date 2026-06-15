@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
 import { useDrawer } from '../components/Drawer';
 import { Icon, type IconName } from '../primitives/icons';
@@ -58,7 +58,6 @@ export default function Screen08() {
         />
 
         <aside className="s08-side">
-          <p className="s08-lead">{c.support}</p>
           <div className="s08-list" role="list">
             {surfaces.map((s, i) => (
               <button
@@ -84,6 +83,10 @@ export default function Screen08() {
           </div>
         </aside>
       </div>
+
+      <footer className="s08-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

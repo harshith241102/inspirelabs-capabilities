@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag, MockTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -112,8 +112,6 @@ export default function Screen10() {
 
       <div className="s10-body">
         <aside className="s10-side">
-          <p className="s10-lead">{c.support}</p>
-
           <div className="s10-personas" role="list">
             {personas.map((p) => (
               <button
@@ -236,6 +234,10 @@ export default function Screen10() {
           </div>
         </Reveal>
       </div>
+
+      <footer className="s10-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

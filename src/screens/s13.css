@@ -17,13 +17,6 @@
   gap: 22px;
   min-height: 0;
 }
-.s13-lead {
-  font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--body);
-}
-
 /* Three-step flow as numbered callouts (mirrors the on-image pins) */
 .s13-flow {
   display: flex;
@@ -127,11 +120,9 @@
   color: var(--body);
 }
 
-/* Foot: one primary CTA, AI chip quiet and separated to the right */
+/* Foot: full-width Net takeaway anchoring the bottom of the slide */
 .s13-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  display: block;
+  margin-top: 16px;
 }

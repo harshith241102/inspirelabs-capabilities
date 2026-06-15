@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { AnnotatedShot, FlowStrip, type FlowState } from '../primitives/deck';
 import { useDrawer } from '../components/Drawer';
 import { Icon } from '../primitives/icons';
@@ -84,15 +84,19 @@ export default function Screen28() {
           />
         </div>
 
-        {/* Slim honest caption: real surfaces, human-reviewed, no ranking claim */}
+        {/* Slim honest review row: real surfaces, human-reviewed, no ranking claim */}
         <div className="s28-support">
           <Icon name="shield" size={17} className="s28-support__ico" />
-          <p className="s28-support__text">{c.support}</p>
+          <span className="s28-support__label">Real product surfaces, human-reviewed before publish</span>
           <button type="button" className="s28-support__review" onClick={() => openStep(5)}>
             <EvidenceTag status="pending">Human review before publish</EvidenceTag>
           </button>
         </div>
       </div>
+
+      <footer className="s28-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

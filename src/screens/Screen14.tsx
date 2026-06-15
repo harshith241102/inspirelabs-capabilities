@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { ProductLogo } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
@@ -87,7 +87,6 @@ export default function Screen14() {
 
         {/* Support rail: numbered creator-commerce callouts + measurement focal */}
         <aside className="s14-side">
-          <p className="s14-lead">{c.support}</p>
           <div className="s14-rail" role="list">
             {rail.map((r, i) => (
               <button
@@ -118,6 +117,10 @@ export default function Screen14() {
           </div>
         </aside>
       </div>
+
+      <footer className="s14-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

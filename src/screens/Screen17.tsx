@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, EvidenceTag, MockTag } from '../primitives/ui';
+import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -55,7 +55,6 @@ export default function Screen17() {
               <span className="s17-dash__dot" />
               <div className="s17-dash__titles">
                 <span className="s17-dash__title">Tracked campaign report</span>
-                <span className="s17-dash__sub">{c.support}</span>
               </div>
               <span className="s17-dash__tag">
                 <MockTag>Built mock, fields pending validation</MockTag>
@@ -140,6 +139,10 @@ export default function Screen17() {
           </div>
         </Reveal>
       </div>
+
+      <footer className="s17-foot">
+        <NetBox>{c.support}</NetBox>
+      </footer>
     </Screen>
   );
 }

@@ -343,10 +343,9 @@
   border-top: 1px solid var(--card-bd);
 }
 
-/* ---- CTA safe zone ---- */
+/* ---- bottom net takeaway ---- */
 .s17-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  display: block;
+  margin-top: 6px;
 }
