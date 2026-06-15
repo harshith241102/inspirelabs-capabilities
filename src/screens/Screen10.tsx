@@ -2,7 +2,6 @@ import { Screen } from '../primitives/Screen';
 import { DeckHeader, AdvanceCta, EvidenceTag, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import { ASSETS } from '../lib/assets';
@@ -240,7 +239,6 @@ export default function Screen10() {
 
       <div className="s10-foot">
         <AdvanceCta label={c.cta} to={11} />
-        {c.aiChip && <SupportChip context={c.aiChip} />}
       </div>
     </Screen>
   );

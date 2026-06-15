@@ -26,7 +26,14 @@ export interface DrawerPayload {
   kind?: DrawerKind;
   eyebrow?: string;
   title: string;
-  sections: DrawerSection[];
+  /** Small sub-label under the title. AI drawers use "Contextual reference". */
+  subLabel?: string;
+  /** Generic detail drawers (surface / metric / proof / roadmap) render these. */
+  sections?: DrawerSection[];
+  /** AI Growth Studio drawer (kind === 'ai') structured, fixed-order content. */
+  whatAiAdds?: string;
+  exampleWorkflow?: string[];
+  output?: string[];
   /** AI drawers must show a human review checkpoint */
   humanReview?: string;
   /** AI / metric drawers must state required brand input or data source */
@@ -44,7 +51,7 @@ const Ctx = createContext<DrawerCtx | null>(null);
 const kindEyebrow: Record<DrawerKind, string> = {
   surface: 'Surface detail',
   metric: 'Metric detail',
-  ai: 'AI Growth Studio support',
+  ai: 'AI Growth Studio',
   proof: 'Evidence status',
   roadmap: 'Roadmap detail',
   info: 'Detail',
@@ -85,12 +92,19 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
     if (el && typeof el.focus === 'function') requestAnimationFrame(() => el.focus());
   }, []);
 
-  // Make the background deck inert (hidden from AT, not focusable) while open
+  // Make the background deck inert (hidden from AT, not focusable) while open,
+  // and flag the root so the next-nav + AI launcher can fade out (overlay
+  // systems stay separate: the drawer never moves or compresses the slide).
   useEffect(() => {
     const deck = document.getElementById('deck-main');
-    if (payload && deck) {
-      deck.setAttribute('inert', '');
-      return () => deck.removeAttribute('inert');
+    const root = document.documentElement;
+    if (payload) {
+      deck?.setAttribute('inert', '');
+      root.setAttribute('data-drawer-open', '');
+      return () => {
+        deck?.removeAttribute('inert');
+        root.removeAttribute('data-drawer-open');
+      };
     }
   }, [payload]);
 
@@ -143,7 +157,7 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
           >
             <motion.aside
               ref={panelRef}
-              className="drawer"
+              className={`drawer${payload.kind === 'ai' ? ' drawer--ai' : ''}`}
               role="dialog"
               aria-modal="true"
               aria-label={payload.title}
@@ -161,57 +175,119 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                 </button>
               </div>
               <h2 className="drawer__title">{payload.title}</h2>
+              {payload.subLabel && <p className="drawer__sublabel">{payload.subLabel}</p>}
 
               <div className="drawer__body">
-                {payload.sections.map((s, idx) => (
-                  <section className="drawer__section" key={idx}>
-                    <h3 className="drawer__heading">{s.heading}</h3>
-                    {s.body && <p className="drawer__text">{s.body}</p>}
-                    {s.items && (
-                      <ul className="drawer__list">
-                        {s.items.map((it, j) => (
-                          <li key={j}>
-                            <Icon name="check" size={14} />
-                            <span>{it}</span>
-                          </li>
-                        ))}
-                      </ul>
+                {payload.kind === 'ai' ? (
+                  <>
+                    {payload.whatAiAdds && (
+                      <section className="drawer__section">
+                        <h3 className="drawer__heading">What AI adds here</h3>
+                        <p className="drawer__text">{payload.whatAiAdds}</p>
+                      </section>
                     )}
-                  </section>
-                ))}
 
-                {payload.evidence && payload.evidence.length > 0 && (
-                  <section className="drawer__section">
-                    <h3 className="drawer__heading">Evidence status</h3>
-                    <div className="drawer__evidence">
-                      {payload.evidence.map((e, i) => (
-                        <div className="drawer__evrow" key={i}>
-                          <span>{e.label}</span>
-                          <EvidenceTag status={e.status} />
+                    {payload.exampleWorkflow && payload.exampleWorkflow.length > 0 && (
+                      <section className="drawer__section">
+                        <h3 className="drawer__heading">Example workflow</h3>
+                        <ol className="drawer__steps">
+                          {payload.exampleWorkflow.map((step, j) => (
+                            <li key={j}>
+                              <span className="drawer__stepn">{j + 1}</span>
+                              <span>{step}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </section>
+                    )}
+
+                    {payload.requiredInput && (
+                      <div className="drawer__note drawer__note--input">
+                        <Icon name="doc" size={16} />
+                        <div>
+                          <strong>Required brand inputs</strong>
+                          <p>{payload.requiredInput}</p>
                         </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
+                      </div>
+                    )}
 
-                {payload.requiredInput && (
-                  <div className="drawer__note drawer__note--input">
-                    <Icon name="doc" size={16} />
-                    <div>
-                      <strong>Required brand input or data source</strong>
-                      <p>{payload.requiredInput}</p>
-                    </div>
-                  </div>
-                )}
+                    {payload.humanReview && (
+                      <div className="drawer__note drawer__note--review">
+                        <Icon name="shield" size={16} />
+                        <div>
+                          <strong>Human review checkpoint</strong>
+                          <p>{payload.humanReview}</p>
+                        </div>
+                      </div>
+                    )}
 
-                {payload.humanReview && (
-                  <div className="drawer__note drawer__note--review">
-                    <Icon name="shield" size={16} />
-                    <div>
-                      <strong>Human review checkpoint</strong>
-                      <p>{payload.humanReview}</p>
-                    </div>
-                  </div>
+                    {payload.output && payload.output.length > 0 && (
+                      <section className="drawer__section">
+                        <h3 className="drawer__heading">Output</h3>
+                        <ul className="drawer__list">
+                          {payload.output.map((it, j) => (
+                            <li key={j}>
+                              <Icon name="check" size={14} />
+                              <span>{it}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {(payload.sections ?? []).map((s, idx) => (
+                      <section className="drawer__section" key={idx}>
+                        <h3 className="drawer__heading">{s.heading}</h3>
+                        {s.body && <p className="drawer__text">{s.body}</p>}
+                        {s.items && (
+                          <ul className="drawer__list">
+                            {s.items.map((it, j) => (
+                              <li key={j}>
+                                <Icon name="check" size={14} />
+                                <span>{it}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </section>
+                    ))}
+
+                    {payload.evidence && payload.evidence.length > 0 && (
+                      <section className="drawer__section">
+                        <h3 className="drawer__heading">Evidence status</h3>
+                        <div className="drawer__evidence">
+                          {payload.evidence.map((e, i) => (
+                            <div className="drawer__evrow" key={i}>
+                              <span>{e.label}</span>
+                              <EvidenceTag status={e.status} />
+                            </div>
+                          ))}
+                        </div>
+                      </section>
+                    )}
+
+                    {payload.requiredInput && (
+                      <div className="drawer__note drawer__note--input">
+                        <Icon name="doc" size={16} />
+                        <div>
+                          <strong>Required brand input or data source</strong>
+                          <p>{payload.requiredInput}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {payload.humanReview && (
+                      <div className="drawer__note drawer__note--review">
+                        <Icon name="shield" size={16} />
+                        <div>
+                          <strong>Human review checkpoint</strong>
+                          <p>{payload.humanReview}</p>
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </motion.aside>

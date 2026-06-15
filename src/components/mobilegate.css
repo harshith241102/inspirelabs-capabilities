@@ -9,6 +9,7 @@
   .deck,
   .rail,
   .decknav,
+  .ai-launch,
   .skip-link {
     display: none !important;
   }

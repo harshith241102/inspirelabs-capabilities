@@ -1,0 +1,68 @@
+/* AI Growth Studio launcher: single floating control, bottom-right.
+   Quiet white pill with one orange spark (the entry point to the read-only
+   drawer). Sits clear of the progress rail (right-centre) and the deck nav
+   (bottom-centre). Fades out while the drawer is open. */
+.ai-launch {
+  position: fixed;
+  bottom: 22px;
+  right: 26px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px 11px 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--float);
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease,
+    opacity 0.2s ease;
+}
+.ai-launch:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: var(--float-lg);
+}
+.ai-launch:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+.ai-launch__spark {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--orange);
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(255, 122, 69, 0.32);
+}
+.ai-launch__spark svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Fade out while the AI drawer is open (the drawer overlays the slide). */
+html[data-drawer-open] .ai-launch {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .ai-launch {
+    bottom: 14px;
+    right: 14px;
+    padding: 10px 16px 10px 10px;
+    font-size: 13px;
+  }
+}

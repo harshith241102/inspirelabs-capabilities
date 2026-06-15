@@ -3,7 +3,6 @@ import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
 import { ProductLogo } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import { ASSETS } from '../lib/assets';
@@ -122,11 +121,6 @@ export default function Screen14() {
 
       <div className="s14-foot">
         <AdvanceCta label={c.cta} to={15} />
-        {c.aiChip && (
-          <div className="s14-foot__chip">
-            <SupportChip context={c.aiChip} />
-          </div>
-        )}
       </div>
     </Screen>
   );

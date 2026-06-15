@@ -1,7 +1,6 @@
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
-import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { Icon, type IconName } from '../primitives/icons';
 import { copy } from '../content/copy';
@@ -88,7 +87,6 @@ export default function Screen08() {
 
       <div className="s08-foot">
         <AdvanceCta label={c.cta} to={9} />
-        {c.aiChip && <SupportChip context={c.aiChip} />}
       </div>
     </Screen>
   );

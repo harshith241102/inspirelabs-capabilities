@@ -2,7 +2,6 @@ import { Screen } from '../primitives/Screen';
 import { DeckHeader, AdvanceCta, NetBox, EvidenceTag, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import './s24.css';
@@ -206,7 +205,6 @@ export default function Screen24() {
           <div className="cta-row">
             <AdvanceCta label={c.cta} to={25} />
           </div>
-          {c.aiChip && <SupportChip context={c.aiChip} />}
         </div>
       </footer>
     </Screen>

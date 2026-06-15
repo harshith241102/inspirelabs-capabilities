@@ -3,7 +3,6 @@ import { DeckHeader, AdvanceCta, MockTag } from '../primitives/ui';
 import { DeckStage } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import './s32.css';
@@ -75,11 +74,6 @@ export default function Screen32() {
               <Icon name="refresh" size={14} />
               Reviewed every cycle
             </span>
-            {c.aiChip && (
-              <span className="s32-board__ai">
-                <SupportChip context={c.aiChip} />
-              </span>
-            )}
             <span className="s32-board__tag">
               <MockTag>Operating standard</MockTag>
             </span>

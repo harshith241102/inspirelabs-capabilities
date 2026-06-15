@@ -60,6 +60,16 @@
   padding: 14px 26px 4px;
   flex-shrink: 0;
 }
+.drawer__sublabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding: 0 26px 2px;
+  flex-shrink: 0;
+}
 
 .drawer__body {
   flex: 1;
@@ -167,6 +177,66 @@
 }
 .drawer__note--review svg {
   color: var(--orange-text);
+}
+
+/* Example workflow: numbered, read-only steps */
+.drawer__steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  counter-reset: step;
+}
+.drawer__steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.drawer__stepn {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--net);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grey);
+  margin-top: 1px;
+}
+
+/* AI Growth Studio drawer: ONE orange accent only (the human review checkpoint).
+   Everything else is neutralised so the guardrail reads as the single focal. */
+.drawer--ai .drawer__head .eyebrow {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  color: var(--sub);
+}
+.drawer--ai .drawer__head .eyebrow::before {
+  display: none;
+}
+.drawer--ai .drawer__heading {
+  color: var(--sub);
+}
+.drawer--ai .drawer__list li svg {
+  color: var(--grey);
+}
+.drawer--ai .drawer__note--input {
+  background: var(--net);
+  border-color: var(--border);
+}
+.drawer--ai .drawer__note--input svg {
+  color: var(--grey);
 }
 
 /* Mobile: bottom sheet */

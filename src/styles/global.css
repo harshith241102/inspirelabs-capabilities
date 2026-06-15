@@ -59,8 +59,8 @@
   --deck-scale: 1;
   --m-scale: 1;
   /* Safe-zone padding inside the canvas. Nav chrome lives over this band. */
-  --canvas-pad-x: 104px;
-  --canvas-pad-y: 80px;
+  --canvas-pad-x: 80px;
+  --canvas-pad-y: 72px;
   /* Neutral stage backdrop behind letterboxed slides */
   --backdrop: #08090c;
 }
@@ -165,17 +165,17 @@ a {
    canvas itself so the grid scales with the slide, not the viewport. */
 .screen--light .screen__stage {
   background-color: var(--white);
-  background-image: linear-gradient(rgba(14, 15, 10, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 15, 10, 0.022) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-image: linear-gradient(rgba(14, 15, 10, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 15, 10, 0.024) 1px, transparent 1px);
+  background-size: 44px 44px;
   color: var(--ink);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
 }
 .screen--dark .screen__stage {
   background-color: var(--ink);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
   color: #fff;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
 }
@@ -189,11 +189,11 @@ a {
 /* Translucent brand gridmark, top-right safe zone of content slides */
 .gridmark {
   position: absolute;
-  top: 40px;
-  right: 48px;
-  width: 150px;
-  height: auto;
-  opacity: 0.16;
+  top: 60px;
+  right: 72px;
+  width: 132px;
+  height: 132px;
+  opacity: 0.4;
   mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
@@ -210,6 +210,7 @@ a {
 
 .s-header {
   flex-shrink: 0;
+  padding-bottom: 22px;
 }
 
 .eyebrow {
@@ -217,22 +218,22 @@ a {
   align-items: center;
   gap: 9px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--grey);
   line-height: 1;
   border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 11px 21px;
+  border-radius: 20px;
+  padding: 10px 22px;
   background: #fff;
   box-shadow: var(--float-sm);
 }
 .eyebrow::before {
   content: '';
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--orange);
   flex-shrink: 0;
@@ -247,18 +248,18 @@ a {
 .s-title {
   font-family: var(--font-headline);
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.024em;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   color: var(--ink);
-  font-size: 56px;
-  margin-top: 22px;
-  max-width: 19ch;
+  font-size: 40px;
+  margin-top: 16px;
+  max-width: 1500px;
 }
 .screen--dark .s-title {
   color: #fff;
 }
 .s-title--wide {
-  max-width: 26ch;
+  max-width: 1680px;
 }
 
 .s-sub {
@@ -266,20 +267,20 @@ a {
   font-weight: 400;
   line-height: 1.5;
   color: var(--sub);
-  font-size: 22px;
-  margin-top: 16px;
-  max-width: 60ch;
+  font-size: 18.5px;
+  margin-top: 12px;
+  max-width: 1240px;
 }
 .screen--dark .s-sub {
   color: #c9ccd4;
 }
 
 .s-rule {
-  width: 56px;
-  height: 3px;
+  width: 40px;
+  height: 2px;
   background: var(--orange);
-  margin-top: 24px;
-  border-radius: 2px;
+  margin-top: 20px;
+  border-radius: 1px;
 }
 
 .s-support {
@@ -297,14 +298,14 @@ a {
 .s-net {
   background: var(--net);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--orange);
+  border-left: 3px solid var(--orange);
   border-radius: var(--radius-sm);
-  padding: 18px 26px;
+  padding: 15px 26px;
   box-shadow: var(--float-sm);
 }
 .s-net__text {
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 16.5px;
   font-weight: 500;
   line-height: 1.5;
   color: var(--ink);
@@ -328,7 +329,6 @@ a {
   flex-direction: column;
   justify-content: center;
   min-height: 0;
-  padding: 32px 0;
 }
 
 /* ============================================================
@@ -427,42 +427,6 @@ a {
 .screen--dark .chip {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.14);
-  color: var(--c5);
-}
-
-/* Contextual AI Growth Studio support chip — intentionally quiet/secondary */
-.ai-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--grey);
-  background: #fff;
-  border: 1px dashed var(--c5);
-  border-radius: 999px;
-  padding: 11px 20px 11px 16px;
-  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
-}
-.ai-chip:hover {
-  border-color: var(--orange);
-  color: var(--orange-text);
-}
-.ai-chip:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
-}
-.ai-chip__spark {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  color: var(--orange);
-}
-.screen--dark .ai-chip {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.2);
   color: var(--c5);
 }
 

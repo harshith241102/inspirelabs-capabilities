@@ -1,11 +1,19 @@
 .decknav {
   position: fixed;
   bottom: 22px;
-  right: 26px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 45;
   display: flex;
   align-items: center;
   gap: 14px;
+  transition: opacity 0.2s ease;
+}
+/* Next navigation fades while the AI drawer is open (overlay systems stay
+   separate; movement controls never compete with the drawer). */
+html[data-drawer-open] .decknav {
+  opacity: 0;
+  pointer-events: none;
 }
 .decknav__arrows {
   display: flex;
@@ -63,7 +71,9 @@
 @media (max-width: 860px) {
   .decknav {
     bottom: 14px;
-    right: 14px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
     gap: 10px;
   }
   .decknav__arrow {

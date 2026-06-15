@@ -4,6 +4,7 @@ import { DrawerProvider } from './components/Drawer';
 import { ScrollDeck } from './components/ScrollDeck';
 import { ProgressRail } from './components/ProgressRail';
 import { DeckNav } from './components/DeckNav';
+import { AiStudioLauncher } from './components/AiStudioLauncher';
 import { MobileGate } from './components/MobileGate';
 import { deckScreens } from './screens/registry';
 import { TOTAL_SCREENS } from './content/sections';
@@ -48,6 +49,7 @@ function Deck() {
       </ScrollDeck>
       <ProgressRail />
       <DeckNav />
+      <AiStudioLauncher />
       <MobileGate />
     </DrawerProvider>
   );

@@ -2,7 +2,6 @@ import { Screen } from '../primitives/Screen';
 import { DeckHeader, AdvanceCta, EvidenceTag, AssetImg, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import { ASSETS } from '../lib/assets';
@@ -110,11 +109,6 @@ export default function Screen16() {
         <div className="s16-foot__cta">
           <AdvanceCta label={c.cta} to={17} />
         </div>
-        {c.aiChip && (
-          <div className="s16-foot__chip">
-            <SupportChip context={c.aiChip} />
-          </div>
-        )}
         <span className="s16-foot__note">Surfaces shown as examples. Partner logos and reach require provenance and approval.</span>
       </div>
     </Screen>
