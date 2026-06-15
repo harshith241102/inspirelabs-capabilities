@@ -45,6 +45,22 @@ npm run preview    # serve the dist/ build at http://localhost:4173
 
 The build is fully static. `vite.config.ts` sets `base: './'` so `dist/` can be hosted from any static host or sub-path (Netlify, Vercel, S3, GitHub Pages, an internal CDN, or opened over a static file server).
 
+## Deck canvas and screenshots
+
+Desktop is a **fixed 1920x1080 logical deck canvas** (each screen composes inside the frame and is uniformly transform-scaled to fit, letterboxed). Mobile is a width-scaled stacked companion. Add `?export=1` to strip nav chrome and animation for clean captures.
+
+Regenerate the 1920x1080 visual QA on any machine (serve the build first):
+
+```bash
+npm run build && npm run preview      # serves http://localhost:4173
+# in another shell:
+npm run shoot          # -> screens-out/desktop-1920/screen-00..37.png (exactly 1920x1080)
+npm run gate           # DOM no-overflow gate + screenshot dimension gate
+npm run contact-sheet  # -> screens-out/contact-sheet.png
+```
+
+See `REFRACTOR_SCREEN_CHANGELOG.md` for the per-screen before/after and `refactor/DESIGN_LANGUAGE.md` for the composition system.
+
 ## Live site
 
 Hosted on GitHub Pages: **https://harshith241102.github.io/inspirelabs-capabilities/**

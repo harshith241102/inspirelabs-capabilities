@@ -1,27 +1,27 @@
+/* Screen 00 - dark executive cover, authored for the 1920x1080 canvas. */
 .cover {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 0;
   flex: 1;
-  gap: clamp(20px, 3vh, 36px);
+  min-height: 0;
+  gap: 36px;
 }
 .cover__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 .cover__lockup {
-  /* Tight-cropped wordmark+gridmark (ASSETS.wordmarkDark) fills its frame,
-     so this is the true rendered wordmark height. */
-  height: clamp(40px, 3.4vw, 50px);
+  height: 50px;
   width: auto;
   display: block;
 }
 .cover__kicker {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--c5);
 }
@@ -29,130 +29,75 @@
 .cover__main {
   flex: 1;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 0.92fr 1.08fr;
   align-items: center;
-  gap: clamp(24px, 4vw, 56px);
+  gap: 64px;
   min-height: 0;
 }
 .cover__copy {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 .cover__title {
   font-family: var(--font-headline);
   font-weight: 700;
-  font-size: clamp(34px, 4.4vw, 62px);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+  font-size: 66px;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
   color: #fff;
-  max-width: 15ch;
+  max-width: 14ch;
 }
 .cover__sub {
   font-family: var(--font-body);
-  font-size: clamp(15px, 1.25vw, 19px);
+  font-size: 21px;
   line-height: 1.5;
   color: #c9ccd4;
   max-width: 52ch;
 }
 .cover__support {
   font-family: var(--font-body);
-  font-size: clamp(13px, 1vw, 15px);
+  font-size: 16px;
   line-height: 1.5;
   color: #9498a3;
-  max-width: 48ch;
+  max-width: 46ch;
 }
 .cover__hint {
-  font-size: 11px;
+  font-size: 13px;
   color: #8a8e99;
   letter-spacing: 0.03em;
 }
 
-/* Orbit */
-.cover__orbit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Dominant GrabOn proof object */
+.cover__hero {
   height: 100%;
-}
-.orbit {
-  position: relative;
-  width: min(38vh, 360px);
-  aspect-ratio: 1;
-}
-.orbit__lines {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.orbit__hub {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 116px;
-  height: 116px;
-  border-radius: 50%;
-  background: var(--orange);
-  color: #fff;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 14px;
   justify-content: center;
-  gap: 4px;
-  box-shadow: 0 18px 48px rgba(255, 122, 69, 0.45);
-  z-index: 2;
 }
-.orbit__hub span {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: -0.01em;
-}
-.orbit__node {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  width: 96px;
-  text-align: center;
-}
-.orbit__node-ico {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  backdrop-filter: blur(4px);
-}
-.orbit__node-label {
-  font-family: var(--font-headline);
-  font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: -0.005em;
-  color: #e6e8ee;
-  line-height: 1.15;
+.cover__herocap {
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: #8a8e99;
+  text-align: right;
+  flex-shrink: 0;
 }
 
 /* Bottom proof strip of modules */
 .cover__strip {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 16px;
+  flex-shrink: 0;
 }
 .cover__chip {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 13px 15px;
-  border-radius: 12px;
+  gap: 14px;
+  padding: 17px 20px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -161,9 +106,9 @@
   background: rgba(255, 122, 69, 0.1);
 }
 .cover__chip-ico {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
   background: rgba(255, 255, 255, 0.07);
   display: flex;
   align-items: center;
@@ -174,35 +119,27 @@
 .cover__chip--hub .cover__chip-ico {
   background: var(--orange);
 }
+.cover__chip-ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .cover__chip-label {
   display: block;
   font-family: var(--font-headline);
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: 16px;
   color: #fff;
   line-height: 1.1;
 }
 .cover__chip-sub {
   display: block;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 12.5px;
   color: #9498a3;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
-@media (max-width: 860px) {
-  .cover__main {
-    grid-template-columns: 1fr;
-  }
-  /* Orbit overflows narrow viewports; the bottom strip already lists all five
-     modules with labels, so hide the orbit on mobile. */
-  .cover__orbit {
-    display: none;
-  }
-  .cover__strip {
-    grid-template-columns: 1fr 1fr;
-  }
-  .cover__kicker {
-    display: none;
-  }
-}
+/* Mobile companion: the canvas is width-scaled, so layout is preserved. */

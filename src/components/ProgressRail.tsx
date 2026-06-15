@@ -1,5 +1,6 @@
 import { useApp } from '../state/store';
 import { sections, sectionForIndex } from '../content/sections';
+import { IS_EXPORT } from '../lib/deckMode';
 import './progress.css';
 
 /**
@@ -9,8 +10,8 @@ import './progress.css';
 export function ProgressRail() {
   const { currentIndex, goTo } = useApp();
   const active = sectionForIndex(currentIndex);
-  // Hide the rail on the cover + setup for a cleaner entry.
-  if (currentIndex <= 1) return null;
+  // Hide on cover + setup for a cleaner entry, and in export mode.
+  if (IS_EXPORT || currentIndex <= 1) return null;
 
   return (
     <nav className="rail" aria-label="Deck sections">

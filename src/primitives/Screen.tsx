@@ -13,14 +13,18 @@ interface ScreenProps {
 }
 
 /**
- * Full-viewport snap section. Registers itself for view tracking +
- * progress so the deck knows which screen is active.
+ * Full-viewport snap section holding the scaled 1920x1080 logical canvas.
+ * Registers itself for view tracking + progress, and makes itself `inert`
+ * when it is not the active screen so off-screen controls are not globally
+ * discoverable by assistive tech / focus. (The drawer separately makes the
+ * whole deck inert while open.)
  */
 export function Screen({ index, tone = 'light', id, label, children, className }: ScreenProps) {
   const ref = useRef<HTMLElement>(null);
-  const { registerScreenView } = useApp();
-  // Translucent Inspirelabs gridmark, top-right of content pages (light, screens 2-36).
+  const { registerScreenView, currentIndex } = useApp();
+  // Translucent Inspirelabs gridmark, top-right of content slides (light, screens 2-36).
   const showGridmark = tone === 'light' && index >= 2 && index <= 36;
+  const active = index === currentIndex;
 
   useEffect(() => {
     const el = ref.current;
@@ -38,6 +42,13 @@ export function Screen({ index, tone = 'light', id, label, children, className }
     obs.observe(el);
     return () => obs.disconnect();
   }, [index, registerScreenView]);
+
+  // Active-screen state: only the current screen is exposed to AT / tab order.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.toggleAttribute('inert', !active);
+  }, [active]);
 
   return (
     <section

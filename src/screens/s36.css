@@ -1,0 +1,417 @@
+/* Screen 36 - Tailored partnership roadmap (roadmap-board archetype).
+   One dominant visual: four partnership stages on a left-to-right track,
+   separated by proof gates. Stage 1 is in motion (the single orange focal);
+   the rest stay locked behind their gate. Compact tailoring controls sit in
+   the header beside the headline; Start over is a tertiary text link; the
+   primary CTA owns the bottom-left safe zone. Authored fixed-px for 1920x1080. */
+
+/* ---- Header: personalised headline left, compact tune controls right ---- */
+.s36-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+}
+.s36-headline {
+  min-width: 0;
+}
+.s36-title {
+  margin-top: 18px;
+  font-size: 50px;
+  max-width: 22ch;
+}
+.s36-sub {
+  margin-top: 14px;
+  font-size: 19px;
+  max-width: 62ch;
+}
+
+/* Tailoring controls (attached to the visual, not stacked under the CTA) */
+.s36-tune {
+  flex-shrink: 0;
+  width: 532px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  box-shadow: var(--float-sm);
+}
+.s36-tune__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+}
+.s36-tune__head svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+}
+.s36-tune__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.s36-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.s36-field__label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--grey);
+}
+.s36-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  padding: 11px 36px 11px 14px;
+  background-color: var(--net);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236f7583' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.s36-select:hover {
+  border-color: var(--grey);
+}
+.s36-select:focus-visible {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.22);
+}
+
+/* ---- Body: the dominant board, then a legend strip ---- */
+.s36-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 26px;
+  padding: 26px 0 8px;
+}
+
+/* The board: 4 stage cells, each holding a stage card + the link after it */
+.s36-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: stretch;
+}
+.s36-cell {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  padding-right: 56px; /* room for the connector node overlapping the gap */
+}
+.s36-cell:last-child {
+  padding-right: 0;
+}
+.s36-stage-wrap {
+  width: 100%;
+  display: flex;
+}
+
+/* ---- Stage card ---- */
+.s36-stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  text-align: left;
+  padding: 24px 24px 22px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 18px;
+  box-shadow: var(--float-sm);
+}
+/* The single orange focal: stage 1, in motion */
+.s36-stage.is-active {
+  border: 2px solid var(--orange);
+  box-shadow: 0 2px 4px rgba(255, 122, 69, 0.12), 0 22px 48px rgba(255, 122, 69, 0.16);
+}
+
+.s36-stage__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.s36-stage__no {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--c4);
+}
+.s36-stage.is-active .s36-stage__no {
+  color: var(--orange-text);
+}
+.s36-stage__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+}
+.s36-stage__state svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+}
+.s36-stage.is-active .s36-stage__state {
+  color: var(--orange-text);
+  background: #fff;
+  border-color: var(--orange);
+}
+.s36-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.s36-stage__ico {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+  color: var(--grey);
+}
+.s36-stage__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s36-stage.is-active .s36-stage__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.s36-stage__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.16;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.s36-stage__when {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--muted-text);
+}
+
+/* Capability owners / surfaces / commitments list per stage */
+.s36-owner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+}
+.s36-owner__head {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+}
+.s36-owner__list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.s36-owner__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.32;
+  color: var(--body);
+}
+.s36-owner__list li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--c4);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+}
+.s36-stage.is-active .s36-owner__list li svg {
+  color: var(--orange-text);
+}
+
+/* Per-stage proof gate */
+.s36-stage__gate {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  border-radius: 11px;
+  background: var(--net);
+  border: 1px solid var(--border);
+}
+.s36-stage.is-active .s36-stage__gate {
+  border-left: 4px solid var(--orange);
+}
+.s36-stage__gatelabel {
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+}
+.s36-stage__gatetext {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 13.5px;
+  line-height: 1.32;
+  color: var(--ink);
+}
+
+/* ---- Connector between stages (overlaps the column gap) ---- */
+.s36-link {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s36-link__bar {
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  transform: translateY(-50%);
+}
+.s36-link.is-live .s36-link__bar {
+  height: 2px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+.s36-link.is-locked .s36-link__bar {
+  height: 0;
+  border-top: 2px dashed var(--c5);
+}
+.s36-link__node {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.s36-link__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.s36-link.is-live .s36-link__node {
+  color: #fff;
+  background: var(--orange);
+  border: none;
+  box-shadow: 0 4px 12px rgba(255, 122, 69, 0.32);
+}
+.s36-link.is-locked .s36-link__node {
+  color: var(--c4);
+  border: 1.5px solid var(--border);
+}
+
+/* ---- Legend under the board ---- */
+.s36-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: 2px;
+}
+.s36-legend__text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted-text);
+  max-width: 118ch;
+}
+
+/* ---- Footer: single primary CTA + tertiary Start over link ---- */
+.s36-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.s36-cta {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.s36-restart {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 4px 2px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--grey);
+  border-bottom: 1px solid transparent;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+.s36-restart svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+}
+.s36-restart:hover {
+  color: var(--ink);
+  border-bottom-color: var(--c4);
+}
+.s36-restart:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 3px;
+}

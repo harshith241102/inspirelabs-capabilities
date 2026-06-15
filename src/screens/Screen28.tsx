@@ -1,66 +1,104 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, Shot, MockTag } from '../primitives/ui';
-import { Reveal } from '../primitives/Reveal';
-import { FlowRail, type NodeState } from '../primitives/blocks';
+import { DeckHeader, AdvanceCta, EvidenceTag } from '../primitives/ui';
+import { AnnotatedShot, FlowStrip, type FlowState } from '../primitives/deck';
+import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
+import { Icon } from '../primitives/icons';
 import { copy } from '../content/copy';
 import { ASSETS } from '../lib/assets';
+import './s28.css';
 
-const nodes: { icon: Parameters<typeof FlowRail>[0]['nodes'][number]['icon']; label: string; state: NodeState; detail: string }[] = [
-  { icon: 'doc', label: 'Input', state: 'complete', detail: 'Brand or category brief is provided.' },
-  { icon: 'search', label: 'Scan', state: 'active', detail: 'Keyword and competitor scan runs.' },
-  { icon: 'compass', label: 'Opportunities', state: 'active', detail: 'Content opportunities are surfaced.' },
-  { icon: 'layers', label: 'Briefs', state: 'queued', detail: 'Briefs are prepared for each opportunity.' },
-  { icon: 'doc', label: 'WriteGenius output', state: 'queued', detail: 'Drafts are generated from approved briefs.' },
-  { icon: 'shield', label: 'Human review', state: 'review', detail: 'A person reviews before anything is published.' },
+/* Thin status strip above the dual screenshots: input -> scan -> opportunities
+   -> briefs -> output -> human review. The two ends of the flow (Scan and
+   Output) are the two real product surfaces shown below. */
+const flow: { label: string; state: FlowState; sub: string; detail: string; outputs?: string[] }[] = [
+  { label: 'Input', state: 'complete', sub: 'Brief', detail: 'A brand or category brief is provided as the starting input.' },
+  { label: 'Scan', state: 'active', sub: 'RankDrive', detail: 'RankDrive runs the keyword and competitor visibility scan.', outputs: ['Keyword set', 'Competitor cues', 'Visibility gaps'] },
+  { label: 'Opportunities', state: 'active', sub: 'Surfaced', detail: 'Content opportunities are surfaced from the scan.' },
+  { label: 'Briefs', state: 'queued', sub: 'Prepared', detail: 'Briefs are prepared for each approved opportunity.' },
+  { label: 'Output', state: 'queued', sub: 'WriteGenius', detail: 'WriteGenius drafts content from the approved briefs.', outputs: ['SEO content', 'Comparison content', 'Category content', 'Product explainers'] },
+  { label: 'Human review', state: 'review', sub: 'Before publish', detail: 'A person reviews briefs and drafts before anything is published. No ranking outcome is claimed.' },
 ];
 
 export default function Screen28() {
   const c = copy[28];
   const drawer = useDrawer();
 
+  const openStep = (i: number) =>
+    drawer.open({
+      id: `s28-${i}`,
+      kind: 'ai',
+      eyebrow: `Step ${i + 1} of ${flow.length}`,
+      title: flow[i].label,
+      sections: [
+        { heading: 'What happens', body: flow[i].detail },
+        flow[i].outputs
+          ? { heading: 'Useful outputs', items: flow[i].outputs as string[] }
+          : { heading: 'Useful outputs', items: ['SEO content', 'Comparison content', 'Category content', 'Product explainers'] },
+      ],
+      requiredInput: 'Brand or category input and any keyword focus.',
+      humanReview: 'Briefs and drafts are reviewed before publishing. No ranking outcome is claimed.',
+    });
+
   return (
     <Screen index={28} tone="light" id="ai-search-content" label="Search and content agents flow">
       <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
-      <div className="s-body">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
-          <FlowRail
-            nodes={nodes.map((n) => ({ icon: n.icon, label: n.label, state: n.state }))}
-            onNode={(i) =>
-              drawer.open({
-                id: `s28-${i}`,
-                kind: 'ai',
-                eyebrow: `Step ${i + 1} of ${nodes.length}`,
-                title: nodes[i].label,
-                sections: [
-                  { heading: 'What happens', body: nodes[i].detail },
-                  { heading: 'Useful outputs', items: ['SEO content', 'Comparison content', 'Category content', 'Product explainers'] },
-                ],
-                requiredInput: 'Brand or category input and any keyword focus.',
-                humanReview: 'Briefs and drafts are reviewed before publishing. No ranking outcome is claimed.',
-              })
+
+      <div className="s28-body">
+        {/* Thin orientation strip: the flow runs from a real scan to a real output, gated by review */}
+        <FlowStrip steps={flow.map((s) => ({ label: s.label, state: s.state, sub: s.sub }))} style={{ flexShrink: 0 }} />
+
+        {/* Dominant dual-screenshot proof: RankDrive scan -> WriteGenius output */}
+        <div className="s28-split">
+          <AnnotatedShot
+            src={ASSETS.rankdriveDash}
+            alt="RankDrive search visibility dashboard scanning keywords and competitor coverage"
+            url="rankdrive"
+            logo={{ src: ASSETS.rankdriveLogo, alt: 'RankDrive' }}
+            objectPosition="top center"
+            tag={
+              <button type="button" className="s28-stage" onClick={() => openStep(1)}>
+                <span className="s28-stage__n">2</span>
+                Scan, search visibility
+              </button>
             }
+            style={{ flex: '1 1 0' }}
           />
-          <div className="split" style={{ gap: 18 }}>
-            <Reveal className="grow" style={{ position: 'relative' }}>
-              <MockTag>Scan · RankDrive</MockTag>
-              <Shot src={ASSETS.rankdriveDash} alt="RankDrive search visibility dashboard" url="rankdrive" style={{ height: 'clamp(160px, 24vh, 230px)' }} />
-            </Reveal>
-            <Reveal i={1} className="grow" style={{ position: 'relative' }}>
-              <MockTag>Output · WriteGenius</MockTag>
-              <Shot src={ASSETS.writegeniusDash} alt="WriteGenius content workspace" url="writegenius" style={{ height: 'clamp(160px, 24vh, 230px)' }} />
-            </Reveal>
+
+          <div className="s28-arrow" aria-hidden="true">
+            <Icon name="arrow" size={26} />
           </div>
+
+          <AnnotatedShot
+            src={ASSETS.writegeniusDash}
+            alt="WriteGenius content workspace drafting briefs into review-ready content"
+            url="writegenius"
+            logo={{ src: ASSETS.writegeniusLogo, alt: 'WriteGenius' }}
+            objectPosition="top center"
+            tag={
+              <button type="button" className="s28-stage" onClick={() => openStep(4)}>
+                <span className="s28-stage__n">5</span>
+                Output, content drafts
+              </button>
+            }
+            style={{ flex: '1 1 0' }}
+          />
+        </div>
+
+        {/* Slim honest caption: real surfaces, human-reviewed, no ranking claim */}
+        <div className="s28-support">
+          <Icon name="shield" size={17} className="s28-support__ico" />
+          <p className="s28-support__text">{c.support}</p>
+          <button type="button" className="s28-support__review" onClick={() => openStep(5)}>
+            <EvidenceTag status="pending">Human review before publish</EvidenceTag>
+          </button>
         </div>
       </div>
-      <footer className="s-footer-row">
-        <div className="s-net">
-          <p className="s-net__text">{c.support}</p>
-        </div>
-        <div className="cta-row">
-          <AdvanceCta label={c.cta} to={29} />
-        </div>
-      </footer>
+
+      <div className="s28-foot">
+        <AdvanceCta label={c.cta} to={29} />
+        {c.aiChip && <SupportChip context={c.aiChip} />}
+      </div>
     </Screen>
   );
 }

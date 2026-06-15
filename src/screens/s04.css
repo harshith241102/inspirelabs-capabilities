@@ -1,0 +1,324 @@
+/* ============================================================
+   Screen 04 - Pre-brand decision-journey map (operating-board)
+   A cinematic left-to-right journey: five pre-brand surfaces where
+   the decision forms, a single orange TRACKING BOUNDARY focal, then
+   the brand-arrival endpoint. Authored fixed px for the 1920x1080
+   logical canvas. All classes prefixed .s04-.
+   ============================================================ */
+
+.s04-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px 0 8px;
+}
+
+/* The whole journey map reads as one system object */
+.s04-map {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 30px 36px 30px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--float);
+}
+
+/* ---------- Zone labels (pre-brand band vs brand-owned band) ---------- */
+.s04-zonebar {
+  display: flex;
+  align-items: center;
+  /* The pre-brand zone spans the five stages; the brand zone is the endpoint. */
+}
+.s04-zone {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.s04-zone svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s04-zone--pre {
+  flex: 1 1 0;
+  color: var(--grey);
+}
+.s04-zone--post {
+  width: 300px;
+  flex-shrink: 0;
+  justify-content: flex-start;
+  padding-left: 36px;
+  color: var(--orange-text);
+}
+
+/* ---------- The journey track ---------- */
+.s04-track {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 244px;
+}
+
+/* Continuous baseline running through every node */
+.s04-line {
+  position: absolute;
+  left: 0;
+  right: 300px;
+  top: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--c5) 0,
+    var(--c5) 12px,
+    transparent 12px,
+    transparent 22px
+  );
+}
+
+/* Five pre-brand stages, evenly spread on the left band */
+.s04-stages {
+  flex: 1 1 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  z-index: 1;
+}
+.s04-stagewrap {
+  display: flex;
+  justify-content: center;
+}
+.s04-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 196px;
+  padding: 4px 8px 12px;
+  background: transparent;
+  border: 0;
+  text-align: center;
+  border-radius: 16px;
+  transition: transform 0.16s ease;
+}
+.s04-stage:hover {
+  transform: translateY(-3px);
+}
+.s04-stage:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+}
+.s04-stage__node {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  box-shadow: var(--float-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.s04-stage:hover .s04-stage__node {
+  border-color: var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 14px 30px rgba(255, 122, 69, 0.16);
+}
+.s04-stage__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s04-stage__pin {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--float-sm);
+}
+.s04-stage__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.s04-stage__cap {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--muted-text);
+  line-height: 1.3;
+}
+
+/* ---------- The single orange focal: tracking boundary ---------- */
+.s04-boundary {
+  position: relative;
+  width: 0;
+  flex-shrink: 0;
+}
+.s04-boundary__line {
+  position: absolute;
+  top: -4px;
+  bottom: 30px;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--orange) 0,
+    var(--orange) 9px,
+    transparent 9px,
+    transparent 17px
+  );
+}
+.s04-boundary__flag {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--orange);
+  border-radius: 999px;
+  padding: 7px 15px;
+  box-shadow: 0 8px 20px rgba(255, 122, 69, 0.32);
+}
+.s04-boundary__flag svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Brand-arrival endpoint (right of the boundary) ---------- */
+.s04-endwrap {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 36px;
+  z-index: 1;
+}
+.s04-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 20px 16px;
+  text-align: center;
+  background: var(--net);
+  border: 2px solid var(--orange);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 18px 40px rgba(255, 122, 69, 0.12);
+}
+.s04-end__node {
+  width: 92px;
+  height: 92px;
+  border-radius: 24px;
+  background: var(--orange);
+  border: 1px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(255, 122, 69, 0.3);
+}
+.s04-end__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s04-end__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.s04-end__cap {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--muted-text);
+  line-height: 1.35;
+  max-width: 22ch;
+}
+
+/* ---------- Takeaway pinned inside the map ---------- */
+.s04-take {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 22px;
+  border-top: 1px solid var(--card-bd);
+}
+.s04-take__bar {
+  width: 4px;
+  align-self: stretch;
+  min-height: 26px;
+  border-radius: 2px;
+  background: var(--orange);
+  flex-shrink: 0;
+}
+.s04-take__text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* ---------- Footer: one primary CTA, quiet mono note ---------- */
+.s04-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.s04-foot__note {
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  color: var(--grey);
+}

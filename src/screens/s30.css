@@ -1,0 +1,370 @@
+/* Screen 30 - Monitoring and optimisation flow (dashboard-mock).
+   Dominant visual: ONE live monitoring cockpit. Four read panels over a
+   grounding strip pairing a real channel-reporting capture with the
+   human-reviewed next action. Single orange focal: the next-action panel.
+   Status colour is always paired with a label and an icon. AI state tokens
+   (--ai-active/queued/complete/review) are valid here (AI Growth Studio).
+   Authored in fixed px for the 1920x1080 logical canvas. */
+
+.s30-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  padding: 22px 0 20px;
+}
+.s30-cockwrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+/* ---- the cockpit shell (the hero object) ---- */
+.s30-cockpit {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--float-lg);
+}
+
+/* cockpit bar */
+.s30-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 28px;
+  border-bottom: 1px solid var(--border);
+  background: #fbfbfc;
+  flex-shrink: 0;
+}
+.s30-bar__live {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--ai-complete);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px rgba(47, 163, 122, 0.16);
+}
+.s30-bar__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.s30-bar__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s30-bar__sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted-text);
+}
+.s30-bar__tag {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ---- main grid: four reads + next action ---- */
+.s30-grid {
+  display: grid;
+  grid-template-columns: 1.42fr 1fr;
+  gap: 24px;
+  padding: 24px 28px 22px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* left: the four live read panels */
+.s30-reads {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  justify-content: center;
+}
+.s30-read {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 18px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 13px;
+  text-align: left;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.s30-read:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.s30-read:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s30-read__ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+.s30-read__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s30-read__main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.s30-read__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 16.5px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.s30-read__sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--muted-text);
+}
+
+/* status cell: colour always paired with icon + text label */
+.s30-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid;
+}
+.s30-cell svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s30-cell--steady {
+  color: var(--ai-complete);
+  background: rgba(47, 163, 122, 0.08);
+  border-color: rgba(47, 163, 122, 0.32);
+}
+.s30-cell--flag {
+  color: var(--orange-text);
+  background: rgba(255, 122, 69, 0.08);
+  border-color: rgba(255, 122, 69, 0.4);
+}
+.s30-cell--review {
+  color: var(--ai-review);
+  background: #f3f4f6;
+  border-color: var(--border);
+}
+.s30-read__more {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+/* right: the recommended next action - the single orange focal */
+.s30-action {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 26px;
+  background: #fff;
+  border: 2px solid var(--orange);
+  border-radius: 14px;
+}
+.s30-action__kicker {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  flex-shrink: 0;
+}
+.s30-action__lead {
+  margin-top: 14px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.s30-action__status {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.s30-action__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+.s30-action__pill svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s30-action__why {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--card-bd);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.s30-action__why-head {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s30-action__why-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted-text);
+}
+
+/* ---- grounding strip: real channel reporting + read context ---- */
+.s30-ground {
+  display: grid;
+  grid-template-columns: 1.42fr 1fr;
+  gap: 24px;
+  padding: 0 28px 24px;
+  flex-shrink: 0;
+}
+.s30-source {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.s30-source__shot {
+  height: 118px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--card-bd);
+  background: #fff;
+}
+.s30-source__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+  display: block;
+}
+.s30-source__cap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.s30-source__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s30-readout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.s30-readout__head {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s30-readout__items {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.s30-readout__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s30-readout__item svg {
+  stroke: var(--orange-text);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ---- CTA safe zone ---- */
+.s30-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.s30-foot__cta {
+  flex-shrink: 0;
+}

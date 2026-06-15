@@ -1,0 +1,405 @@
+/* Screen 35 - Case study format (dashboard-mock).
+   Dominant visual: ONE client-ready case proof card carrying brand or category,
+   growth problem, capabilities activated, engagement period, metrics moved, and
+   why it matters for similar brands. Single orange focal: the similar-brand
+   implication panel. Honest evidence tags, no invented case numbers.
+   Authored fixed px for 1920x1080. */
+
+.s35-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  padding: 22px 0 20px;
+}
+.s35-cardwrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+/* ---- the card shell (the hero object) ---- */
+.s35-card {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--float-lg);
+}
+
+/* file bar */
+.s35-card__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border);
+  background: #fbfbfc;
+  flex-shrink: 0;
+}
+.s35-card__filemark {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange-text);
+  flex-shrink: 0;
+}
+.s35-card__filemark svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s35-card__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.s35-card__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s35-card__sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted-text);
+}
+.s35-evbtn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--grey);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease;
+  flex-shrink: 0;
+}
+.s35-evbtn:hover {
+  border-color: var(--orange);
+  color: var(--ink);
+}
+.s35-evbtn:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s35-evbtn svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.s35-card__tag {
+  flex-shrink: 0;
+}
+
+/* card body */
+.s35-card__body {
+  flex: 1;
+  min-height: 0;
+  padding: 26px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* shared field kicker */
+.s35-field-k {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ---- identity row: brand/category + growth problem ---- */
+.s35-top {
+  display: grid;
+  grid-template-columns: 0.78fr 1fr;
+  gap: 22px;
+  flex-shrink: 0;
+}
+.s35-id {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-start;
+  padding: 20px 22px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.s35-id__name {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.s35-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 20px 22px;
+  background: #fafbfc;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+}
+.s35-problem__text {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ---- metadata strip: capabilities + period ---- */
+.s35-meta {
+  display: grid;
+  grid-template-columns: 1fr 0.62fr;
+  gap: 22px;
+  flex-shrink: 0;
+}
+.s35-meta__block {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 16px 20px;
+  background: #fafbfc;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+}
+.s35-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.s35-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 999px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.s35-meta__period {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: flex-start;
+  padding: 16px 20px;
+  background: #fafbfc;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+}
+.s35-meta__val {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+.s35-meta__val svg {
+  stroke: var(--orange-text);
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- lower grid: metrics moved + similar-brand implication ---- */
+.s35-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.28fr 1fr;
+  gap: 22px;
+}
+
+/* metrics moved */
+.s35-metrics {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px 22px;
+  background: #fafbfc;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+}
+.s35-metrics__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 13px;
+  flex-shrink: 0;
+}
+.s35-metrics__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s35-metrics__hint {
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.02em;
+}
+.s35-metric-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+.s35-metric {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.s35-metric:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.s35-metric:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s35-metric__ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #f5f6f8;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.s35-metric__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s35-metric__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.s35-metric__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s35-metric__group {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted-text);
+}
+.s35-metric__more {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+/* why it matters - the single orange focal */
+.s35-why {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 24px 26px;
+  background: #fff;
+  border: 2px solid var(--orange);
+  border-radius: 14px;
+}
+.s35-why__kicker {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  flex-shrink: 0;
+}
+.s35-why__lead {
+  margin-top: 14px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.36;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.s35-why__foot {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--card-bd);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.s35-why__note {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted-text);
+}
+
+/* ---- CTA safe zone ---- */
+.s35-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.s35-foot__note {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted-text);
+  max-width: 560px;
+}

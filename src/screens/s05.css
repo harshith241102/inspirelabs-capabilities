@@ -1,0 +1,291 @@
+/* Screen 05 - Operating advantage (operating-base board of assets in motion) */
+
+.s05-board {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  padding: 26px 0 22px;
+}
+
+/* Left spine: labels the whole board as ONE operating base, not 5 cards */
+.s05-rail {
+  flex-shrink: 0;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding-top: 6px;
+}
+.s05-rail__cap {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  white-space: nowrap;
+}
+.s05-rail__line {
+  flex: 1;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--orange), var(--border) 70%);
+}
+
+/* The board grid: 5 equal operating-asset columns reading as one row */
+.s05-grid {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+.s05-cell {
+  display: flex;
+  min-width: 0;
+}
+
+.s05-tile {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.s05-tile:hover {
+  transform: translateY(-4px);
+  border-color: var(--c5);
+  box-shadow: 0 18px 40px rgba(14, 15, 10, 0.12);
+}
+.s05-tile.is-accent:hover {
+  border-color: var(--orange);
+}
+.s05-tile:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* One orange focal: only the lead asset (GrabOn / owned surfaces) is accented */
+.s05-tile.is-accent {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 1px var(--orange), var(--float-sm);
+}
+
+/* Real product thumbnail - the proof object at the top of each column */
+.s05-tile__shot {
+  position: relative;
+  display: block;
+  height: 232px;
+  background: #f4f5f7;
+  border-bottom: 1px solid var(--card-bd);
+  overflow: hidden;
+}
+.s05-tile__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.s05-tile__shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 -28px 36px -24px rgba(14, 15, 10, 0.22);
+  pointer-events: none;
+}
+
+/* Built mini-visual for advantages with no real capture (honest, labelled) */
+.s05-built {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 22px;
+}
+.s05-built--signals {
+  background: linear-gradient(180deg, #f7faff, #eef3fb);
+}
+.s05-built__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  padding-top: 26px;
+}
+.s05-built__bars span {
+  flex: 1;
+  border-radius: 5px 5px 0 0;
+  background: var(--as);
+}
+.s05-built__bars span:nth-child(4) {
+  background: var(--as-deep);
+}
+.s05-built--measure {
+  background: linear-gradient(180deg, #fbfbfc, #f1f2f5);
+  align-items: center;
+}
+.s05-built__rings {
+  color: var(--ink);
+  opacity: 0.5;
+}
+.s05-built__rings svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s05-built__tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+/* Product logo chip, bottom-left of the thumbnail */
+.s05-tile__logo {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 11px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--card-bd);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(14, 15, 10, 0.1);
+}
+.s05-tile__logo img {
+  height: 15px;
+  width: auto;
+  display: block;
+}
+
+/* Position index, top-left */
+.s05-tile__num {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(14, 15, 10, 0.62);
+  border-radius: 7px;
+  backdrop-filter: blur(3px);
+}
+.s05-tile.is-accent .s05-tile__num {
+  background: var(--orange);
+}
+
+/* Body of each operating-asset column */
+.s05-tile__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 16px 14px;
+}
+.s05-tile__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.s05-tile__ico {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  color: var(--grey);
+  background: #f3f4f6;
+  border: 1px solid var(--card-bd);
+}
+.s05-tile__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s05-tile.is-accent .s05-tile__ico {
+  color: #fff;
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.s05-tile__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s05-tile__enables {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.42;
+  color: var(--body);
+}
+
+/* Evidence strip pinned to the foot of every column */
+.s05-tile__strip {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+.s05-tile__proof {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+}
+.s05-tile__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.s05-tile__tags .ev {
+  font-size: 10.5px;
+}
+
+/* Footer: one-line takeaway + the single primary CTA in its safe zone */
+.s05-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.s05-net {
+  max-width: 1180px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--body);
+  border-left: 3px solid var(--orange);
+  padding-left: 16px;
+}

@@ -1,0 +1,344 @@
+/* ==================================================================
+   Screen 24 - AudienceSeed activation pipeline (operating-board).
+   ONE dominant object: a five-stage horizontal pipeline that reads as a
+   single system. GrabOn events -> approved signals -> audience build
+   -> brand ad workflow -> signal report.
+   Single orange focal = the "Audience build" stage (AudienceSeed core).
+   Blue --as is the AudienceSeed signal accent (allowed on screens 20-25).
+   Authored in fixed px for the 1920x1080 canvas.
+   ================================================================== */
+
+.s24-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 26px 0 18px;
+}
+
+/* ---------- The pipeline shell ---------- */
+.s24-pipe {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px 26px 26px;
+  position: relative;
+}
+
+/* Legend / channel bar */
+.s24-pipe__bar {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-shrink: 0;
+}
+.s24-pipe__chan {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: var(--sub);
+}
+.s24-pipe__chan svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s24-pipe__chan--signal {
+  color: var(--as-deep);
+}
+.s24-pipe__chan--own {
+  color: var(--ink);
+}
+.s24-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--as);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+}
+.s24-pipe__mock {
+  margin-left: auto;
+}
+
+/* ---------- Stage track ---------- */
+.s24-track {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: stretch;
+  gap: 0;
+}
+.s24-node-wrap {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+.s24-node-wrap > * {
+  width: 100%;
+}
+
+/* ---------- Stage node ---------- */
+.s24-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: 18px 18px 16px;
+  margin-right: 38px; /* room for the connector */
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  text-align: left;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s24-node:hover {
+  transform: translateY(-3px);
+  border-color: var(--grey);
+}
+.s24-node:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.s24-node__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.s24-node__ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+.s24-node__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s24-node__n {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+}
+.s24-node__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  color: var(--ink);
+}
+.s24-node__line {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--body);
+}
+.s24-node__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+.s24-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted-text);
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+  border-radius: 6px;
+  padding: 4px 8px;
+  line-height: 1;
+}
+.s24-node__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s24-node__more svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ---------- Signal-flow stages (blue --as accent) ---------- */
+.s24-node--source .s24-node__ico,
+.s24-node--signal .s24-node__ico {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.28);
+  color: var(--as-deep);
+}
+.s24-node--source .s24-chip,
+.s24-node--signal .s24-chip {
+  color: var(--as-deep);
+  background: rgba(59, 130, 246, 0.07);
+  border-color: rgba(59, 130, 246, 0.22);
+}
+
+/* ---------- Single orange focal: Audience build ---------- */
+.s24-node--focal {
+  border: 2px solid var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 18px 40px rgba(255, 122, 69, 0.18);
+}
+.s24-node--focal .s24-node__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.s24-node--focal .s24-node__n {
+  color: var(--orange-text);
+}
+.s24-node--focal .s24-chip {
+  color: var(--orange-text);
+  background: rgba(255, 122, 69, 0.07);
+  border-color: rgba(255, 122, 69, 0.3);
+}
+.s24-node__badge {
+  position: absolute;
+  top: -11px;
+  left: 18px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--orange);
+  border-radius: 6px;
+  padding: 4px 9px;
+  line-height: 1;
+}
+
+/* ---------- Brand-owned ad workflow stage ---------- */
+.s24-node--brand {
+  background: #fbfbfc;
+  border-style: dashed;
+  border-color: #c9ccd3;
+}
+.s24-node--brand .s24-node__ico {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* ---------- Report stage + quiet AI line ---------- */
+.s24-node__ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--orange-text);
+}
+.s24-node__ai svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+/* ---------- Connectors between stages ---------- */
+.s24-link {
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  transform: translate(50%, -50%);
+  width: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--grey);
+  z-index: 2;
+  pointer-events: none;
+}
+.s24-link svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Signal-flow connectors are blue; the connector into/out of the brand
+   workflow returns to neutral ink-grey. */
+.s24-link--source,
+.s24-link--signal {
+  color: var(--as);
+}
+.s24-link--focal {
+  color: var(--orange);
+}
+.s24-link--brand {
+  color: var(--grey);
+}
+
+/* ---------- Pinned compliance guardrail ---------- */
+.s24-guard {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 12px;
+  box-shadow: var(--float-sm);
+}
+.s24-guard__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s24-guard__head svg {
+  color: var(--orange);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+.s24-guard__text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--body);
+}
+.s24-guard :last-child {
+  margin-left: auto;
+  flex-shrink: 0;
+}

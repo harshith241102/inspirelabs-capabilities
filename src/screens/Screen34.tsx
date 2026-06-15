@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, Shot, EvidenceTag, MockTag } from '../primitives/ui';
+import { DeckHeader, AdvanceCta, EvidenceTag, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon } from '../primitives/icons';
 import { useApp } from '../state/store';
@@ -8,119 +8,219 @@ import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import { categoryOptions, type Category } from '../content/setup';
 import { ASSETS } from '../lib/assets';
+import './s34.css';
 
-const categoryAsset: Partial<Record<Category, string>> = {
-  fashion_beauty: ASSETS.grabonCatFashion,
-  electronics_devices: ASSETS.catElectronics,
-  travel_mobility: ASSETS.catTravel,
-  entertainment_ott: ASSETS.catEntertainment,
-  commerce_marketplace: ASSETS.grabonCategory,
+/* Every category resolves to a real surface visual. Categories without their own
+   capture map to the closest available GrabOn surface and carry an explicit gap
+   note, so the proof board never shows a blank asset-pending panel. */
+interface CategoryProof {
+  src: string;
+  url: string;
+  /** When set, the shown visual is the closest available proof, not an exact one. */
+  gap?: string;
+  metrics: string[];
+}
+
+const proofByCategory: Record<Category, CategoryProof> = {
+  fashion_beauty: {
+    src: ASSETS.grabonCatFashion,
+    url: 'grabon.com/fashion',
+    metrics: ['Visits', 'Coupon reveals', 'Outbound clicks', 'Orders', 'Sales'],
+  },
+  commerce_marketplace: {
+    src: ASSETS.grabonCategory,
+    url: 'grabon.com/stores',
+    metrics: ['Visits', 'Clicks', 'Coupon reveals', 'Orders', 'Sales', 'ROAS'],
+  },
+  electronics_devices: {
+    src: ASSETS.catElectronics,
+    url: 'grabon.com/electronics',
+    metrics: ['Visits', 'Clicks', 'Coupon reveals', 'Orders', 'Sales'],
+  },
+  travel_mobility: {
+    src: ASSETS.catTravel,
+    url: 'grabon.com/travel',
+    metrics: ['Visits', 'Clicks', 'Leads', 'Bookings', 'Sales'],
+  },
+  entertainment_ott: {
+    src: ASSETS.catEntertainment,
+    url: 'grabon.com/entertainment',
+    metrics: ['Visits', 'Clicks', 'Coupon reveals', 'Signups', 'Sales'],
+  },
+  bfsi_fintech: {
+    src: ASSETS.grabonCategory,
+    url: 'grabon.com/stores',
+    gap: 'Closest available surface shown. A BFSI and Fintech proof capture is pending validation.',
+    metrics: ['Visits', 'Clicks', 'Leads', 'Signups', 'CPA'],
+  },
+  gaming_rummy: {
+    src: ASSETS.catEntertainment,
+    url: 'grabon.com/entertainment',
+    gap: 'Closest available surface shown. A Gaming and Rummy proof capture is pending validation.',
+    metrics: ['Visits', 'Clicks', 'Signups', 'Registrations', 'CPA'],
+  },
+  kids_family: {
+    src: ASSETS.grabonCatFashion,
+    url: 'grabon.com/fashion',
+    gap: 'Closest available surface shown. A Kids and Family proof capture is pending validation.',
+    metrics: ['Visits', 'Coupon reveals', 'Outbound clicks', 'Orders', 'Sales'],
+  },
+  other: {
+    src: ASSETS.grabonCategory,
+    url: 'grabon.com/stores',
+    gap: 'Closest available surface shown. A category-specific proof capture is pending validation.',
+    metrics: ['Visits', 'Clicks', 'Coupon reveals', 'Orders', 'Sales'],
+  },
 };
 
-const metricGroups = ['Traffic', 'Clicks', 'Coupon reveals', 'Leads', 'Orders', 'Sales', 'ROAS', 'Creator-wise', 'Partner-wise'];
+const allMetricGroups = ['Traffic', 'Clicks', 'Coupon reveals', 'Leads', 'Orders', 'Sales', 'ROAS', 'Creator-wise', 'Partner-wise'];
+
+/* Default to the setup category only when it has its own visual; otherwise open
+   on the nearest category that does, so the hero is always a real surface. */
+function resolveInitial(category: Category): Category {
+  return proofByCategory[category].gap ? 'commerce_marketplace' : category;
+}
 
 export default function Screen34() {
   const c = copy[34];
   const drawer = useDrawer();
   const { setup, setupComplete } = useApp();
-  const [selected, setSelected] = useState<Category>(setup.category);
+  const [selected, setSelected] = useState<Category>(
+    setupComplete ? resolveInitial(setup.category) : 'commerce_marketplace',
+  );
+
   const selectedLabel = categoryOptions.find((o) => o.value === selected)?.label ?? 'Other';
-  const asset = categoryAsset[selected];
+  const proof = proofByCategory[selected];
+  const isSetupCategory = setupComplete && setup.category === selected;
+
+  const openProof = () =>
+    drawer.open({
+      id: `category-${selected}`,
+      kind: 'proof',
+      eyebrow: 'Category proof',
+      title: selectedLabel,
+      sections: [
+        { heading: 'Relevant surfaces', body: 'Commerce-intent surfaces, owned distribution, activation surfaces, and AudienceSeed where they fit the category.' },
+        { heading: 'Acceptable metric groups', items: allMetricGroups },
+        { heading: 'Available proof', body: proof.gap ? proof.gap : 'A category surface visual is available. Final case proof is pending validation.' },
+        { heading: 'Missing proof', body: 'Case-study numbers, logos, and claims must be approved before client-facing use.' },
+      ],
+      evidence: [
+        { label: 'Category visual', status: proof.gap ? 'pending' : 'approved' },
+        { label: 'Case proof', status: 'pending' },
+      ],
+    });
 
   return (
     <Screen index={34} tone="light" id="prove-category" label="Prove by category">
       <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
-      <div className="s-body">
-        <div className="split">
-          <div className="split__text" style={{ flexBasis: 420 }}>
-            <span className="mini-cap" style={{ margin: 0 }}>
-              {setupComplete ? 'Your category is highlighted from setup' : 'Select a category'}
-            </span>
-            <div className="metric-strip" style={{ marginTop: 10 }}>
-              {categoryOptions.map((o) => (
-                <button
-                  key={o.value}
-                  type="button"
-                  className={`ecotag${o.value === selected ? ' is-active' : ''}`}
-                  style={
-                    o.value === selected
-                      ? { borderColor: 'var(--orange)', color: 'var(--orange-text)' }
-                      : undefined
-                  }
-                  onClick={() => setSelected(o.value)}
-                >
-                  {o.value === selected && <Icon name="check" size={13} />}
-                  {o.label}
-                </button>
-              ))}
+
+      <div className="s34-body">
+        {/* Dominant visual: the selected-category surface in a browser frame */}
+        <Reveal from="left" className="s34-stage">
+          <div className="s34-shot">
+            <div className="s34-shot__bar">
+              <i />
+              <i />
+              <i />
+              <span className="s34-shot__url">{proof.url}</span>
+              <span className="s34-shot__logo">
+                <img src={ASSETS.grabonLogo} alt="GrabOn" />
+              </span>
             </div>
-            <button
-              type="button"
-              className="btn btn--ghost"
-              style={{ alignSelf: 'flex-start', marginTop: 4 }}
-              onClick={() =>
-                drawer.open({
-                  id: `category-${selected}`,
-                  kind: 'proof',
-                  eyebrow: 'Category proof',
-                  title: selectedLabel,
-                  sections: [
-                    { heading: 'Relevant surfaces', body: 'Commerce-intent surfaces, owned distribution, activation surfaces, and AudienceSeed where they fit the category.' },
-                    { heading: 'Acceptable metric groups', items: metricGroups },
-                    { heading: 'Available proof', body: 'Category visuals where captured. Final case proof is pending validation.' },
-                    { heading: 'Missing proof', body: 'Case-study numbers, logos, and claims must be approved before client-facing use.' },
-                  ],
-                  evidence: [
-                    { label: 'Category visual', status: asset ? 'approved' : 'unavailable' },
-                    { label: 'Case proof', status: 'pending' },
-                  ],
-                })
-              }
-            >
-              <Icon name="eye" size={16} />
-              Relevant surfaces and metrics
-            </button>
+            <div className="s34-shot__view">
+              <img
+                key={selected}
+                src={proof.src}
+                alt={`${selectedLabel} category surface on GrabOn`}
+                loading="lazy"
+              />
+              <div className="s34-shot__tag">
+                <MockTag>Category surface · case proof pending</MockTag>
+              </div>
+              <div className="s34-shot__plate">
+                <span className="s34-shot__plate-cat">{selectedLabel}</span>
+                <span className="s34-shot__plate-sys">Same system. Category-specific proof.</span>
+              </div>
+            </div>
+          </div>
+          {proof.gap && (
+            <div className="s34-gap">
+              <Icon name="signal" size={16} />
+              <span>{proof.gap}</span>
+            </div>
+          )}
+        </Reveal>
+
+        {/* Proof-control rail: pick category, read available/missing proof + metrics */}
+        <aside className="s34-rail">
+          <div className="s34-rail__top">
+            <span className="s34-rail__cap">
+              {setupComplete ? 'Your category from setup is selected' : 'Select a category'}
+            </span>
+            <div className="s34-cats" role="list">
+              {categoryOptions.map((o) => {
+                const active = o.value === selected;
+                const isYours = setupComplete && setup.category === o.value;
+                return (
+                  <button
+                    key={o.value}
+                    type="button"
+                    role="listitem"
+                    className={`s34-cat${active ? ' is-active' : ''}`}
+                    aria-pressed={active}
+                    onClick={() => setSelected(o.value)}
+                  >
+                    {active && <Icon name="check" size={13} className="s34-cat__check" />}
+                    <span>{o.label}</span>
+                    {isYours && !active && <span className="s34-cat__you">You</span>}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          <div className="split__fig">
-            <Reveal from="left" style={{ width: '100%' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <h3 style={{ fontFamily: 'var(--font-headline)', fontWeight: 700, fontSize: 18, color: 'var(--ink)' }}>{selectedLabel}</h3>
-                  <EvidenceTag status="pending">Case proof pending</EvidenceTag>
-                </div>
-                {asset ? (
-                  <div style={{ position: 'relative' }}>
-                    <MockTag>Category surface · case proof pending</MockTag>
-                    <Shot src={asset} alt={`${selectedLabel} category surface on GrabOn`} url="grabon.com" style={{ height: 'clamp(220px, 34vh, 320px)' }} />
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      height: 'clamp(220px, 34vh, 320px)',
-                      border: '1.5px dashed var(--c5)',
-                      borderRadius: 14,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 10,
-                      background: 'var(--net)',
-                      color: 'var(--grey)',
-                    }}
-                  >
-                    <Icon name="grid" size={26} />
-                    <span className="mono" style={{ fontSize: 11 }}>Category visual asset pending for {selectedLabel}</span>
-                  </div>
-                )}
-              </div>
-            </Reveal>
+          <div className="s34-status">
+            <div className="s34-status__row">
+              <span className="s34-status__label">
+                <Icon name="check" size={15} />
+                Category visual
+              </span>
+              <EvidenceTag status={proof.gap ? 'pending' : 'approved'} />
+            </div>
+            <div className="s34-status__row">
+              <span className="s34-status__label">
+                <Icon name="shield" size={15} />
+                Case proof
+              </span>
+              <EvidenceTag status="pending" />
+            </div>
           </div>
-        </div>
+
+          <div className="s34-metrics">
+            <span className="s34-metrics__head">
+              Acceptable metric groups
+              {isSetupCategory && <span className="s34-metrics__tail">for {selectedLabel}</span>}
+            </span>
+            <div className="s34-metrics__chips">
+              {proof.metrics.map((m) => (
+                <span key={m} className="s34-metric">{m}</span>
+              ))}
+            </div>
+          </div>
+
+          <button type="button" className="s34-more" onClick={openProof}>
+            <Icon name="eye" size={16} />
+            <span>Relevant surfaces and metrics</span>
+            <Icon name="arrow" size={15} className="s34-more__arrow" />
+          </button>
+        </aside>
       </div>
-      <footer className="s-footer-row">
-        <div className="cta-row">
+
+      <footer className="s34-foot">
+        <div className="s34-foot__cta">
           <AdvanceCta label={c.cta} to={35} />
+          <span className="s34-foot__note">{c.support}</span>
         </div>
       </footer>
     </Screen>

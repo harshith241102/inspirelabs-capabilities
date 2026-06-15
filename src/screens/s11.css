@@ -1,0 +1,319 @@
+/* ============================================================
+   Screen 11 - Distribute demand (operating-board / map)
+   One system object: brand demand enters at top, splits across an
+   owned-distribution band and an activation-surfaces band, and converges
+   on a single orange measurable-action output rail. Real GrabOn captures
+   anchor the owned band; a partner capture cues the activation band.
+   Authored fixed px for the 1920x1080 logical canvas. Classes .s11-.
+   ============================================================ */
+
+.s11-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 14px 0 6px;
+}
+
+/* The whole map reads as one connected object */
+.s11-map {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 36px 30px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--float);
+}
+
+/* ---------- Source: brand demand entering the system ---------- */
+.s11-source {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.s11-source__node {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s11-source__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s11-source__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s11-source__cap {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--muted-text);
+  margin-left: 6px;
+  padding-left: 18px;
+  border-left: 1px solid var(--card-bd);
+}
+
+/* ---------- Two distribution bands, clearly separated ---------- */
+.s11-bands {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  position: relative;
+}
+/* A subtle vertical seam reinforces "owned vs activation stay separate" */
+.s11-bands::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--c5) 0,
+    var(--c5) 7px,
+    transparent 7px,
+    transparent 15px
+  );
+}
+
+.s11-band {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+}
+.s11-band__head {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.s11-band__kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s11-band__kicker--accent {
+  color: var(--orange-text);
+}
+.s11-band__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ---------- Owned distribution: two real product surfaces ---------- */
+.s11-owned {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.s11-surf {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.s11-surf__shot {
+  height: 168px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  box-shadow: var(--float-sm);
+}
+.s11-surf__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.s11-surf__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.s11-surf__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s11-surf__sub {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--muted-text);
+}
+
+/* ---------- Activation surfaces: one cue + four families ---------- */
+.s11-activate {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+.s11-activate__cue {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  box-shadow: var(--float-sm);
+}
+.s11-activate__cue img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.s11-activate__families {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+}
+.s11-fam {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  box-shadow: var(--float-sm);
+}
+.s11-fam__ico {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  color: var(--grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s11-fam__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s11-fam__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ---------- Single orange focal: measurable-action output rail ---------- */
+.s11-output {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--net);
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 18px 40px rgba(255, 122, 69, 0.12);
+}
+.s11-output__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.s11-output__node {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(255, 122, 69, 0.3);
+}
+.s11-output__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s11-output__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.s11-output__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s11-output__sub {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--body);
+}
+.s11-output__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.s11-action {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--orange);
+  border-radius: 999px;
+  padding: 9px 18px;
+}
+
+/* ---------- Footer: one primary CTA, quiet mono note ---------- */
+.s11-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.s11-foot__note {
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  color: var(--grey);
+}

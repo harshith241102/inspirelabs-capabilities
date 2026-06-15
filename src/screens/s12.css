@@ -1,0 +1,252 @@
+/* Screen 12 - Owned distribution overview (proof-split)
+   Two enlarged owned-distribution product scenes (GrabCash desktop +
+   GrabShare phone) joined by ONE shared measurable-action path.
+   The path rail is the single orange focal. Authored for 1920x1080. */
+
+.s12-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 22px 0 18px;
+}
+
+/* ---- Two engine scenes, joined ---- */
+.s12-engines {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 408px;
+  gap: 56px;
+  align-items: stretch;
+}
+
+.s12-engine {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.s12-engine__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 2px;
+}
+.s12-engine__logo {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+.s12-engine--phone .s12-engine__head {
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+.s12-engine__tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+}
+
+/* The framed product scene is itself the drawer trigger (quiet hotspot, not a card grid). */
+.s12-frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s12-frame:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+  box-shadow: 0 22px 48px rgba(14, 15, 10, 0.16);
+}
+.s12-frame:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.s12-frame__bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 16px;
+  background: #f4f5f7;
+  border-bottom: 1px solid var(--card-bd);
+}
+.s12-frame__bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #d4d7dd;
+}
+.s12-frame__url {
+  margin-left: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--grey);
+  letter-spacing: 0.02em;
+}
+
+.s12-frame__view {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: block;
+}
+.s12-frame__view img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* GrabShare is a tall portrait capture: show it phone-shaped, contained. */
+.s12-frame--phone .s12-frame__view {
+  background: #0e0f0a;
+}
+.s12-frame--phone .s12-frame__view img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.s12-frame__more {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--card-bd);
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  box-shadow: var(--float-sm);
+  backdrop-filter: blur(4px);
+}
+.s12-frame__more svg {
+  stroke: var(--orange-text);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Visual seam suggesting both engines flow into the same path below. */
+.s12-merge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+/* ---- The single shared measurable-action path: ONE orange focal ---- */
+.s12-pathwrap {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s12-path__cap {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding-left: 2px;
+}
+.s12-path {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 16px 22px;
+  border: 2px solid var(--orange);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--float-sm);
+}
+.s12-path__node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+.s12-path__ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1.5px solid var(--card-bd);
+  color: var(--ink);
+}
+.s12-path__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s12-path__ico.is-end {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.s12-path__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.s12-path__link {
+  flex: 1 1 auto;
+  height: 2px;
+  min-width: 34px;
+  margin: 0 20px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--orange) 0,
+    var(--orange) 7px,
+    transparent 7px,
+    transparent 14px
+  );
+}
+.s12-path .ev {
+  margin-left: auto;
+  flex-shrink: 0;
+}

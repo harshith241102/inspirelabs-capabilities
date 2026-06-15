@@ -1,0 +1,239 @@
+/* Screen 02 - Tailored repositioning hero (proof-split).
+   Authored for the 1920x1080 logical canvas. Fixed px only.
+   GrabOn home is promoted to the dominant proof object; the broader
+   Inspirelabs system sits beside it as a labelled expansion, and the
+   setup answer drives the single orange focal. */
+
+.s02-head {
+  display: flex;
+  flex-direction: column;
+}
+.s02-title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-top: 18px;
+  max-width: 30ch;
+}
+.s02-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--sub);
+  margin-top: 12px;
+  max-width: 78ch;
+}
+
+/* ---------- Proof-split body ---------- */
+.s02-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 44px;
+  padding: 26px 0 22px;
+}
+
+/* Dominant visual: GrabOn surface as a large proof object */
+.s02-hero {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.s02-hero .dk-annot {
+  flex: 1;
+  min-height: 0;
+}
+.s02-hero__cap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--grey);
+}
+.s02-hero__cap svg {
+  color: var(--orange);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Expansion column ---------- */
+.s02-expand {
+  width: 480px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+.s02-expand__lead {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex-shrink: 0;
+}
+.s02-expand__kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s02-tailor {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: flex-start;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 10px;
+  padding: 11px 16px;
+}
+.s02-tailor svg {
+  color: var(--orange);
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.s02-mods {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+}
+.s02-mod {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+  padding: 15px 18px;
+  box-shadow: var(--float-sm);
+}
+.s02-mod--on {
+  border: 2px solid var(--orange);
+  padding: 14px 17px;
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 16px 36px rgba(255, 122, 69, 0.16);
+}
+.s02-mod__ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.s02-mod__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s02-mod--on .s02-mod__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.s02-mod__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.s02-mod__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.s02-mod__sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--muted-text);
+  line-height: 1.3;
+}
+.s02-mod__flag {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  background: rgba(255, 122, 69, 0.1);
+  border: 1px solid var(--orange);
+  border-radius: 7px;
+  padding: 5px 9px;
+}
+
+/* ---------- CTA safe zone ---------- */
+.s02-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 26px;
+}
+.s02-fixed {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 540px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: var(--grey);
+}
+.s02-fixed svg {
+  color: var(--orange);
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Mobile companion: the canvas is width-scaled, so the deck layout is preserved.
+   Stacking only matters below the deck breakpoint. */
+@media (max-width: 860px) {
+  .s02-body {
+    flex-direction: column;
+  }
+  .s02-expand {
+    width: 100%;
+  }
+}

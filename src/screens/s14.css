@@ -1,0 +1,221 @@
+/* Screen 14 - GrabShare creator commerce (proof-split: phone storyboard hero).
+   Dominant visual is the GrabShare phone gallery; the right rail supports it.
+   One orange focal: the Creator-wise tracking row. Authored for 1920x1080. */
+
+.s14-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 48px;
+  padding: 24px 0 20px;
+}
+
+/* ---------- Dominant visual: phone gallery ---------- */
+.s14-gallery {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px 28px 30px;
+}
+.s14-gallery__logo {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 10px;
+  padding: 7px 12px;
+  box-shadow: var(--float-sm);
+}
+.s14-gallery__tag {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  z-index: 5;
+}
+.s14-phones {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+}
+.s14-phone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.s14-phone .phone {
+  border-radius: 26px;
+  border-width: 7px;
+}
+.s14-phone .phone img {
+  height: 470px;
+}
+.s14-phone__cap {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--grey);
+  text-align: center;
+}
+
+/* ---------- Support rail ---------- */
+.s14-side {
+  width: 482px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+.s14-lead {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--body);
+}
+.s14-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s14-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.s14-row:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.s14-row:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s14-row--accent {
+  border-color: var(--orange);
+  border-width: 2px;
+  padding: 13px 15px;
+}
+.s14-row__n {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s14-row--accent .s14-row__n {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.s14-row__ico {
+  color: var(--grey);
+  display: inline-flex;
+}
+.s14-row--accent .s14-row__ico {
+  color: var(--orange-text);
+}
+.s14-row__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s14-row__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s14-row__more {
+  margin-left: auto;
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ---------- Measurement strip (neutral, not the orange focal) ---------- */
+.s14-measure {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 16px 18px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.s14-measure__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+.s14-measure__head svg {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s14-measure__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.s14-metric {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted-text);
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 7px;
+  padding: 5px 10px;
+}
+
+/* ---------- Footer: one primary CTA, AI chip quiet + separated ---------- */
+.s14-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.s14-foot__chip {
+  display: flex;
+}

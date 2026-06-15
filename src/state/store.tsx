@@ -172,7 +172,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const scroller = scrollerRef.current;
     if (!scroller) return;
     const target = scroller.querySelector<HTMLElement>(`[data-screen-index="${index}"]`);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!target) return;
+    // Instant + deterministic. CSS smooth-scroll fights mandatory snap and made
+    // keyboard Home/End/Arrow jumps take ~3s; export QA needs exact positioning.
+    target.scrollIntoView({ behavior: 'auto', block: 'start' });
   }, []);
 
   const next = useCallback(() => goTo(Math.min(currentIndex + 1, total - 1)), [currentIndex, total, goTo]);

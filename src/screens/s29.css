@@ -1,0 +1,365 @@
+/* ============================================================
+   Screen 29 - Creative, channel and creator agents flow
+   Archetype: operating-board (campaign production board).
+   One dominant board: a 5-stage production line gated by one
+   human approval. Real Telegram artefacts ground the channel +
+   creator stages. Human approval is the single orange focal.
+   Authored in fixed px for the 1920x1080 logical canvas.
+   ============================================================ */
+
+.s29-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  padding: 24px 0 18px;
+}
+
+/* ---------- the dominant board ---------- */
+.s29-board {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 26px 30px 28px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--float-sm);
+}
+.s29-board__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.s29-board__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s29-board__spark {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+
+/* ---------- the production line (5 stages, one row) ---------- */
+.s29-line {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.s29-stagewrap {
+  display: flex;
+  align-items: stretch;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.s29-stage {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 16px 16px 18px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+  box-shadow: var(--float-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s29-stage:hover {
+  transform: translateY(-3px);
+  border-color: #d6d8de;
+  box-shadow: var(--float);
+}
+.s29-stage:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.s29-stage__top {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.s29-stage__n {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s29-stage__ico {
+  color: var(--grey);
+  display: inline-flex;
+}
+.s29-stage__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* status pill: colour + text + dot (never colour alone) */
+.s29-state {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+.s29-state__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.s29-state--done {
+  color: #2a7a5c;
+  background: #eaf6f0;
+  border-color: #c9e6d8;
+}
+.s29-state--done .s29-state__dot {
+  background: var(--ai-complete, #2fa37a);
+}
+.s29-state--running {
+  color: var(--orange-text);
+  background: #fff3ee;
+  border-color: #ffd6c4;
+}
+.s29-state--running .s29-state__dot {
+  background: var(--orange);
+}
+.s29-state--queued {
+  color: var(--grey);
+  background: #f1f2f4;
+  border-color: var(--card-bd);
+}
+.s29-state--queued .s29-state__dot {
+  background: var(--grey);
+}
+
+.s29-stage__kind {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s29-stage__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s29-stage__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+.s29-artefact {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--body);
+  padding: 4px 9px;
+  background: #f7f8fa;
+  border: 1px solid var(--card-bd);
+  border-radius: 999px;
+}
+
+/* connector between stages */
+.s29-conn {
+  flex-shrink: 0;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  color: #c2c5cc;
+}
+.s29-conn svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- artefact row: real assets + human approval gate ---------- */
+.s29-artrow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+.s29-art {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.s29-art__frame {
+  flex: 1;
+  min-height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  box-shadow: var(--float-sm);
+}
+.s29-art__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.s29-art__frame--wide img {
+  object-position: center top;
+}
+.s29-art__frame--tall img {
+  object-position: center top;
+}
+.s29-art__cap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* the single orange focal: human approval gate */
+.s29-gate {
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 26px;
+  background: #fff;
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  box-shadow: var(--float);
+  position: relative;
+}
+.s29-gate__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s29-gate__head svg {
+  color: var(--orange-text);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s29-gate__big {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 58px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--orange);
+}
+.s29-gate__sub {
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.46;
+  color: var(--body);
+}
+.s29-gate__pill {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  padding: 7px 12px;
+  background: #fff3ee;
+  border: 1px solid #ffd6c4;
+  border-radius: 999px;
+}
+.s29-gate__pill svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- footer: net takeaway + single primary CTA ---------- */
+.s29-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 28px;
+}
+.s29-net {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 12px;
+}
+.s29-net__text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--body);
+}
+.s29-cta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}

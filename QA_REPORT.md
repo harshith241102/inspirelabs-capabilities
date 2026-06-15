@@ -2,6 +2,16 @@
 
 Mapped against `05_QA_CHECKLIST.md`. Verification used: full TypeScript type-check, production build, deterministic banned-term/em-dash/metric grep across `src/`, all 38 desktop + key mobile screenshots, and a parallel **10-agent QA workflow** (one specialist per checklist dimension) followed by a synthesis pass. Every "major" finding was re-verified against source and screenshots.
 
+## 1920x1080 deck-canvas refactor QA (latest pass)
+Verification of the canvas refactor (`CLAUDE_REFACTOR_PROMPT.md`):
+- **Build:** `tsc --noEmit` clean; `vite build` clean (493 modules).
+- **DOM canvas gate** (`scripts/gate.cjs`): all 38 `.screen__stage` measured exactly **1920x1080 with no content overflow**.
+- **Screenshot dimension gate:** all **38 frames captured at exactly 1920x1080** in export mode, **no `screen-NaN.png`**. Contact sheet assembled and inspected (`screens-out/contact-sheet.png`).
+- **Content checks:** 0 em dashes, 0 en dashes, 0 tildes, 0 exclamation marks in display copy, 0 banned terms, 0 "AudienceSeed by GrabOn".
+- **Visual review:** a 38-agent code-review workflow audited every screen against the 10 acceptance criteria + product reality. Result: **22 OK, 14 minor, 2 major**. Both majors were fixed (Screen 5 wrong/duplicate asset + dropped AudienceSeed advantage; Screen 10 consumer-persona copy reintroducing the Alternatives.co defect) plus three high-value minors (7, 18, 32). Remaining minors are polish, logged in `REFRACTOR_SCREEN_CHANGELOG.md`.
+- **Export mode** hides DeckNav, ProgressRail, jump-to-roadmap and disables animation; verified the captured frames carry no nav chrome.
+- **Environment note:** the default headless Chrome `captureScreenshot` path was wedged on this macOS session (a system display/GPU-capture failure, also breaking native `screencapture`). Captures use `headless: 'shell'` (software renderer), which works. To regenerate on any machine: `npm run build`, start `npm run preview`, then `npm run shoot && npm run gate && npm run contact-sheet`.
+
 ## Overall verdict: PASS
 
 All hard content/accuracy gates pass. The audit surfaced **zero blockers**. The findings were visual-polish and accessibility items, all fixed in this build (see "Fixes applied"). Remaining open items are asset/proof provenance and backend wiring, which are correctly labelled as pending, not invented.

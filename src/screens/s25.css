@@ -1,0 +1,313 @@
+/* Screen 25 - AudienceSeed reporting (dashboard-mock).
+   Dominant visual: one commercial decision report built around signal quality,
+   offer response and audience readiness, ending in a human-reviewed recommended
+   action. Single orange focal: the recommended-action panel. Blue --as accents
+   are AudienceSeed-only (screens 20-25). Authored fixed px for 1920x1080. */
+
+.s25-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  padding: 24px 0 22px;
+}
+.s25-dashwrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+/* ---- the report shell (the hero object) ---- */
+.s25-dash {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--float-lg);
+}
+.s25-dash__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border);
+  background: #fbfbfc;
+  flex-shrink: 0;
+}
+.s25-dash__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--as-deep);
+  flex-shrink: 0;
+}
+.s25-dash__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.s25-dash__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s25-dash__sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--muted-text);
+}
+.s25-dash__tag {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.s25-dash__body {
+  flex: 1;
+  min-height: 0;
+  padding: 26px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ---- top row: the three decision summaries ---- */
+.s25-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex-shrink: 0;
+}
+.s25-sum {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.s25-sum__ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--as-deep);
+}
+.s25-sum__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s25-sum__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.s25-sum__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.s25-sum__read {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted-text);
+}
+
+/* ---- main grid: signal reading + recommended action ---- */
+.s25-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.32fr 1fr;
+  gap: 24px;
+}
+
+/* left panel: the signal and offer reading */
+.s25-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 22px;
+  background: #fafbfc;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+}
+.s25-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.s25-panel__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s25-panel__hint {
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.02em;
+}
+.s25-reads {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+.s25-read {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  text-align: left;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.s25-read:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.s25-read:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s25-read__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  width: 152px;
+  flex-shrink: 0;
+}
+.s25-read__track {
+  flex: 1;
+  height: 7px;
+  border-radius: 4px;
+  background: #eceef2;
+  overflow: hidden;
+}
+.s25-read__bar {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: #c2cbe0;
+}
+.s25-read__status {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  width: 56px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.s25-read__more {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+.s25-panel__note {
+  margin-top: 14px;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+  flex-shrink: 0;
+}
+
+/* right panel: the recommended action - the single orange focal */
+.s25-action {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 26px;
+  background: #fff;
+  border: 2px solid var(--orange);
+  border-radius: 14px;
+}
+.s25-action__kicker {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  flex-shrink: 0;
+}
+.s25-action__lead {
+  margin-top: 14px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.s25-action__chips {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.s25-action__why {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--card-bd);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.s25-action__why-head {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s25-action__why-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted-text);
+}
+
+/* ---- CTA safe zone ---- */
+.s25-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

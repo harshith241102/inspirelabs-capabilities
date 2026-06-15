@@ -1,89 +1,181 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta } from '../primitives/ui';
+import { DeckHeader, AdvanceCta, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
+import './s20.css';
 
-const isList: { label: string; icon: IconName; body: string }[] = [
-  { label: 'Shopper intent signals', icon: 'signal', body: 'Real intent behaviour from offer-ready shoppers.' },
-  { label: 'Retargeting input', icon: 'refresh', body: 'Better inputs into the retargeting stack you already run.' },
-  { label: 'Offer intelligence', icon: 'flask', body: 'Which offer formats draw stronger shopper intent.' },
-  { label: 'Audience quality', icon: 'target', body: 'Improve audience quality before media spend scales.' },
+/* Shopper events captured on the GrabOn commerce-intent surface, before the
+   brand's own pixel begins. These feed the approved signal layer. */
+const events: { label: string; icon: IconName; strength: 'interest' | 'intent' | 'action' }[] = [
+  { label: 'Offer discovery', icon: 'eye', strength: 'interest' },
+  { label: 'Offer comparison', icon: 'layers', strength: 'interest' },
+  { label: 'Coupon reveal', icon: 'coupon', strength: 'intent' },
+  { label: 'Outbound click', icon: 'cursor', strength: 'action' },
+];
+
+const strengthLabel: Record<'interest' | 'intent' | 'action', string> = {
+  interest: 'Interest',
+  intent: 'Intent',
+  action: 'Action',
+};
+
+/* Two activation outputs the approved signal layer feeds. */
+const outputs: { label: string; icon: IconName; body: string }[] = [
+  {
+    label: 'Retargeting input',
+    icon: 'refresh',
+    body: 'Better inputs into the retargeting stack the brand already runs.',
+  },
+  {
+    label: 'Offer intelligence',
+    icon: 'flask',
+    body: 'Which offer formats are drawing stronger shopper intent.',
+  },
 ];
 
 export default function Screen20() {
   const c = copy[20];
   const drawer = useDrawer();
 
+  const openIsNot = () =>
+    drawer.open({
+      id: 'audienceseed-isnot',
+      kind: 'proof',
+      eyebrow: 'AudienceSeed guardrail',
+      title: 'What AudienceSeed is not',
+      sections: [
+        {
+          heading: 'AudienceSeed is not',
+          items: [
+            'A generic analytics dashboard',
+            'An SEO product',
+            'A content product',
+            'An ad management product',
+            'An influencer product',
+            'A broad reporting tool',
+          ],
+        },
+        { heading: 'What it is', body: c.support },
+        { heading: 'Activation rule', body: c.drawer },
+      ],
+    });
+
   return (
     <Screen index={20} tone="light" id="audienceseed-intro" label="AudienceSeed intro">
       <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
-      <div className="s-body">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, width: '100%' }}>
-          <div className="as-def">
-            {isList.map((it, i) => (
-              <Reveal i={i} step={0.06} key={it.label}>
-                <div className="as-card">
-                  <span className="as-card__ico">
-                    <Icon name={it.icon} size={19} />
+
+      <div className="s20-body">
+        <div className="s20-board">
+          {/* Stage 1: shopper event stream */}
+          <Reveal from="up" distance={14} className="s20-stage s20-stage--stream">
+            <header className="s20-stage__head">
+              <span className="s20-stage__ico s20-stage__ico--as">
+                <Icon name="signal" size={20} />
+              </span>
+              <div>
+                <span className="s20-stage__kicker">Stage 1</span>
+                <h2 className="s20-stage__title">Shopper event stream</h2>
+              </div>
+            </header>
+            <p className="s20-stage__lede">
+              High-intent behaviour on the GrabOn commerce-intent surface, before the brand{'’'}s own
+              tracking begins.
+            </p>
+            <ul className="s20-events" role="list">
+              {events.map((e) => (
+                <li key={e.label} className="s20-event">
+                  <span className="s20-event__ico">
+                    <Icon name={e.icon} size={17} />
                   </span>
-                  <span className="as-card__title">{it.label}</span>
-                  <span className="as-card__body">{it.body}</span>
-                </div>
-              </Reveal>
-            ))}
+                  <span className="s20-event__label">{e.label}</span>
+                  <span className={`s20-event__tag s20-event__tag--${e.strength}`}>
+                    {strengthLabel[e.strength]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          {/* Flow connector */}
+          <div className="s20-link" aria-hidden="true">
+            <Icon name="arrow" size={20} />
           </div>
 
-          <Reveal i={4} className="as-guard">
-            <Icon name="shield" size={18} />
-            <span>
-              Activation uses approved, policy-compliant signals only. No raw PII transfer, no unauthorised
-              tracking, and no automatic media activation.
+          {/* Stage 2: approved signal layer (the orange focal) */}
+          <Reveal i={1} from="up" distance={14} className="s20-stage s20-stage--gate">
+            <span className="s20-gate__tag">
+              <MockTag>AudienceSeed by Inspirelabs</MockTag>
             </span>
+            <header className="s20-stage__head">
+              <span className="s20-stage__ico s20-stage__ico--gate">
+                <Icon name="shield" size={22} />
+              </span>
+              <div>
+                <span className="s20-stage__kicker s20-stage__kicker--gate">Stage 2</span>
+                <h2 className="s20-stage__title">Approved signal layer</h2>
+              </div>
+            </header>
+            <p className="s20-gate__lede">
+              Raw events become approved, policy-compliant shopper-intent signals. No raw PII transfer, no
+              unauthorised tracking, no automatic media activation.
+            </p>
+            <div className="s20-gate__quality">
+              <span className="s20-gate__quality-label">Audience quality before spend scales</span>
+              <span className="s20-gate__meter" aria-hidden="true">
+                <span className="s20-gate__meter-fill" />
+              </span>
+              <span className="s20-gate__quality-note">Improving with signal depth and freshness</span>
+            </div>
+          </Reveal>
+
+          {/* Flow connector */}
+          <div className="s20-link" aria-hidden="true">
+            <Icon name="arrow" size={20} />
+          </div>
+
+          {/* Stage 3: activation outputs */}
+          <Reveal i={2} from="up" distance={14} className="s20-stage s20-stage--out">
+            <header className="s20-stage__head">
+              <span className="s20-stage__ico s20-stage__ico--as">
+                <Icon name="target" size={20} />
+              </span>
+              <div>
+                <span className="s20-stage__kicker">Stage 3</span>
+                <h2 className="s20-stage__title">Activation outputs</h2>
+              </div>
+            </header>
+            <div className="s20-outputs">
+              {outputs.map((o) => (
+                <div key={o.label} className="s20-output">
+                  <span className="s20-output__ico">
+                    <Icon name={o.icon} size={18} />
+                  </span>
+                  <div className="s20-output__txt">
+                    <span className="s20-output__label">{o.label}</span>
+                    <span className="s20-output__body">{o.body}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </Reveal>
         </div>
       </div>
-      <footer className="s-footer-row">
-        <div className="cta-stack">
-          <div className="cta-row">
-            <AdvanceCta label={c.cta} to={21} />
-            <button
-              type="button"
-              className="btn btn--ghost"
-              onClick={() =>
-                drawer.open({
-                  id: 'audienceseed-isnot',
-                  kind: 'proof',
-                  eyebrow: 'AudienceSeed guardrail',
-                  title: 'What AudienceSeed is not',
-                  sections: [
-                    {
-                      heading: 'AudienceSeed is not',
-                      items: [
-                        'A generic analytics dashboard',
-                        'An SEO product',
-                        'A content product',
-                        'An ad management product',
-                        'An influencer product',
-                        'A broad reporting tool',
-                      ],
-                    },
-                    { heading: 'What it is', body: c.support },
-                    { heading: 'Activation rule', body: c.drawer },
-                  ],
-                })
-              }
-            >
-              <Icon name="shield" size={16} />
-              What AudienceSeed is not
-            </button>
-          </div>
-          <span className="hero2__fixed mono">
-            <Icon name="signal" size={14} />
-            {c.support}
-          </span>
+
+      <footer className="s20-foot">
+        <div className="s20-foot__cta">
+          <AdvanceCta label={c.cta} to={21} />
+          <button type="button" className="s20-guardlink" onClick={openIsNot}>
+            <Icon name="shield" size={15} />
+            What AudienceSeed is not
+          </button>
         </div>
+        <p className="s20-foot__note">
+          <Icon name="check" size={14} />
+          Activation uses approved, policy-compliant signals only. It improves audience quality before media
+          spend scales.
+        </p>
       </footer>
     </Screen>
   );

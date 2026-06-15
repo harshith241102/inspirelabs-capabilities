@@ -1,0 +1,398 @@
+/* Screen 21 - Pre-pixel blind spot (proof-split, GrabOn event path)
+   Dominant visual: a horizontal GrabOn event path that crosses a single
+   orange pixel boundary. Everything left of the boundary is visible to
+   AudienceSeed by Inspirelabs but invisible to the brand's own pixel.
+   Authored in fixed px for the 1920x1080 logical canvas. */
+
+.s21-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 0 18px;
+}
+
+/* ---------- coverage rail: who sees what ---------- */
+.s21-coverage {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+}
+.s21-cov {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.s21-cov svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s21-cov--as {
+  flex: 1;
+  color: var(--as-deep);
+  border-color: rgba(37, 99, 235, 0.34);
+  background: rgba(59, 130, 246, 0.06);
+}
+.s21-cov--pixel {
+  width: 320px;
+  flex-shrink: 0;
+  justify-content: center;
+  color: var(--grey);
+}
+
+/* ---------- the event path: dominant zone ---------- */
+.s21-path {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* zones share the canvas; pre-pixel is the wide proof zone */
+.s21-zone {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.s21-zone__top {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.s21-zone__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--as-deep);
+}
+.s21-zone__tag svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s21-zone__tag--pixel {
+  color: var(--grey);
+}
+
+/* pre-pixel zone fills the left, sits on a faint AudienceSeed wash */
+.s21-zone--pre {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
+}
+
+/* two real GrabOn surface tiles backing the events */
+.s21-surfaces {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 20px;
+}
+.s21-surf {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--float);
+}
+.s21-surf img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* the four pre-pixel event nodes, as a connected rail under the surfaces */
+.s21-events {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 18px;
+}
+.s21-evwrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.s21-event {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 14px 10px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+  box-shadow: var(--float-sm);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s21-event:hover {
+  border-color: var(--as);
+  transform: translateY(-2px);
+  box-shadow: var(--float);
+}
+.s21-event:focus-visible {
+  outline: 3px solid var(--as);
+  outline-offset: 2px;
+}
+.s21-event__n {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--as-deep);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.s21-event__ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--as-deep);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.26);
+}
+.s21-event__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s21-event__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s21-link {
+  width: 40px;
+  flex-shrink: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(37, 99, 235, 0.5) 0,
+    rgba(37, 99, 235, 0.5) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* ---------- the single orange focal: the pixel boundary ---------- */
+.s21-boundary {
+  flex-shrink: 0;
+  width: 188px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 32px;
+}
+.s21-boundary__line {
+  position: absolute;
+  top: 32px;
+  bottom: 8px;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: var(--orange);
+  border-radius: 2px;
+}
+.s21-boundary__line::before,
+.s21-boundary__line::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+.s21-boundary__line::before {
+  top: -6px;
+}
+.s21-boundary__line::after {
+  bottom: -6px;
+}
+.s21-boundary__badge {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(255, 122, 69, 0.4);
+}
+.s21-boundary__badge svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s21-boundary__sub {
+  position: relative;
+  z-index: 2;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--orange-text);
+  background: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--orange);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ---------- post-pixel zone: brand arrival ---------- */
+.s21-zone--post {
+  width: 300px;
+  flex-shrink: 0;
+}
+.s21-arrival {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 26px 24px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 18px;
+  box-shadow: var(--float);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s21-arrival:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: var(--float-lg);
+}
+.s21-arrival:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s21-arrival__ico {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+}
+.s21-arrival__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s21-arrival__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.s21-arrival__sub {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s21-arrival__note {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--body);
+  margin-top: auto;
+}
+
+/* ---------- footer: takeaway + single primary CTA ---------- */
+.s21-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.s21-net {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 22px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 12px;
+}
+.s21-net__text {
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.s21-foot .cta-row {
+  flex-shrink: 0;
+}

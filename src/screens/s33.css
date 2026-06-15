@@ -1,0 +1,287 @@
+/* Screen 33 - Stage-gated expansion board (roadmap-board archetype).
+   One dominant visual: four stages on a left-to-right track, separated by
+   review gates. Stage 1 is in motion (the single orange focal); the rest stay
+   locked until the gate before them clears. Authored fixed-px for 1920x1080. */
+
+.s33-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding: 24px 0 18px;
+}
+
+/* ---- The board: 4 stage cells, each holding a stage card + the gate after it ---- */
+.s33-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: stretch;
+}
+
+.s33-cell {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  /* leave room on the right for the gate connector that overlaps into the gap */
+  padding-right: 64px;
+}
+.s33-cell:last-child {
+  padding-right: 0;
+}
+
+/* ---- Stage card ---- */
+.s33-stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  padding: 26px 26px 24px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 18px;
+  box-shadow: var(--float-sm);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.s33-stage:hover {
+  transform: translateY(-3px);
+  border-color: var(--grey);
+  box-shadow: var(--float);
+}
+.s33-stage:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* The single orange focal: stage 1, in motion */
+.s33-stage.is-active {
+  border: 2px solid var(--orange);
+  box-shadow: 0 2px 4px rgba(255, 122, 69, 0.12), 0 22px 48px rgba(255, 122, 69, 0.16);
+}
+.s33-stage.is-active:hover {
+  border-color: var(--orange);
+}
+
+.s33-stage__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.s33-stage__no {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--c4);
+}
+.s33-stage.is-active .s33-stage__no {
+  color: var(--orange-text);
+}
+
+.s33-stage__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--grey);
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+}
+.s33-stage__state svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+}
+.s33-stage.is-active .s33-stage__state {
+  color: var(--orange-text);
+  background: #fff;
+  border-color: var(--orange);
+}
+.s33-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.s33-stage__ico {
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+  color: var(--grey);
+}
+.s33-stage__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s33-stage.is-active .s33-stage__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.s33-stage__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.s33-stage__unlock {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted-text);
+}
+
+.s33-stage__proof {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 15px;
+  border-radius: 11px;
+  background: var(--net);
+  border: 1px solid var(--border);
+}
+.s33-stage.is-active .s33-stage__proof {
+  border-left: 4px solid var(--orange);
+}
+.s33-stage__prooflabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+}
+.s33-stage__prooftext {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 14.5px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+/* ---- Review gate between stages (overlaps the column gap) ---- */
+.s33-gate {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.s33-gate__bar {
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  right: -6px;
+  height: 2px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+.s33-gate.is-live .s33-gate__bar {
+  background: var(--orange);
+}
+.s33-gate.is-locked .s33-gate__bar {
+  background: var(--border);
+  border-top: 2px dashed var(--c4);
+  height: 0;
+}
+.s33-gate__chip {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 58px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 7px;
+  border-radius: 9px;
+  flex-direction: column;
+  background: #fff;
+}
+.s33-gate__chip svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.s33-gate.is-live .s33-gate__chip {
+  color: var(--orange-text);
+  border: 1.5px solid var(--orange);
+  box-shadow: var(--float-sm);
+}
+.s33-gate.is-locked .s33-gate__chip {
+  color: var(--grey);
+  border: 1.5px solid var(--border);
+}
+
+/* ---- Legend under the board ---- */
+.s33-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: 2px;
+}
+.s33-legend__text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted-text);
+}
+
+/* ---- Footer: takeaway + single primary CTA in its safe zone ---- */
+.s33-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.s33-net {
+  flex: 1;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: var(--radius-sm);
+  padding: 18px 26px;
+  box-shadow: var(--float-sm);
+}
+.s33-net__text {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ink);
+}

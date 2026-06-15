@@ -1,74 +1,134 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, NetBox } from '../primitives/ui';
+import { DeckHeader, AdvanceCta, MockTag } from '../primitives/ui';
+import { DeckStage } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { CardGrid } from '../primitives/blocks';
 import { SupportChip } from '../components/SupportChip';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
+import './s32.css';
 
-const checkpoints: { label: string; icon: IconName; what: string; owner: string }[] = [
-  { label: 'Objective', icon: 'target', what: 'The growth objective the partnership is accountable to.', owner: 'Brand and Inspirelabs' },
-  { label: 'Scope', icon: 'layers', what: 'The activation scope agreed for the cycle.', owner: 'Inspirelabs' },
-  { label: 'KPI', icon: 'chart', what: 'The KPIs that define success.', owner: 'Brand and Inspirelabs' },
-  { label: 'Tracking', icon: 'cursor', what: 'The tracking setup behind each KPI.', owner: 'Inspirelabs with brand access' },
-  { label: 'Reporting', icon: 'doc', what: 'The reporting cadence and format.', owner: 'Inspirelabs' },
-  { label: 'Review', icon: 'eye', what: 'The performance review rhythm.', owner: 'Brand and Inspirelabs' },
-  { label: 'Improvement', icon: 'refresh', what: 'The improvement cycle between reviews.', owner: 'Inspirelabs' },
-  { label: 'Roadmap', icon: 'compass', what: 'The partnership roadmap ahead.', owner: 'Brand and Inspirelabs' },
+/* Commitments operating board: seven gates run as one accountable cycle,
+   not eight administrative cards. Setup -> running loop -> roadmap.
+   One orange focal = the Review gate, where the loop turns. */
+
+interface Gate {
+  label: string;
+  icon: IconName;
+  band: 'Set' | 'Run' | 'Forward';
+  short: string;
+  what: string;
+  owner: string;
+}
+
+const gates: Gate[] = [
+  { label: 'Objective', icon: 'target', band: 'Set', short: 'What growth this is accountable to', what: 'The growth objective the partnership is accountable to.', owner: 'Brand and Inspirelabs' },
+  { label: 'Scope', icon: 'layers', band: 'Set', short: 'The activation scope agreed for the cycle', what: 'The activation scope agreed for the cycle.', owner: 'Inspirelabs' },
+  { label: 'KPI', icon: 'chart', band: 'Set', short: 'The KPIs that define success', what: 'The KPIs that define success. Targets are agreed in setup, never assumed here.', owner: 'Brand and Inspirelabs' },
+  { label: 'Tracking', icon: 'cursor', band: 'Run', short: 'The tracking setup behind each KPI', what: 'The tracking setup behind each KPI.', owner: 'Inspirelabs with brand access' },
+  { label: 'Reporting', icon: 'doc', band: 'Run', short: 'The reporting cadence and format', what: 'The reporting cadence and format.', owner: 'Inspirelabs' },
+  { label: 'Review', icon: 'eye', band: 'Run', short: 'The performance review rhythm', what: 'The performance review rhythm where the cycle is checked and tuned.', owner: 'Brand and Inspirelabs' },
+  { label: 'Improvement', icon: 'refresh', band: 'Forward', short: 'The improvement cycle between reviews', what: 'The improvement cycle that runs between reviews.', owner: 'Inspirelabs' },
+  { label: 'Roadmap', icon: 'compass', band: 'Forward', short: 'The partnership roadmap ahead', what: 'The partnership roadmap ahead.', owner: 'Brand and Inspirelabs' },
+];
+
+const bands: { id: Gate['band']; label: string; note: string }[] = [
+  { id: 'Set', label: 'Set the terms', note: 'Agreed in setup' },
+  { id: 'Run', label: 'Run the cycle', note: 'Live every cycle' },
+  { id: 'Forward', label: 'Carry it forward', note: 'Between cycles' },
 ];
 
 export default function Screen32() {
   const c = copy[32];
   const drawer = useDrawer();
 
+  const openGate = (g: Gate, n: number) =>
+    drawer.open({
+      id: `commit-${g.label}`,
+      kind: 'info',
+      eyebrow: `Commitment ${n} of ${gates.length}`,
+      title: g.label,
+      sections: [
+        { heading: 'What this is', body: g.what },
+        { heading: 'Owner', body: g.owner },
+        { heading: 'Evidence source', body: 'Confirmed during setup. No invented dates, budgets, or KPI targets.' },
+      ],
+    });
+
   return (
     <Screen index={32} tone="light" id="commitments" label="Measurable growth commitments">
-      <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
-      <div className="s-body">
-        <CardGrid min={150} gap={11}>
-          {checkpoints.map((cp, i) => (
-            <Reveal i={i} step={0.04} key={cp.label}>
-              <button
-                type="button"
-                className="opentile"
-                style={{ width: '100%', height: '100%' }}
-                onClick={() =>
-                  drawer.open({
-                    id: `commit-${cp.label}`,
-                    kind: 'info',
-                    eyebrow: `Checkpoint ${i + 1} of 8`,
-                    title: cp.label,
-                    sections: [
-                      { heading: 'What this is', body: cp.what },
-                      { heading: 'Owner', body: cp.owner },
-                      { heading: 'Evidence source', body: 'Confirmed during setup. No invented dates or budgets.' },
-                    ],
-                  })
-                }
-              >
-                <span className="opentile__head">
-                  <span className="callout__n" style={{ width: 26, height: 26 }}>{i + 1}</span>
-                  <span className="opentile__title">{cp.label}</span>
-                </span>
-                <span className="opentile__body" style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <Icon name={cp.icon} size={15} style={{ color: 'var(--orange)' }} />
-                  {cp.what}
-                </span>
-              </button>
-            </Reveal>
-          ))}
-        </CardGrid>
-      </div>
-      <footer className="s-footer-row">
-        <NetBox>{c.support}</NetBox>
-        <div className="cta-stack">
-          <div className="cta-row">
-            <AdvanceCta label={c.cta} to={33} />
+      <DeckStage
+        header={<DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />}
+        cta={<AdvanceCta label={c.cta} to={33} />}
+      >
+        <Reveal className="s32-board">
+          {/* Board chrome: title bar reads as one operating standard */}
+          <div className="s32-board__bar">
+            <span className="s32-board__mark">
+              <Icon name="cycle" size={18} />
+            </span>
+            <div className="s32-board__titles">
+              <span className="s32-board__title">Partnership operating standard</span>
+              <span className="s32-board__sub">Eight commitments, run as one accountable cycle</span>
+            </div>
+            <span className="s32-board__loop">
+              <Icon name="refresh" size={14} />
+              Reviewed every cycle
+            </span>
+            {c.aiChip && (
+              <span className="s32-board__ai">
+                <SupportChip context={c.aiChip} />
+              </span>
+            )}
+            <span className="s32-board__tag">
+              <MockTag>Operating standard</MockTag>
+            </span>
           </div>
-          {c.aiChip && <SupportChip context={c.aiChip} />}
-        </div>
-      </footer>
+
+          {/* Band labels */}
+          <div className="s32-bands">
+            {bands.map((b, bi) => (
+              <div className="s32-band" key={b.id} data-band={bi}>
+                <span className="s32-band__label">{b.label}</span>
+                <span className="s32-band__note">{b.note}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* The gate sequence: one connected lane of commitments */}
+          <div className="s32-gates">
+            {gates.map((g, i) => {
+              const focal = g.label === 'Review';
+              return (
+                <Reveal key={g.label} i={i} step={0.035} from="up" distance={12} className="s32-gatewrap">
+                  <button
+                    type="button"
+                    className={`s32-gate${focal ? ' is-focal' : ''}`}
+                    data-band={g.band}
+                    onClick={() => openGate(g, i + 1)}
+                  >
+                    <span className="s32-gate__top">
+                      <span className="s32-gate__n">{i + 1}</span>
+                      <span className="s32-gate__ico">
+                        <Icon name={g.icon} size={17} />
+                      </span>
+                    </span>
+                    <span className="s32-gate__label">{g.label}</span>
+                    <span className="s32-gate__short">{g.short}</span>
+                  </button>
+                  {i < gates.length - 1 && <span className="s32-gate__link" aria-hidden="true" />}
+                </Reveal>
+              );
+            })}
+          </div>
+
+          {/* Accountability baseline: the loop that keeps the system honest */}
+          <div className="s32-base">
+            <span className="s32-base__line" aria-hidden="true" />
+            <span className="s32-base__net">{c.support}</span>
+          </div>
+        </Reveal>
+      </DeckStage>
     </Screen>
   );
 }

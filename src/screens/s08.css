@@ -1,0 +1,111 @@
+/* Screen 08 - GrabOn flagship surface (proof-split with annotated hero) */
+.s08-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 40px;
+  padding: 28px 0 24px;
+}
+.s08-side {
+  width: 460px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 0;
+}
+.s08-lead {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--body);
+}
+.s08-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s08-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  text-align: left;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+  box-shadow: var(--float-sm);
+}
+.s08-row:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.s08-row:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s08-row__n {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s08-row__ico {
+  color: var(--orange-text);
+  display: inline-flex;
+}
+.s08-row__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s08-row__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.s08-row__more {
+  margin-left: auto;
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.s08-measure {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 11px;
+}
+.s08-measure__text {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--body);
+}
+.s08-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}

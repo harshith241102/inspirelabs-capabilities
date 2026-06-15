@@ -1,0 +1,556 @@
+/* Screen 22 - Intent signal depth (operating-board: enriched signal ladder).
+   ONE dominant object: a signal ladder that ascends from passive interest to
+   active action. LEFT = source-context rail (the GrabOn surface the signals
+   come from). RIGHT = the ladder itself, an Interest -> Action axis beside
+   four rungs, then the strength-modifier strip.
+   Cool --as blue carries the signal-strength data; the focal "Coupon reveal"
+   rung is the SINGLE orange focal (border + icon + meter). Authored in fixed
+   px for the 1920x1080 logical canvas (no clamp / vw / vh). */
+
+.s22-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 0 22px;
+}
+
+/* 2-column board: source rail | ladder. Fills the region between header + foot. */
+.s22-board {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 452px 1fr;
+  gap: 40px;
+  align-items: stretch;
+}
+
+/* ============================================================
+   LEFT - source-context rail
+   ============================================================ */
+
+.s22-source {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.s22-source__kicker {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--grey);
+  margin-bottom: 14px;
+}
+
+/* Browser frame around the GrabOn screenshot */
+.s22-source__frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: var(--float);
+}
+.s22-source__bar {
+  flex-shrink: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  background: #f3f4f6;
+  border-bottom: 1px solid var(--border);
+}
+.s22-source__bar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d7dae0;
+  flex-shrink: 0;
+}
+.s22-source__url {
+  margin-left: 10px;
+  height: 22px;
+  flex: 1;
+  max-width: 260px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--grey);
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.s22-source__img {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* GrabOn wordmark chip floated over the surface */
+.s22-source__logo {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 13px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: var(--float-sm);
+  backdrop-filter: blur(4px);
+}
+.s22-source__logo img {
+  height: 17px;
+  width: auto;
+  display: block;
+}
+
+.s22-source__note {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--body);
+  margin-top: 16px;
+}
+
+/* Legend - maps the two accents the eye will see in the ladder */
+.s22-source__legend {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--card-bd);
+}
+.s22-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted-text);
+}
+.s22-legend__sw {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.s22-legend__sw--as {
+  background: var(--as);
+}
+.s22-legend__sw--focal {
+  background: var(--orange);
+}
+
+/* ============================================================
+   RIGHT - the ladder
+   ============================================================ */
+
+.s22-ladder {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 22px;
+  min-height: 0;
+}
+
+/* Vertical Interest -> Action axis running beside the rungs */
+.s22-ladder__axis {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0 2px;
+}
+.s22-ladder__axis-top,
+.s22-ladder__axis-bot {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.s22-ladder__axis-top {
+  color: var(--orange-text);
+}
+.s22-ladder__axis-bot {
+  color: var(--as-deep);
+  transform: rotate(180deg);
+}
+.s22-ladder__axis-line {
+  flex: 1;
+  width: 2px;
+  margin: 12px 0;
+  border-radius: 2px;
+  /* fades from cool interest (bottom) up to warm action (top) */
+  background: linear-gradient(to top, var(--as) 0%, var(--c5) 48%, var(--orange) 100%);
+  position: relative;
+}
+.s22-ladder__axis-line::before,
+.s22-ladder__axis-line::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translateX(-50%) rotate(45deg);
+}
+.s22-ladder__axis-line::before {
+  top: -3px;
+  background: var(--orange);
+}
+.s22-ladder__axis-line::after {
+  bottom: -1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--as);
+  transform: translateX(-50%);
+}
+
+/* The rungs (rendered top = strongest, bottom = weakest) */
+.s22-rungs {
+  grid-column: 2;
+  grid-row: 1;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.s22-rung {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.s22-rung__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 22px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s22-rung__btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--c5);
+  box-shadow: var(--float);
+}
+.s22-rung__btn:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* Leading event icon */
+.s22-rung__ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef0f7;
+  border: 1px solid var(--card-bd);
+  color: var(--as-deep);
+}
+.s22-rung__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Label + event-type identity block */
+.s22-rung__id {
+  width: 188px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.s22-rung__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.s22-rung__type {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted-text);
+  line-height: 1.2;
+}
+
+/* Strength meter */
+.s22-rung__meter {
+  flex: 1;
+  min-width: 0;
+  height: 9px;
+  border-radius: 999px;
+  background: #eceef3;
+  overflow: hidden;
+}
+.s22-rung__meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--as);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Strength pill */
+.s22-rung__strength {
+  width: 78px;
+  flex-shrink: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  border-radius: 7px;
+  border: 1px solid;
+}
+.s22-rung__strength--interest {
+  color: var(--muted-text);
+  border-color: var(--border);
+  background: #f6f7f9;
+}
+.s22-rung__strength--intent {
+  color: var(--as-deep);
+  border-color: rgba(37, 99, 235, 0.3);
+  background: rgba(59, 130, 246, 0.08);
+}
+.s22-rung__strength--action {
+  color: var(--as-deep);
+  border-color: var(--as);
+  background: rgba(59, 130, 246, 0.14);
+}
+
+/* Freshness note */
+.s22-rung__fresh {
+  width: 132px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--body);
+}
+.s22-rung__fresh svg {
+  stroke: var(--grey);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* Approved-use note (green) */
+.s22-rung__use {
+  width: 124px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ai-complete);
+}
+.s22-rung__use svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ---- The single orange focal: Coupon reveal ---- */
+.s22-rung.is-focal .s22-rung__btn {
+  border: 2px solid var(--orange);
+  padding: 0 21px;
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 16px 38px rgba(255, 122, 69, 0.16);
+}
+.s22-rung.is-focal .s22-rung__btn:hover {
+  border-color: var(--orange-deep);
+  box-shadow: 0 2px 4px rgba(14, 15, 10, 0.05), 0 22px 46px rgba(255, 122, 69, 0.22);
+}
+.s22-rung__ico.is-focal {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(255, 122, 69, 0.3);
+}
+.s22-rung.is-focal .s22-rung__label {
+  color: var(--ink);
+}
+.s22-rung__meter-fill.is-focal {
+  background: var(--orange);
+}
+.s22-rung.is-focal .s22-rung__strength {
+  color: var(--orange-text);
+  border-color: var(--orange);
+  background: rgba(255, 122, 69, 0.1);
+}
+
+/* ============================================================
+   Strength modifiers strip
+   ============================================================ */
+
+.s22-mods {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+.s22-mods__tag {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+.s22-mods__head {
+  flex-shrink: 0;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s22-mods__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: nowrap;
+}
+.s22-mod {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  box-shadow: var(--float-sm);
+  cursor: default;
+}
+.s22-mod svg {
+  stroke: var(--as-deep);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.s22-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.s22-foot__net {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  max-width: 760px;
+  padding: 14px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 11px;
+}
+.s22-foot__net-ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  color: var(--orange-text);
+}
+.s22-foot__net-ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s22-foot__net-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--body);
+}
+.s22-foot__cta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

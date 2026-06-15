@@ -8,3 +8,7 @@ npm-debug.log*
 *.tsbuildinfo
 screens-out
 .claude
+
+# Screenshot output
+screens-out
+screens_v2

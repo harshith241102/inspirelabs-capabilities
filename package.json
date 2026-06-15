@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Inspirelabs interactive capabilities microsite (V3) — the growth system behind GrabOn, built for brands.",
+  "description": "Inspirelabs interactive capabilities microsite (V3), the growth system behind GrabOn, built for brands.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --port 4173",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "shoot": "node scripts/shoot.cjs http://localhost:4173/ screens-out/desktop-1920 all 1920 1080",
+    "gate": "node scripts/gate.cjs http://localhost:4173/ screens-out/desktop-1920",
+    "contact-sheet": "node scripts/contact-sheet.cjs screens-out/desktop-1920 screens-out/contact-sheet.png"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

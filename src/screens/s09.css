@@ -1,0 +1,354 @@
+/* ============================================================
+   Screen 09 - GrabOn promotional surfaces
+   Operating-board / visual inventory. ONE dominant object: the real
+   GrabOn surface used as a placement canvas with illustrative
+   promotional placements drawn directly onto it, plus a compact
+   inventory rail. Single orange focal = the featured-campaign overlay.
+   Authored in fixed px for the 1920x1080 logical canvas.
+   ============================================================ */
+
+.s09-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 0 20px;
+}
+
+/* The board: surface canvas (dominant) + inventory rail (support). */
+.s09-board {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 34px;
+}
+
+/* ---------- Dominant surface canvas (browser frame) ---------- */
+.s09-frame {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--float-lg);
+}
+.s09-frame__bar {
+  height: 48px;
+  flex-shrink: 0;
+  background: #f3f4f6;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 20px;
+}
+.s09-frame__bar i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d7dae0;
+}
+.s09-frame__url {
+  margin-left: 14px;
+  height: 26px;
+  flex: 1;
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--grey);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.s09-frame__logo {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.s09-view {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.s09-view > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+/* Dim the live surface so the placement overlays read as the subject. */
+.s09-view__dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 15, 10, 0.34);
+  pointer-events: none;
+  z-index: 1;
+}
+.s09-view__tag {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 6;
+}
+
+/* ---------- Placement overlays (the inventory, drawn on the surface) ---------- */
+.s09-ov {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 14px 34px rgba(14, 15, 10, 0.28);
+}
+.s09-ov__n {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s09-ov__ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s09-ov__ico svg {
+  stroke: var(--ink);
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s09-ov__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.s09-ov__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.s09-ov__sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--muted-text);
+  line-height: 1.25;
+}
+
+/* Tall overlays stack their content vertically. */
+.s09-ov--featured,
+.s09-ov--deal {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+}
+.s09-ov--featured .s09-ov__txt,
+.s09-ov--deal .s09-ov__txt {
+  gap: 4px;
+}
+
+/* SINGLE ORANGE FOCAL: the featured campaign placement. */
+.s09-ov--featured {
+  background: var(--orange);
+  border-color: var(--orange);
+  box-shadow: 0 18px 44px rgba(255, 122, 69, 0.45);
+}
+.s09-ov--featured .s09-ov__n {
+  background: #fff;
+  color: var(--orange-text);
+}
+.s09-ov--featured .s09-ov__ico {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.s09-ov--featured .s09-ov__ico svg {
+  stroke: #fff;
+}
+.s09-ov--featured .s09-ov__label {
+  color: #fff;
+  font-size: 19px;
+}
+.s09-ov--featured .s09-ov__sub {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13.5px;
+}
+
+/* ---------- Inventory rail (support, not a card grid) ---------- */
+.s09-rail {
+  width: 466px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.s09-rail__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.s09-rail__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s09-rail__cap {
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--grey);
+  text-transform: uppercase;
+}
+.s09-rail__list {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.s09-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 11px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.s09-item:hover {
+  border-color: var(--orange);
+  transform: translateX(3px);
+}
+.s09-item:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s09-item__n {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s09-item__ico {
+  color: var(--orange-text);
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.s09-item__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s09-item__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s09-item__dot {
+  margin-left: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.s09-item__dot--approved {
+  background: var(--ai-complete);
+}
+.s09-item__dot--pending {
+  background: var(--orange);
+}
+.s09-item__avail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  width: 64px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.s09-rail__foot {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 14px 16px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 11px;
+}
+.s09-rail__note {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--body);
+}
+
+/* ---------- Footer / CTA safe zone ---------- */
+.s09-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.s09-foot__note {
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--grey);
+  max-width: 620px;
+}

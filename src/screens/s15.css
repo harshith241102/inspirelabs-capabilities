@@ -1,0 +1,371 @@
+/* Screen 15 - Activation surfaces overview (operating-board / activation map).
+   One connected board: demand fans out of owned distribution into four external
+   activation lanes, each with a single real (or labelled illustrative) visual
+   cue, resolving to a shared measurable-action baseline. Single orange focal =
+   the origin node + the lead (Strategic Partnerships) lane. Authored for 1920x1080. */
+
+.s15-board {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 0 18px;
+}
+.s15-map {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 26px;
+}
+
+/* ---------- Origin spine (single orange focal) ---------- */
+.s15-origin {
+  width: 188px;
+  flex-shrink: 0;
+  align-self: stretch;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 22px 20px;
+  border-radius: 16px;
+  background: #fff;
+  border: 2px solid var(--orange);
+  box-shadow: var(--float-sm);
+}
+.s15-origin__kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
+  line-height: 1.3;
+}
+.s15-origin__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 6px;
+  line-height: 1.1;
+}
+.s15-origin__node {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  margin-top: 22px;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s15-origin__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s15-origin__note {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted-text);
+  margin-top: 20px;
+}
+/* fan connectors reaching toward the lanes */
+.s15-origin__fan {
+  position: absolute;
+  right: -26px;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 18px 0;
+}
+.s15-origin__fan i {
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange), rgba(255, 122, 69, 0.25));
+  border-radius: 2px;
+}
+
+/* ---------- Four activation lanes ---------- */
+.s15-lanes {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.s15-lane {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  box-shadow: var(--float-sm);
+  overflow: hidden;
+}
+.s15-lane.is-accent {
+  border-color: var(--orange);
+}
+
+.s15-lane__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+  padding: 16px 16px 12px;
+  flex-shrink: 0;
+}
+.s15-lane__ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  color: var(--ink);
+}
+.s15-lane.is-accent .s15-lane__ico {
+  background: rgba(255, 122, 69, 0.1);
+  border-color: var(--orange);
+  color: var(--orange-text);
+}
+.s15-lane__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s15-lane__no {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey);
+  margin-left: auto;
+}
+.s15-lane__title {
+  flex-basis: 100%;
+  order: 3;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-top: 2px;
+}
+
+/* visual cue */
+.s15-lane__cue {
+  position: relative;
+  margin: 0 14px;
+  height: 232px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4f5f7;
+  border: 1px solid var(--border);
+}
+.s15-lane__cue img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.s15-lane__cap {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--card-bd);
+  border-radius: 6px;
+  padding: 4px 8px;
+  backdrop-filter: blur(3px);
+}
+.s15-lane__mocktag {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+/* demoted hotspot affordances (preview drawer + open screen) */
+.s15-hot {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--card-bd);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, transform 0.16s ease, background 0.16s ease;
+}
+.s15-hot svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s15-hot--preview {
+  right: 48px;
+  top: 10px;
+}
+.s15-hot--open {
+  right: 10px;
+  top: 10px;
+}
+.s15-hot:hover {
+  border-color: var(--orange);
+  color: var(--orange-text);
+  transform: translateY(-1px);
+}
+.s15-hot:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.s15-lane__body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--body);
+  padding: 14px 16px 16px;
+}
+
+/* built illustrative cue (Affiliate: no real capture available) */
+.s15-mockcue {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 18px;
+  background: linear-gradient(180deg, #fbfbfc, #f3f4f6);
+}
+.s15-mockcue__bar {
+  height: 30px;
+  border-radius: 7px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+}
+.s15-mockcue__rowA,
+.s15-mockcue__rowB {
+  height: 44px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  box-shadow: var(--float-sm);
+}
+.s15-mockcue__rowB {
+  opacity: 0.7;
+}
+.s15-mockcue__pill {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 7px;
+  padding: 6px 10px;
+}
+.s15-mockcue__pill svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--orange-text);
+}
+
+/* ---------- Shared measurable-action baseline ---------- */
+.s15-base {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 13px 22px;
+  border-radius: 14px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+}
+.s15-base__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s15-base__label svg {
+  stroke: var(--orange-text);
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s15-base__tags {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+.s15-base__tags span {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--muted-text);
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+
+/* ---------- Footer: one primary CTA + quiet support note ---------- */
+.s15-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.s15-foot__note {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--muted-text);
+  max-width: 62ch;
+}

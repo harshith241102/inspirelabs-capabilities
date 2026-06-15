@@ -2,6 +2,17 @@
 
 Build of the Inspirelabs V3 interactive capabilities microsite from the locked Codex blueprint. This records build decisions, the stack, assumptions, and trade-offs. It is execution detail only; no strategy, architecture, or approved copy was changed.
 
+## 0. 1920x1080 deck-canvas refactor (per `Codex Workspace/audit-output/CLAUDE_REFACTOR_PROMPT.md`)
+The deck was rebuilt from a 1280px responsive web stage into a **true fixed 1920x1080 logical canvas**:
+- **Canvas model:** `.screen__stage` is a fixed 1920x1080 frame with `transform: scale(var(--deck-scale))`, centred (letterboxed) on a neutral backdrop. `--deck-scale = min(vw/1920, vh/1080)` (desktop) and `--m-scale = vw/1920` (mobile, width-scaled stacked companion) are computed in JS by `src/lib/useDeckScale.ts` (CSS cannot divide a length by a length to a unitless scale). Every screen is authored in **fixed px for 1920**, never `vw/vh/clamp`.
+- **Export mode** (`?export=1`, `src/lib/deckMode.ts` -> `IS_EXPORT` + `html[data-export]`): strips nav chrome (DeckNav, ProgressRail, skip link), disables animation + smooth scroll, renders Reveal statically. Used by the screenshot tool for clean deterministic frames.
+- **Active-screen state:** `Screen.tsx` sets `inert` on every non-current screen so off-screen controls are not globally discoverable by assistive tech (the drawer separately makes the whole deck inert).
+- **Instant navigation:** `goTo` uses `scrollIntoView({behavior:'auto'})`; the prior CSS smooth-scroll fought mandatory snap and made keyboard Home/End jumps take about 3 seconds.
+- **Premium archetype primitives** (`src/primitives/deck.tsx` + `deck.css`): `AnnotatedShot`, `DeckBoard`/`BoardLane`, `FlowStrip`, `DashboardMock`/`KpiTile`/`BarChart`/`ReportRow`, `Storyboard`, `GuardrailStrip`, `StatBlock`, hotspot pins. Composition rules in `refactor/DESIGN_LANGUAGE.md`; per-screen briefs in `refactor/REFACTOR_BRIEF.md`.
+- **Per-screen CSS:** each refactored screen owns `src/screens/sNN.css` (classes namespaced `.sNN-`); shared global chrome + tokens reused.
+- **Capture + gates:** `scripts/shoot.cjs` (1920x1080 export capture, rejects NaN indices) uses `headless: 'shell'` (the legacy software renderer; the default `'new'` headless `captureScreenshot` was wedged on this macOS session). `scripts/gate.cjs` runs the DOM no-overflow gate + PNG dimension gate. `scripts/contact-sheet.cjs` assembles a review sheet. npm: `build`, `shoot`, `gate`, `contact-sheet`.
+- **Per-screen before/after:** see `REFRACTOR_SCREEN_CHANGELOG.md`.
+
 ## 1. Source hierarchy followed
 
 Read and treated as governing, in order: `08_BUILD_EXECUTION_LOCK.md`, `00_SOURCE_OF_TRUTH.md`, `01_SCREEN_ARCHITECTURE.md`, `04_SCREEN_COPY.md`, `02_INTERACTION_AND_CTA_MODEL.md`, `03_WIREFRAME_DIRECTIONS.md`, `06_ASSET_REQUIREMENTS.md`, `05_QA_CHECKLIST.md`, `07_REVISION_CHANGELOG.md`. The V2 deck (`Inspirelabs Capabilities Deck V2.pdf`) was used only as contextual reference for visual density and to source approved product captures; its structure was not reused.

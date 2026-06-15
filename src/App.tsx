@@ -6,9 +6,11 @@ import { ProgressRail } from './components/ProgressRail';
 import { DeckNav } from './components/DeckNav';
 import { deckScreens } from './screens/registry';
 import { TOTAL_SCREENS } from './content/sections';
+import { useDeckScale } from './lib/useDeckScale';
 
 function Deck() {
   const { setTotal } = useApp();
+  useDeckScale();
   useEffect(() => {
     setTotal(TOTAL_SCREENS);
   }, [setTotal]);

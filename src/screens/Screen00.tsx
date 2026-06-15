@@ -1,23 +1,22 @@
-import { motion, useReducedMotion } from 'framer-motion';
 import { Screen } from '../primitives/Screen';
 import { AdvanceCta } from '../primitives/ui';
+import { AnnotatedShot } from '../primitives/deck';
 import { Reveal } from '../primitives/Reveal';
-import { Icon } from '../primitives/icons';
+import { Icon, type IconName } from '../primitives/icons';
 import { ASSETS } from '../lib/assets';
 import { copy } from '../content/copy';
 import './cover.css';
 
-const modules = [
-  { label: 'GrabOn', sub: 'Commerce-intent surface', icon: 'store' as const, hub: true },
-  { label: 'Distribution', sub: 'Owned and activation', icon: 'share' as const },
-  { label: 'AudienceSeed', sub: 'Shopper intent signals', icon: 'signal' as const },
-  { label: 'AI Growth Studio', sub: 'Human-reviewed agents', icon: 'spark' as const },
-  { label: 'Growth commitments', sub: 'Measurable, accountable', icon: 'target' as const },
+const modules: { label: string; sub: string; icon: IconName; hub?: boolean }[] = [
+  { label: 'GrabOn', sub: 'Commerce-intent surface', icon: 'store', hub: true },
+  { label: 'Distribution', sub: 'Owned and activation', icon: 'share' },
+  { label: 'AudienceSeed', sub: 'Shopper intent signals', icon: 'signal' },
+  { label: 'AI Growth Studio', sub: 'Human-reviewed agents', icon: 'spark' },
+  { label: 'Growth commitments', sub: 'Measurable, accountable', icon: 'target' },
 ];
 
 export default function Screen00() {
   const c = copy[0];
-  const reduce = useReducedMotion();
 
   return (
     <Screen index={0} tone="dark" id="cover" label="Cover">
@@ -42,80 +41,31 @@ export default function Screen00() {
               <p className="cover__support">{c.support}</p>
             </Reveal>
             <Reveal i={4}>
-              <div className="cta-row" style={{ marginTop: 8 }}>
+              <div className="cta-row" style={{ marginTop: 12 }}>
                 <AdvanceCta label={c.cta} to={1} />
-                <span className="cover__hint mono">3 quick questions · 5 minute read</span>
+                <span className="cover__hint mono">3 quick questions, 5 minute read</span>
               </div>
             </Reveal>
           </div>
 
-          <div className="cover__orbit" aria-hidden="true">
-            <div className="orbit">
-              <svg className="orbit__lines" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
-                {[0, 1, 2, 3].map((i) => {
-                  const angle = (-90 + i * 90) * (Math.PI / 180);
-                  const x = 200 + Math.cos(angle) * 150;
-                  const y = 200 + Math.sin(angle) * 150;
-                  return (
-                    <motion.line
-                      key={i}
-                      x1={200}
-                      y1={200}
-                      x2={x}
-                      y2={y}
-                      stroke="rgba(255,255,255,0.18)"
-                      strokeWidth={1.5}
-                      strokeDasharray="3 4"
-                      initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-                      whileInView={{ pathLength: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.7, delay: 0.5 + i * 0.12 }}
-                    />
-                  );
-                })}
-              </svg>
-
-              <motion.div
-                className="orbit__hub"
-                initial={reduce ? false : { scale: 0.6, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <Icon name="store" size={26} />
-                <span>GrabOn</span>
-              </motion.div>
-
-              {modules.slice(1).map((m, i) => {
-                const angle = (-90 + i * 90) * (Math.PI / 180);
-                const x = 50 + Math.cos(angle) * 50;
-                const y = 50 + Math.sin(angle) * 50;
-                return (
-                  <motion.div
-                    key={m.label}
-                    className="orbit__node"
-                    style={{ left: `${x}%`, top: `${y}%` }}
-                    initial={reduce ? false : { scale: 0.4, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: 0.7 + i * 0.12 }}
-                  >
-                    <span className="orbit__node-ico">
-                      <Icon name={m.icon} size={18} />
-                    </span>
-                    <span className="orbit__node-label">{m.label}</span>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          <Reveal from="right" distance={28} className="cover__hero">
+            <AnnotatedShot
+              src={ASSETS.grabonHome}
+              alt="GrabOn home, a flagship commerce-intent surface where shopper decisions form"
+              url="grabon.com"
+              logo={{ src: ASSETS.grabonLogo, alt: 'GrabOn' }}
+              objectPosition="top center"
+              style={{ height: '100%' }}
+            />
+            <span className="cover__herocap mono">GrabOn, the flagship commerce-intent surface and signal source</span>
+          </Reveal>
         </div>
 
         <Reveal i={5} className="cover__strip">
           {modules.map((m) => (
             <div className={`cover__chip${m.hub ? ' cover__chip--hub' : ''}`} key={m.label}>
               <span className="cover__chip-ico">
-                <Icon name={m.icon} size={15} />
+                <Icon name={m.icon} size={18} />
               </span>
               <div>
                 <span className="cover__chip-label">{m.label}</span>

@@ -30,5 +30,17 @@ The build adds short interface microcopy that is not present in `04_SCREEN_COPY.
 
 Risk: low. This microcopy stays within the approved terminology, uses British English, contains no banned terms or em dashes, and surfaces no internal/technical language.
 
+## Refactor copy corrections (1920x1080 deck refactor)
+The `CLAUDE_REFACTOR_PROMPT.md` refactor mandates a product-reality correction on Screen 10: Alternatives.co must be framed as **B2B software discovery**, never consumer comparison. The previously approved copy named consumer-style personas, which the audit flagged as the critical Screen-10 defect. Per the refactor instruction (authoritative for this pass), Screen 10 copy was corrected to B2B software language.
+
+| Screen | Field | Was | Now | Reason |
+|---|---|---|---|---|
+| 10 | headline | "Reach users while they are comparing options." | "Reach buyers while they are comparing software options." | Refactor product-reality fix: B2B software discovery, not consumer comparison. |
+| 10 | subheadline | "Alternatives.co helps brands reach comparison-led users, alternative seekers, product researchers, and category explorers." | "Alternatives.co helps brands reach SaaS buyers, tool evaluators, alternative seekers, and category researchers comparing software before the final choice." | Same fix; the visible copy now matches the B2B SaaS-alternatives visual. |
+| 10 | support | "Comparison-led discovery gives the brand another moment before the final choice." | "Comparison-led software discovery gives the brand another moment before the final choice." | Adds the software anchor. |
+| 10 | cards | Alternative seekers, Product researchers, Category explorers, Comparison-led users | SaaS buyers, Tool evaluators, Alternative seekers, Category researchers | Aligns persona labels to B2B software buyers. |
+
+Risk: low. This is the explicitly-required Alternatives.co correction; no other approved copy changed. Screen 5 tiles were realigned to the existing approved `cards` list (Shopper signals restored); no copy strings changed there.
+
 ## Note (source-document, not a build change)
 `04_SCREEN_COPY.md`'s Screen 2 "Variants" block gives slightly different wording for the three opening variants than `02_INTERACTION_AND_CTA_MODEL.md` (the "Opening Tailoring Logic" JSON). Per the `08_BUILD_EXECUTION_LOCK.md` source hierarchy, the build follows `02` verbatim. This is a source-doc inconsistency to reconcile, not a deviation introduced by the build.

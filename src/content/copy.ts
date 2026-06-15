@@ -119,11 +119,11 @@ export const copy: Record<number, ScreenCopy> = {
   },
   10: {
     eyebrow: 'Capture commerce intent',
-    headline: 'Reach users while they are comparing options.',
+    headline: 'Reach buyers while they are comparing software options.',
     subheadline:
-      'Alternatives.co helps brands reach comparison-led users, alternative seekers, product researchers, and category explorers.',
-    support: 'Comparison-led discovery gives the brand another moment before the final choice.',
-    cards: ['Alternative seekers', 'Product researchers', 'Category explorers', 'Comparison-led users'],
+      'Alternatives.co helps brands reach SaaS buyers, tool evaluators, alternative seekers, and category researchers comparing software before the final choice.',
+    support: 'Comparison-led software discovery gives the brand another moment before the final choice.',
+    cards: ['SaaS buyers', 'Tool evaluators', 'Alternative seekers', 'Category researchers'],
     cta: 'Move demand beyond one platform',
     aiChip: 'alternatives',
     drawer: 'Measurement can include visits, clicks, category engagement, comparison-led traffic, and leads where applicable.',

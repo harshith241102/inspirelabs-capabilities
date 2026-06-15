@@ -1,5 +1,6 @@
 import { motion, useReducedMotion, type HTMLMotionProps } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { IS_EXPORT } from '../lib/deckMode';
 
 type Dir = 'up' | 'down' | 'left' | 'right' | 'none';
 
@@ -46,10 +47,11 @@ export function Reveal({
   ...rest
 }: RevealProps) {
   const reduce = useReducedMotion();
+  const stat = reduce || IS_EXPORT; // render final state, no animation
   return (
     <motion.div
-      initial={reduce ? false : { opacity: 0, ...offset(from, distance) }}
-      whileInView={reduce ? undefined : { opacity: 1, x: 0, y: 0 }}
+      initial={stat ? false : { opacity: 0, ...offset(from, distance) }}
+      whileInView={stat ? undefined : { opacity: 1, x: 0, y: 0 }}
       viewport={{ once, amount }}
       transition={{ duration: 0.55, delay: delay + i * step, ease: [0.22, 0.61, 0.36, 1] }}
       {...rest}

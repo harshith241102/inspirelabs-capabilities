@@ -1,0 +1,271 @@
+/* Screen 03 - GrabOn-to-Inspirelabs expansion (proof-split: GrabOn surface feeds a 5-module board) */
+
+.s03-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 44px;
+  padding: 26px 0 22px;
+}
+
+/* ---------- Left: dominant GrabOn proof object ---------- */
+.s03-proof {
+  width: 50%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+.s03-proof__shot {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.s03-proof__cap {
+  flex-shrink: 0;
+  margin-top: 14px;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s03-proof__cap strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* The connector from proof surface into the expansion board */
+.s03-bridge {
+  flex-shrink: 0;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 64px;
+  color: var(--orange-text);
+}
+.s03-bridge__line {
+  width: 2px;
+  flex: 1;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--border) 0,
+    var(--border) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+.s03-bridge__node {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange);
+  box-shadow: var(--float-sm);
+  flex-shrink: 0;
+}
+.s03-bridge__node svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s03-bridge__label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--grey);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+/* ---------- Right: the 5-module expansion board ---------- */
+.s03-board {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.s03-board__head {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.s03-board__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s03-board__sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.s03-modules {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Each module is an information row, NOT a navigation button. A small hotspot
+   marker (the "Define" affordance) carries the only click target. */
+.s03-mod {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 14px;
+  box-shadow: var(--float-sm);
+  position: relative;
+}
+.s03-mod--accent {
+  border: 2px solid var(--orange);
+  padding: 15px 19px;
+}
+.s03-mod__n {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey);
+  width: 22px;
+  flex-shrink: 0;
+}
+.s03-mod--accent .s03-mod__n {
+  color: var(--orange-text);
+}
+.s03-mod__ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: #f4f5f7;
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.s03-mod--accent .s03-mod__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.s03-mod__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s03-mod__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.s03-mod__label {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.s03-mod__role {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--body);
+}
+
+/* Small hotspot definition marker - the only interactive affordance per row */
+.s03-mod__def {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--grey);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.s03-mod__def svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s03-mod__def:hover {
+  border-color: var(--orange);
+  color: var(--orange-text);
+  transform: translateX(2px);
+}
+.s03-mod__def:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* ---------- Footer: net takeaway + single primary CTA ---------- */
+.s03-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.s03-net {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 12px;
+}
+.s03-net__text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--body);
+}
+.s03-net__text strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.s03-foot .cta-row {
+  flex-shrink: 0;
+}

@@ -1,0 +1,368 @@
+/* Screen 34 - Category proof (proof-split: category surface hero + proof rail).
+   Fixed px, authored for the 1920x1080 logical canvas. */
+
+.s34-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 40px;
+  padding: 24px 0 20px;
+}
+
+/* ---------- Dominant visual: selected-category surface ---------- */
+.s34-stage {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.s34-shot {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--float-lg);
+}
+.s34-shot__bar {
+  height: 48px;
+  flex-shrink: 0;
+  background: #f3f4f6;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 20px;
+}
+.s34-shot__bar i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d7dae0;
+}
+.s34-shot__url {
+  margin-left: 14px;
+  height: 28px;
+  flex: 1;
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--grey);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.s34-shot__logo {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+}
+.s34-shot__logo img {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+.s34-shot__view {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.s34-shot__view > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.s34-shot__tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 4;
+}
+/* Category identity plate, anchored bottom-left over the surface */
+.s34-shot__plate {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 20px;
+  background: rgba(14, 15, 10, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid var(--orange);
+  border-radius: 13px;
+  backdrop-filter: blur(6px);
+  max-width: 70%;
+}
+.s34-shot__plate-cat {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.05;
+}
+.s34-shot__plate-sys {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: #d6d9e0;
+}
+
+/* Gap note shown when the hero is the closest available proof, not exact */
+.s34-gap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 11px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--body);
+}
+.s34-gap svg {
+  color: var(--orange-text);
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Proof-control rail ---------- */
+.s34-rail {
+  width: 480px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+.s34-rail__top {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.s34-rail__cap {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s34-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.s34-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.s34-cat:hover {
+  border-color: var(--orange);
+  transform: translateY(-1px);
+}
+.s34-cat:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s34-cat.is-active {
+  border: 2px solid var(--orange);
+  color: var(--orange-text);
+  padding: 10px 15px;
+}
+.s34-cat__check {
+  color: var(--orange);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s34-cat__you {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grey);
+  background: #f2f3f5;
+  border: 1px solid var(--card-bd);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+/* Evidence status block */
+.s34-status {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--card-bd);
+  border: 1px solid var(--card-bd);
+  border-radius: 13px;
+  overflow: hidden;
+}
+.s34-status__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #fff;
+}
+.s34-status__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15.5px;
+  color: var(--ink);
+}
+.s34-status__label svg {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Metric groups */
+.s34-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+.s34-metrics__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+}
+.s34-metrics__tail {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--grey);
+}
+.s34-metrics__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.s34-metric {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--body);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+/* Quiet drawer trigger (hotspot, not a button wall) */
+.s34-more {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 12px 18px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  box-shadow: var(--float-sm);
+  transition: border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+}
+.s34-more:hover {
+  border-color: var(--orange);
+  color: var(--orange-text);
+  transform: translateY(-1px);
+}
+.s34-more:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s34-more svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.s34-more__arrow {
+  margin-left: 2px;
+  color: var(--grey);
+  stroke-width: 2;
+}
+
+/* ---------- Footer ---------- */
+.s34-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.s34-foot__cta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+.s34-foot__note {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: var(--muted-text);
+  max-width: 520px;
+}

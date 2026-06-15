@@ -1,0 +1,347 @@
+{
+  "0": {
+    "n": 0,
+    "severity": "ok",
+    "issues": []
+  },
+  "1": {
+    "n": 1,
+    "severity": "ok",
+    "issues": []
+  },
+  "2": {
+    "n": 2,
+    "severity": "minor",
+    "dominantVisual": "Enlarged real GrabOn home screenshot (ASSETS.grabonHome) rendered as a browser-chrome AnnotatedShot proof object (url \"grabon.com\", GrabOn logo in the frame bar, \"Flagship commerce-intent surface and signal source\" caption), flex:1 so it fills the left ~55% of the body. This matches the brief's intended dominant visual.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Personalisation is still mostly text-driven, not visually structural. The brief (Screen 2 refactor action) wants the setup answer to 'visibly alter a headline panel and route emphasis'. Today the only setup-driven changes are: (a) the headline/sub string swap from openingTailoring[familiarity], and (b) one module tile getting an orange border + 'For your priority' flag via emphasisByPriority. The GrabOn proof object and the 5 tiles themselves are identical for every reader, so the 'tailored expansion' is communicated by one highlighted tile + a tailorLine sentence rather than a visibly reconfigured panel. This is the residual form of the original audit complaint ('personalisation is almost entirely text').",
+      "Module tiles still read partly like navigation. The 5 .s02-mod tiles (Commerce intent, Distribution, Shopper signals, AI Growth Studio, Measurable commitments) are uniform icon+label+sub rows in a vertical list; not a card-grid relapse (they are a supporting rail, not the dominant object), but per the uiSystem note 'module tiles read like navigation' they could be made more clearly an expansion board than a menu. Minor.",
+      "Right-rail kicker is 'Expands into the Inspirelabs system' but there is no explicit visual connector (arrow / 'expands into' bridge) between the GrabOn proof object and the module rail in this version; the brief's dominant-visual line describes the GrabOn surface 'expanding into a labelled module set'. The relationship is implied by layout/copy only. Minor polish."
+    ]
+  },
+  "3": {
+    "n": 3,
+    "severity": "minor",
+    "dominantVisual": "GrabOn category surface annotated screenshot (AnnotatedShot with grabonCategory + grabonLogo), left 50% of the body, bridged (\"connects into\") to a five-module board on the right",
+    "cardGridRelapse": true,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "CARD-GRID RELAPSE (partial): the right half is s03-modules = 5 stacked .s03-mod rows that are near-identical white rounded cards (icon chip + number + label + role + a 'Define' pill each). The brief said to limit click affordances to 'small hotspot markers' and make them 'large labelled modules', but each of the 5 rows still carries its own 'Define' button (5 click targets), reproducing the audit's exact complaint that 'the module list reads like navigation; drawer controls compete with the argument'. It is a labelled board, not a generic catalogue, so this is a soft relapse, not a hard one.",
+      "DOMINANT-VISUAL WEIGHTING: the GrabOn proof shot is set to width:50% of the .s03-body column (s03.css line 13), and the .s03-body is itself only the middle band between DeckHeader and footer. So the screenshot does not clearly occupy the brief's 45-60% of the full canvas as the dominant object; it sits as an equal-weight left column balanced against the 5-row module board, which the brief said should feed FROM the dominant proof object, not sit beside it at parity.",
+      "Minor: every module row has its own per-row 'Define' drawer button (Screen03.tsx lines 138-146). This is 5 secondary affordances on one screen; the refactor intent was a single dominant visual with sparse hotspots, so consider collapsing these to 1-2 hotspot markers (or removing per-row buttons) to stop the board reading like a nav list. CTA hierarchy itself is fine (one AdvanceCta, no SupportChip since copy[3] has no aiChip, no ghost buttons)."
+    ]
+  },
+  "4": {
+    "n": 4,
+    "severity": "minor",
+    "dominantVisual": "Pre-brand decision-journey map (.s04-map board): a continuous dashed track through 5 icon nodes (Search, Offers, Creators, Communities, Partners), a single orange \"Tracking boundary\" focal flag + dashed orange vertical line, ending at an orange \"Brand visit\" endpoint. One composed map object, not paragraphs.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "No MockTag on the illustrative built journey map; the brief's global rule says every illustrative built visual should carry a MockTag. Risk is low here because the map invents no metrics or data, but a MockTag would be consistent with the rule.",
+      "Mono font used on three elements (two zone labels, the boundary flag, plus the footer note) — within reason but brushes against the brief's flagged global mono overuse; reserve mono for proof/status labels.",
+      "The visual is a clean horizontal diagram rather than the 'cinematic' pre-brand scene the brief envisioned; meaning is carried well but it is lighter than a true scene. Acceptable under the single-orange-focal rule, not a defect."
+    ]
+  },
+  "5": {
+    "n": 5,
+    "severity": "major",
+    "dominantVisual": "Five-column \"assets already in motion\" board: each column is a real product thumbnail (GrabOn home, GrabCash deals, GrabShare home, RankDrive dash, WriteGenius dash) over an icon, label, enables line and evidence strip. Asset-led, but presented as 5 equal tiles in a row, not ONE dominant proof object occupying 45-60 percent of canvas.",
+    "cardGridRelapse": true,
+    "productRealityOk": false,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "CARD-GRID RELAPSE (main complaint): the board is literally grid-template-columns:repeat(5,1fr) of five identical <button className=\"s05-tile\"> elements, each with the same shot -> icon+label -> enables -> proof strip -> two EvidenceTags structure, each opening a drawer (openTile). The real thumbnails and the vertical 'Assets already in motion' spine improve it over the old .opentile CardGrid, but structurally it is still a uniform 5-card grid, not a single dominant proof object. Brief wanted to move away from the 5-card grid; the replacement is still 5 equal interactive card-tiles.",
+      "PRODUCT-REALITY MISMATCH (wrong asset): tile 5 'Measurement discipline' / proof 'Commitment framework' uses ASSETS.writegeniusDash (a WriteGenius content-product screenshot) and logo:writegeniusLogo. A WriteGenius product screen does not represent measurement or a commitment framework, so the visual contradicts the label. WriteGenius is also already used legitimately in tile 4 'In-house AI Lab', so it is shown twice and tile 5 borrows it as filler because no measurement asset exists. shotAlt even concedes this ('WriteGenius content workflow, with defined review checkpoints').",
+      "COPY-CONTRACT DIVERGENCE / dropped AudienceSeed advantage: copy[5].cards lists 'Shopper signals' as the third advantage and the subheadline names 'shopper signals' as a core advantage, but the tiles[] array has no shopper-signals / AudienceSeed-by-Inspirelabs tile. It was replaced by 'Creator reach' (GrabShare). The deck's five rendered tiles (Owned surfaces, Distribution depth, Creator reach, In-house AI Lab, Measurement discipline) do not match the copy, and the AudienceSeed shopper-intent advantage is absent on this operating-advantage slide.",
+      "ONE ORANGE FOCAL: only tile 1 (is-accent, GrabOn) is accented, which satisfies the single-focal rule, but every tile still has identical hover -> border-color:var(--orange) treatment, so on interaction the single-focal discipline is visually diluted across all five.",
+      "MINOR: header uses both headline and subheadline (long) plus a left-border s05-net support line in the footer; brief asked to cut support copy 30-50 percent on this dense screen. Copy is still fairly heavy (subheadline + per-tile 'enables' sentences + net line)."
+    ]
+  },
+  "6": {
+    "n": 6,
+    "severity": "minor",
+    "dominantVisual": "A built left-to-right \"system operating map\": a single proof-wrapped horizontal spine threading five sequenced stage nodes (01 Capture commerce intent, 02 Distribute demand, 03 AudienceSeed shopper signals, 04 AI Growth Studio, 05 Growth commitments) with an \"Audience intent\" entry anchor and an orange \"Accountable growth\" exit, all enclosed inside a dashed \"category proof\" evidence frame. Matches the brief's intended dominant visual.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Missing MockTag: the brief marks Screen 6 as Mock needed: true and the global rule requires every illustrative built visual to carry a MockTag, but the s06-map renders no MockTag. The dashed 's06-prooflabel' is an explanatory proof label, not an illustrative-mock label. Minor honesty-labeling gap (no invented metrics/dates/logos are present, so it is low-risk).",
+      "Borderline card-shaping: the five stages are still white rounded .s06-node cards with border + box-shadow. They are integrated into one object by the continuous gradient spine, inter-node arrows, entry/exit anchors and the surrounding proof frame, so it reads as an operating-board map and NOT as a generic detached card grid, but the node styling sits close to the deck's overused card primitive. Polish only.",
+      "The brief asks for 'one orange focal' and the screen has effectively two orange accents in the same lower-right region (the orange 'is-goal' Growth commitments node plus the orange 'Accountable growth' exit chip with orange circular check). They are intentionally grouped as one landing moment, so acceptable, but it is two orange elements rather than a single focal."
+    ]
+  },
+  "7": {
+    "n": 7,
+    "severity": "minor",
+    "dominantVisual": "An operating board of three browser-framed intent lanes, each illustrated by a distinct real surface example (lane 1 GrabOn offer home, lane 2 GrabOn category surface = orange focal, lane 3 a labelled B2B SaaS-alternatives mock), with per-lane meta and an illustrative intent-signal bar. Matches the brief's intended dominant visual.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "MINOR - Evidence-status semantics: the two real GrabOn lanes render <EvidenceTag status=\"pending\">Real GrabOn surface</EvidenceTag> (Screen07.tsx line 113). The 'pending' status resolves to 'Pending validation' / proof-pending styling (ev--pending; ui.tsx lines 119-121). These are actually real, live-captured GrabOn assets (grabon_home.jpg, grabon_category.png both present on disk), so a pending-validation evidence chip on a confirmed-real surface is semantically off; status=\"approved\" would read correctly. The MockTag on lane 3 is correct.",
+      "MINOR - Brief inconsistency on Mock needed: REFACTOR_BRIEF Screen 7 says 'Mock needed: false' and lists assets grabonHome, grabonCategory, alternativesLogo only. Lane 3 (Alternatives.co) has no screenshot, so the component correctly falls back to a built, MockTag-labelled B2B SaaS mock (Mock() in Screen07.tsx). The implementation choice is sound and product-reality-correct, but it diverges from the brief's 'Mock needed: false' flag - worth reconciling the brief or the flag so QA does not read it as an unexpected mock.",
+      "NOTE (not a defect) - alt text on lane 3 frame: lane 3 has no src/alt and renders the Mock, but its EvidenceTag branch is bypassed correctly; no broken image. All four listed assets (grabonHome, grabonCategory, grabonLogo, alternativesLogo) are referenced and exist on disk. CTA is a single footer AdvanceCta ('See GrabOn' to Screen 8), no SupportChip, no ghost buttons. Strength bars are explicitly captioned 'Intent signal, illustrative' and never presented as measured, resolving the original audit complaint. Comparison lane is explicitly B2B SaaS software evaluation (caption 'B2B software buyers evaluating SaaS alternatives', mock title 'Best CRM alternatives', footer 'SaaS buyers, tool evaluators, category researchers') with no consumer/fashion/food/travel framing, pre-empting Screen 10. No AudienceSeed or AI Growth Studio content on this screen, so those reality checks are N/A. No em/en dash, tilde, exclamation, or banned terms in display copy ('deal/coupon' used in the allowed product sense)."
+    ]
+  },
+  "8": {
+    "n": 8,
+    "severity": "minor",
+    "dominantVisual": "Enlarged GrabOn merchant store-page screenshot (AnnotatedShot of grabonMerchant) — flex-grow hero with browser-chrome bar, real grabon.com/stores URL, GrabOn logo on the frame, and on-image annotation pins. This is the brief's intended dominant visual.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Annotation pins under-delivered vs brief: brief calls for 4-5 on-image hotspots, but only 3 pins are wired in the `pins` array (Screen08.tsx lines 23-27). Polish gap, not a blocker.",
+      "Pin numbering is non-contiguous and mismatches the side list: pins use n=1, 2, 5 while the s08-list renders rows numbered 1-6 sequentially (s08-row__n = i+1). The on-image '5' (Featured deal placements) does not correspond to row 5 (Deal modules) / row 6 (Featured placements), a small numbering inconsistency a reader could trip on.",
+      "Right-side dependency only partially reduced: the brief said 'reduce right-side dependency,' but the s08-side still carries all 6 surfaces as drawer-opening buttons (s08-list) plus the lead paragraph and measure box. Meaning still leans on the list rather than the annotated screenshot. Minor.",
+      "AdvanceCta and SupportChip are de-stacked correctly via .s08-foot justify-content:space-between (primary bottom-left, AI chip bottom-right on the same baseline), satisfying the de-stack requirement; noting only that they share the same footer row band."
+    ]
+  },
+  "9": {
+    "n": 9,
+    "severity": "minor",
+    "dominantVisual": "Real GrabOn home screenshot (grabonHome) in a grabon.com browser frame, dimmed, with four promotional placements drawn as on-surface overlays (sidekick banner, featured-campaign orange focal, deal module, coupon-ID promotion) = an annotated placement-canvas proof object.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Overlays are text-labeled annotation boxes over the real surface, not literal recreations of each placement format (the 'Featured campaign' orange box is a labeled rectangle, not a rendered ad creative); honestly MockTagged, but slightly short of the brief's 'large placement mockups'.",
+      "Rail/overlay count mismatch: the rail lists all 8 placements but only 4 are drawn on the surface (banner, featured, deal, coupon). The other 4 (category takeover, cross-promotions, video, high-visibility) exist only as compact rail rows, so 'shown as real inventory' is partially asserted-not-shown for half the list (mitigated by the 'Real surfaces, shown separately' caption).",
+      "Brief lists grabonCategory (category-takeover context) and grabonMerchant as available context assets; only grabonHome is used. Not a defect, but the 'Category takeover' overlay/rail item has no matching category visual even though grabonCategory exists.",
+      "Minor secondary use of orange: s09-item__dot--pending uses var(--orange) as a status dot in the rail, in addition to the single intended orange focal (s09-ov--featured). Consistent with status-dot convention but it is a second orange element on the slide."
+    ]
+  },
+  "10": {
+    "n": 10,
+    "severity": "major",
+    "dominantVisual": "Alternatives.co browser-chrome mock of a \"Best CRM alternatives\" B2B SaaS comparison table (URL bar, logo, MockTag) with software-buyer columns (Use case / Deployment / Pricing model / Buyer fit / Buyer stage) and an orange \"Best fit\" shortlisted row as the single focal.",
+    "cardGridRelapse": false,
+    "productRealityOk": false,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "PRODUCT-REALITY (major): The rendered subheadline copy (copy.ts line 124, shown via DeckHeader) is generic/consumer-flavored and lacks any B2B/software anchor: 'Alternatives.co helps brands reach comparison-led users, alternative seekers, product researchers, and category explorers.' This is almost verbatim the OLD personas the refactor brief flagged as the critical defect (consumer-style, not B2B software discovery). The TSX dominant visual and the personas[] array were correctly rebuilt to B2B (SaaS buyers, Tool evaluators, Alternative seekers, Category researchers) but the headline copy was not updated to match, partially reintroducing the exact defect. Fix the subheadline to name B2B software/SaaS discovery (e.g. SaaS buyers, tool evaluators, category researchers).",
+      "STALE COPY (minor): copy.ts line 126 cards array ['Alternative seekers','Product researchers','Category explorers','Comparison-led users'] is now dead/stale relative to the rebuilt personas in Screen10.tsx (which no longer reads c.cards). It is unused by the screen but still carries the old consumer persona language; remove or align to the B2B personas to avoid drift.",
+      "POLISH (minor): MockTag is positioned absolutely at top:70px / right:18px over the table area (.s10-mock__tag); on the 1920x1080 canvas confirm it does not overlap the s10-page__count ('4 tools compared by buyer fit') text in the page top-right region."
+    ]
+  },
+  "11": {
+    "n": 11,
+    "severity": "ok",
+    "issues": []
+  },
+  "12": {
+    "n": 12,
+    "severity": "ok",
+    "issues": []
+  },
+  "13": {
+    "n": 13,
+    "severity": "ok",
+    "issues": []
+  },
+  "14": {
+    "n": 14,
+    "severity": "ok",
+    "issues": []
+  },
+  "15": {
+    "n": 15,
+    "severity": "ok",
+    "issues": []
+  },
+  "16": {
+    "n": 16,
+    "severity": "ok",
+    "issues": []
+  },
+  "17": {
+    "n": 17,
+    "severity": "minor",
+    "dominantVisual": "A single \"Tracked campaign report\" dashboard mock as hero: a source-to-outcome lane (Publisher source -> Tracked click -> Order/lead -> Performance report) ending in a left publisher-source breakdown panel + right CPA/CPS/ROAS performance report. Matches the brief.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Single-orange-focal rule slightly diluted: there are two orange focal elements, not one. The lane endpoint icon uses .s17-lane__ico.is-accent (orange fill + glow shadow, Screen17.tsx line 70 / s17.css 114-119) AND the ROAS KPI tile uses .s17-kpi.is-accent (2px orange border, Screen17.tsx line 118 / s17.css 278-281). The s17.css header comment (lines 2-4) asserts 'Single orange focal: the ROAS KPI tile', which is contradicted by the accented lane icon.",
+      "Polish: display headline 'Affiliate platforms extend performance-led traffic.' ends with a period (copy.ts line 196); other screens' headline punctuation should be checked for consistency. Not a banned-content issue."
+    ]
+  },
+  "18": {
+    "n": 18,
+    "severity": "minor",
+    "dominantVisual": "A three-zone campaign-distribution board: one creative set (real telegramAd) flows through a selection-logic gate into a selected-channels grid, anchored by the Telegram proof block (real telegramPost phone + real telegramReport dashboard) as the single orange focal. This is a genuine composed board, not paragraphs.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "MockTag mislabel (minor product-reality/atom-misuse): Screen18.tsx line 75 wraps the REAL telegramAd capture in <MockTag>Real Telegram creative</MockTag>. MockTag is the atom reserved for illustrative BUILT mocks; using it to assert 'Real' inverts its meaning. Use EvidenceTag (e.g. status pending/approved) for a real-but-clearance-pending capture, and reserve MockTag for built visuals. The text does not invent anything, so this is a labelling-consistency defect, not a fabrication.",
+      "Channel-set drift from copy (minor): copy[18].cards lists Instagram as a channel, but the board's channels[] array (Screen18.tsx lines 22-31) drops Instagram and adds Newsletter+Web push+Media house. The on-canvas channel set is a deliberate curated selection (8 tiles vs 9 in copy) and is defensible for the 'chosen, not auto-posted' argument, but the canvas no longer matches the copy source-of-truth list. Worth reconciling so copy.ts and the rendered board agree.",
+      "Held-state icon reuse (very minor a11y/clarity): held channels render an 'arrow' icon rotated 180deg (lines 123, 248-250) as the not-selected marker. It reads as a generic down/return glyph rather than an explicit not-selected indicator; the text label 'Not selected' carries the meaning, but pairing a clearer minus/lock glyph would strengthen the colour+text+icon trio the brief asks for.",
+      "Overflow risk to verify (not a code defect yet): the brief flags Screen 18 for re-measurement after the 1920 refactor. The board is a fixed 3-col grid (340 / 264 / 1fr) with a nested proof grid (220 / 1fr) and two real screenshots using object-fit cover inside flex:1 min-height:0 panels. Layout is built defensively (min-height:0, overflow:hidden on proof and reportshot), so it should fit, but this needs a real 1920x1080 screenshot/DOM bounding-box gate to confirm no clipping of the Telegram report shot."
+    ]
+  },
+  "19": {
+    "n": 19,
+    "severity": "ok",
+    "issues": []
+  },
+  "20": {
+    "n": 20,
+    "severity": "ok",
+    "issues": []
+  },
+  "21": {
+    "n": 21,
+    "severity": "minor",
+    "dominantVisual": "A horizontal GrabOn event path crossing a single orange pixel boundary: a wide pre-pixel proof zone (two real GrabOn surface tiles backing a connected 4-node event rail: Discovery, Offer comparison, Coupon reveal, Outbound click) on the left, the orange \"Pixel starts here\" boundary line as the single focal in the centre, and a single Brand-arrival card on the right.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Minor (gradient ban): .s21-zone--pre uses linear-gradient backgrounds (s21.css line 108) for the AudienceSeed wash. The V2 design language bans gradients; although it is a faint same-hue wash, it is technically a linear-gradient and should be flattened to a solid rgba fill for strict compliance.",
+      "Minor (accent system): the coverage rail and event nodes use a strong blue (--as / --as-deep) accent family alongside the single orange focal. This is an intentional AudienceSeed-vs-pixel color coding, but it introduces a competing non-orange accent; worth confirming the blue reads as quiet/secondary so the orange pixel boundary remains the one dominant focal."
+    ]
+  },
+  "22": {
+    "n": 22,
+    "severity": "ok",
+    "issues": []
+  },
+  "23": {
+    "n": 23,
+    "severity": "ok",
+    "issues": []
+  },
+  "24": {
+    "n": 24,
+    "severity": "ok",
+    "issues": []
+  },
+  "25": {
+    "n": 25,
+    "severity": "ok",
+    "issues": []
+  },
+  "26": {
+    "n": 26,
+    "severity": "ok",
+    "issues": []
+  },
+  "27": {
+    "n": 27,
+    "severity": "ok",
+    "issues": []
+  },
+  "28": {
+    "n": 28,
+    "severity": "ok",
+    "issues": []
+  },
+  "29": {
+    "n": 29,
+    "severity": "ok",
+    "issues": []
+  },
+  "30": {
+    "n": 30,
+    "severity": "ok",
+    "issues": []
+  },
+  "31": {
+    "n": 31,
+    "severity": "ok",
+    "issues": []
+  },
+  "32": {
+    "n": 32,
+    "severity": "minor",
+    "dominantVisual": "A \"Partnership operating standard\" board: titled chrome bar (cycle mark + MockTag \"Operating standard\" + \"Reviewed every cycle\" loop pill), three band labels (Set the terms / Run the cycle / Carry it forward), eight connected commitment gates in one lane joined by connector links, and an accountability baseline net line. Review gate is the single orange focal.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": false,
+    "bannedContent": false,
+    "issues": [
+      "CTA HIERARCHY / brief non-compliance (main issue): the AI SupportChip is rendered directly beside the primary AdvanceCta inside the same shared .dk-stage__cta zone (Screen32.tsx lines 63-67, fragment with <AdvanceCta .../> then <SupportChip .../>). The brief's refactor action for Screen 32 explicitly says 'move the AI chip to the board header or hide until hover/tap.' It was not moved; it is stacked in the CTA zone next to the primary CTA. No competing ghost button exists (good), but the chip placement still violates the quiet/separated-from-primary requirement.",
+      "CARD-GRID residual (borderline, not a relapse): the eight gates are still eight near-identical tiles (.s32-gate, number + icon + label + one-liner) laid out in a horizontal flex lane. The board chrome (title bar, three band headers, connector links, baseline, one orange focal) lifts it clearly above a generic CardGrid and addresses the audit's 'administrative cards' complaint, so it does not read as a primarily generic catalogue. But the underlying repeated-tile pattern remains and is the one thing keeping this from being a fully distinct board visual.",
+      "COUNT / COPY mismatch (minor): the board sub-bar and CSS comments say 'Eight commitments' and the gates[] array has 8 items (Objective, Scope, KPI, Tracking, Reporting, Review, Improvement, Roadmap), but copy[32].subheadline lists only seven (it omits Scope and Improvement). The brief's 'Dominant visual' line also enumerates seven gates. The board (8) and the copy (7) disagree on the commitment count.",
+      "Display headline 'Long-term partnerships need defined goals and review cycles.' is generic/copy-led relative to the visual; acceptable but the strongest assertion lives in the baseline net line rather than the headline."
+    ]
+  },
+  "33": {
+    "n": 33,
+    "severity": "ok",
+    "issues": []
+  },
+  "34": {
+    "n": 34,
+    "severity": "minor",
+    "dominantVisual": "Selected-category GrabOn surface in a browser frame (s34-shot): full-height left column with browser chrome, GrabOn logo on the bar, MockTag, and an orange-accented category identity plate. The right side is a single proof/control rail, not a competing visual.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Unused brief-listed assets: catBeauty and grabonMerchantMyntra are imported in assets.ts and called out in the brief for a Fashion/Beauty proof carousel, but Screen 34 never renders them (fashion_beauty maps only to grabonCatFashion; no carousel exists). Unrealized opportunity, not a defect.",
+      "Polish: the category plate (.s34-shot__plate) uses a translucent dark fill rgba(14,15,10,0.82) with backdrop-filter blur. The V2/V3 law bans translucent ORANGE fills; a translucent ink plate over a photo is a legible pattern but worth a glance against the opaque-accent rule.",
+      "Polish: on a gap category, three orange accents are on screen at once (active category button border, plate orange left-border, and the s34-gap orange left-border), borderline against the one-orange-focal-per-slide rule. Reads as one orange system but is the densest accent case.",
+      "Nit: metric chips are static category-name labels (Visits/Clicks/Sales etc.), correctly carrying no invented numbers, but they are mono pills that lean slightly toward the internal-dashboard look the brief warns against; acceptable since they are honest metric-group names with case proof tagged pending."
+    ]
+  },
+  "35": {
+    "n": 35,
+    "severity": "ok",
+    "issues": []
+  },
+  "36": {
+    "n": 36,
+    "severity": "minor",
+    "dominantVisual": "A stage-gated partnership roadmap board: four sequential stages (First activation path -> Prove the path -> Review decision -> Expand the partnership) on a left-to-right track, joined by live/locked connector nodes, each stage carrying an icon, owner/surface/commitment checklist, and a per-stage proof gate. Stage 1 is the single orange \"In motion\" focal; stages 2-4 are locked.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "MockTag gap: REFACTOR_BRIEF marks 'Mock needed: true' for Screen 36, but the board carries no MockTag/mock-status label. The only status chip is EvidenceTag status='pending' ('Evidence-gated'). Since the board is a conceptual/illustrative roadmap (not a captured product surface) nothing is fabricated as real, so this is a labeling polish gap, not a product-reality violation. Consider an explicit 'Illustrative roadmap' or mock tag for consistency with other built mocks.",
+      "Mild grid residue: the four stages are rendered as four equal-width cards in a CSS grid (grid-template-columns: 1fr 1fr 1fr 1fr) with identical internal structure (top row, icon tile, label, when, owner checklist, gate). The directional connectors, one orange focal, and live/locked states pull it away from a generic card catalogue, but the underlying layout is still four uniform cards; ensure the connector track and single-focal emphasis remain visually dominant so it does not read as a 4-up card grid at a glance.",
+      "Stage cards are dense: each card stacks a state pill, icon, label, sub-line, a 3-item checklist, and a gate box. With four side-by-side at 1920 width this risks small text and tight columns; the owner lists are capped at 3 (slice(0,3)) which helps, but verify no clipping/tiny-text at the fixed 1920x1080 canvas."
+    ]
+  },
+  "37": {
+    "n": 37,
+    "severity": "minor",
+    "dominantVisual": "Premium dark two-column conversion layout: a left \"roadmap request summary\" board (4 setup-driven summary cells + numbered \"what happens next\" 3-step sequence) paired with a right orange-topped form panel (or thank-you state). This matches the brief's intended dominant visual (\"roadmap summary plus what-happens-next beside a disciplined required-fields-only form\"). It is composition-led, not paragraph-led, but note it is a layout/form rather than a single hero proof object.",
+    "cardGridRelapse": false,
+    "productRealityOk": true,
+    "ctaHierarchyOk": true,
+    "bannedContent": false,
+    "issues": [
+      "Required-fields-only is honoured: only Name, Work email, Company are required; Phone/Website/Message are collapsed behind a quiet 'Add optional details' toggle. No designation/budget/agency/role/urgency fields. Matches brief approved-field list. OK.",
+      "CTA hierarchy is clean: exactly one primary CTA (.btn--primary .s37-submit 'Send roadmap request'). The optional-details toggle is a quiet ghost button (transparent, no border, demoted styling) and the consent/pending notes are non-interactive. There is no AI SupportChip on this screen, so no chip-vs-CTA stacking conflict. Good.",
+      "Product reality OK: no AudienceSeed / AI Growth Studio / GrabOn / Alternatives.co claims appear on this closing screen, so none of those product-reality traps are triggered. No invented metrics or dates (nextSteps comment explicitly notes 'no invented dates or SLAs'; 'Explored N of 38 screens' is real session state).",
+      "Banned content check passes: no em dash, en dash, tilde, or exclamation mark in display copy; no Affle/valuation/investor/M&A-deal terms; CTA is 'Send roadmap request' (not book-a-demo / run-a-pilot). Pending-integration and consent notes are present as the brief requires.",
+      "MINOR (honesty / required by brief) GOOD: the pending-integration state is implemented in BOTH the form ('Backend is pending integration. Details are held in this session only, with no CRM, inbox, or analytics destination connected yet') and the thank-you state. The brief flagged 'no CRM destination' as the critical defect; this is now disclosed honestly. Note it remains client-side only (submitContact does not route anywhere) - acceptable per brief as long as the pending state stays, but the backend is still a confirm-before-client-review blocker.",
+      "MINOR (asset): uses ASSETS.wordmarkDark (logos/inspirelabs-wordmark-dark.png) for the lockup, which is the brief's listed asset. The brief lists lockupLightTagline as an optional premium closing asset 'if approved' - it is not used, which is fine (optional). The brief also flags an open question to confirm the correct dark-background lockup file; assets.ts notes wordmarkDark is a tight-cropped white wordmark on the ink background, so it is the intended dark-screen lockup. No wrong asset shown.",
+      "MINOR (overflow risk, not a defect I can confirm without render): fixed dark canvas with header (46px lockup + 50px title + 20px sub) + a 1fr/700px body grid. The right form panel in its expanded-optional state stacks head + 3 required fields + toggle + 3 optional fields + submit + consent + pending note inside padding 34/38 on a 20px-radius panel; the brief explicitly says to 're-measure overlap on 37 after the 1920 refactor'. Worth running the DOM no-overflow gate, especially with optional details expanded and the longer 'To confirm together' summary values when setup is incomplete.",
+      "MINOR (a11y, brief asked for it): brief said 'Add visible form-validation messaging on Screen 37.' The form relies only on native HTML required/type=email validation (no custom inline error text / aria-describedby messaging). Native validation is present but the explicit visible validation feedback the refactor called for is not implemented.",
+      "NOTE (nav/export): brief requires Screen 37 to show 'Back to roadmap' and to hide DeckNav/ProgressRail/jump-to-roadmap in export capture. Those live outside this component (DeckNav/ProgressRail/export-mode), so not verifiable from Screen37.tsx/s37.css alone - flag for the global nav/export check rather than this screen."
+    ]
+  }
+}

@@ -1,15 +1,17 @@
 import { useApp } from '../state/store';
 import { Icon } from '../primitives/icons';
 import { JUMP_UNLOCK_INDEX, ROADMAP_INDEX } from '../content/sections';
+import { IS_EXPORT } from '../lib/deckMode';
 import './decknav.css';
 
 /**
  * Quiet deck controls: prev / next arrows + secondary "Jump to roadmap".
- * Hidden on cover + setup so entry stays cinematic.
+ * Hidden on cover + setup so entry stays cinematic, and fully hidden in
+ * export mode so screenshots carry no navigation chrome.
  */
 export function DeckNav() {
   const { currentIndex, total, next, prev, goTo } = useApp();
-  if (currentIndex <= 1) return null;
+  if (IS_EXPORT || currentIndex <= 1) return null;
 
   const showJump = currentIndex > JUMP_UNLOCK_INDEX && currentIndex < ROADMAP_INDEX;
   const showBackToRoadmap = currentIndex > ROADMAP_INDEX;

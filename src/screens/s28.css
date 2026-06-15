@@ -1,0 +1,163 @@
+/* Screen 28 - Search and content agents flow (proof-split, dual screenshots).
+   RankDrive scan and WriteGenius output are the dominant visual; the agent
+   flow is reduced to a thin status strip above them. Authored for 1920x1080. */
+
+/* Compact the header so the dual screenshots can dominate the canvas
+   (design language permits 44-52px headline when the visual leads). */
+#ai-search-content .s-title {
+  font-size: 46px;
+  margin-top: 16px;
+}
+#ai-search-content .s-sub {
+  font-size: 19px;
+  margin-top: 10px;
+  max-width: 92ch;
+}
+#ai-search-content .s-rule {
+  margin-top: 16px;
+}
+
+.s28-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px 0 4px;
+}
+
+/* Keep the flow rail a thin single-line status strip so the shots dominate */
+.s28-body .dk-flow {
+  padding: 11px 22px;
+}
+.s28-body .dk-flow__sub {
+  display: none;
+}
+
+/* The dual-screenshot hero occupies the bulk of the canvas */
+.s28-split {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+}
+
+/* The connecting arrow between scan and output */
+.s28-arrow {
+  flex-shrink: 0;
+  align-self: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange-text);
+  box-shadow: var(--float-sm);
+}
+.s28-arrow svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Stage label, sits over each screenshot (uses AnnotatedShot tag slot) */
+.s28-stage {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 8px 14px 8px 9px;
+  box-shadow: var(--float-sm);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.s28-stage:hover {
+  border-color: var(--orange);
+  transform: translateY(-1px);
+  box-shadow: var(--float);
+}
+.s28-stage:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s28-stage__n {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Slim honest caption row: real surfaces, human-reviewed, no ranking claim */
+.s28-support {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--orange);
+  border-radius: 11px;
+  box-shadow: var(--float-sm);
+}
+.s28-support__ico {
+  color: var(--ai-complete);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  flex-shrink: 0;
+}
+.s28-support__text {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.s28-support__review {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.16s ease;
+}
+.s28-support__review:hover {
+  transform: translateY(-1px);
+}
+.s28-support__review:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* CTA safe zone: primary advance left, quiet AI chip pushed to the right */
+.s28-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}

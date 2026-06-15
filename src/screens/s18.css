@@ -1,0 +1,351 @@
+/* Screen 18 - Channel amplification (campaign-distribution board)
+   One creative set -> selection logic -> selected channels, with the
+   Telegram lane proven by the real post + report. Single orange focal = Telegram.
+   Authored in fixed px for the 1920x1080 logical canvas. */
+
+.s18-board {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 340px 264px 1fr;
+  align-items: stretch;
+  gap: 26px;
+  padding: 22px 0 18px;
+  position: relative;
+}
+
+/* Connector arrows between the three zones */
+.s18-board::before,
+.s18-board::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 26px;
+  height: 2px;
+  background: var(--border);
+  z-index: 2;
+}
+.s18-board::before { left: 340px; }
+.s18-board::after { left: 604px; }
+
+.s18-zone-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 12px;
+}
+
+/* ---------- Zone 1: one creative set ---------- */
+.s18-source {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.s18-creative {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  box-shadow: var(--float-sm);
+  justify-content: center;
+}
+.s18-creative__shot {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--float-sm);
+}
+.s18-creative__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.s18-creative__tag {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+.s18-creative__cap {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--body);
+}
+.s18-formats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.s18-format {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  border-radius: 9px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.s18-format svg {
+  stroke: var(--grey);
+  fill: none;
+  stroke-width: 1.7;
+  flex-shrink: 0;
+}
+
+/* ---------- Zone 2: selection logic gate ---------- */
+.s18-gate {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.s18-gate__panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 22px;
+  background: var(--net);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.s18-gate__panel:hover {
+  border-color: var(--orange);
+  box-shadow: var(--float-sm);
+}
+.s18-gate__panel:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.s18-gate__lead {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.s18-gate__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 2px 0 auto;
+}
+.s18-gate__item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+.s18-gate__ico {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  color: var(--orange-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s18-gate__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+.s18-gate__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s18-gate__more svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ---------- Zone 3: selected channels + Telegram proof ---------- */
+.s18-out {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.s18-channels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.s18-chan {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 13px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 11px;
+  box-shadow: var(--float-sm);
+}
+.s18-chan__ico {
+  color: var(--grey);
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.s18-chan__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+.s18-chan__label {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-right: auto;
+}
+.s18-chan__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+  white-space: nowrap;
+}
+.s18-chan__state svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+}
+.s18-chan__hold {
+  transform: rotate(180deg);
+}
+
+/* Telegram = single orange focal (live, proven) */
+.s18-chan.is-live {
+  border-color: var(--orange);
+  border-width: 2px;
+  padding: 10px 12px;
+}
+.s18-chan.is-live .s18-chan__ico {
+  color: var(--orange-text);
+}
+.s18-chan.is-live .s18-chan__state {
+  color: var(--orange-text);
+}
+/* Selected channels = confirmed but neutral */
+.s18-chan.is-selected .s18-chan__state {
+  color: var(--ink);
+}
+/* Held channels = visibly not selected (no auto omnichannel) */
+.s18-chan.is-held {
+  background: var(--net);
+  border-style: dashed;
+  box-shadow: none;
+}
+.s18-chan.is-held .s18-chan__label {
+  color: var(--muted-text);
+}
+
+/* Telegram proof: real post phone + real report */
+.s18-proof {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 22px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid var(--orange);
+  border-radius: 16px;
+  box-shadow: var(--float-sm);
+  overflow: hidden;
+}
+.s18-proof__phone {
+  align-self: center;
+  width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+.s18-proof__phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.s18-proof__report {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.s18-proof__reporthead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.s18-proof__reporttitle {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-right: auto;
+}
+.s18-proof__reportshot {
+  flex: 1;
+  min-height: 0;
+  border-radius: 11px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--net);
+}
+.s18-proof__reportshot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+.s18-proof__cap {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--grey);
+}
+
+/* ---------- CTA safe zone ---------- */
+.s18-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}

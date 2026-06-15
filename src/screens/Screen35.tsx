@@ -1,89 +1,174 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader, AdvanceCta, EvidenceTag, NetBox } from '../primitives/ui';
+import { DeckHeader, AdvanceCta, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
-import { ProofCard } from '../primitives/blocks';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import type { EvidenceStatus } from '../primitives/ui';
+import './s35.css';
 
-const fields: { label: string; icon: IconName; placeholder: string; status: EvidenceStatus }[] = [
-  { label: 'Brand or category', icon: 'tag', placeholder: 'Named brand or category', status: 'pending' },
-  { label: 'Growth problem', icon: 'target', placeholder: 'The growth problem being solved', status: 'pending' },
-  { label: 'Capabilities activated', icon: 'layers', placeholder: 'Surfaces, signals, agents, commitments', status: 'pending' },
-  { label: 'Engagement period', icon: 'calendar', placeholder: 'Length of the engagement', status: 'pending' },
-  { label: 'Metrics moved', icon: 'chart', placeholder: 'Validated metrics only', status: 'unavailable' },
-  { label: 'Why it matters', icon: 'compass', placeholder: 'Relevance for similar brands', status: 'pending' },
+/* Screen 35 - Case study format (dashboard-mock).
+   ONE dominant object: a single client-ready case proof card that reads like a
+   real proof document, not a generic field grid. It carries the six elements a
+   case must earn trust with: brand or category, growth problem, capabilities
+   activated, engagement period, metrics moved, and why it matters for similar
+   brands. No invented case numbers; every value carries an honest evidence tag.
+   The single orange focal is the similar-brand implication panel. */
+
+/* Capabilities activated in the case (illustrative, label-only, no metric). */
+const activated = ['Commerce-intent surfaces', 'AudienceSeed signals', 'AI Growth Studio'];
+
+/* Metric groups the case can move. Each opens its definition/source/status
+   drawer; values stay pending or proof-pending, never invented. */
+const metrics: { label: string; group: string; status: EvidenceStatus; icon: IconName }[] = [
+  { label: 'Reach and visibility', group: 'Visits, surface coverage, share of discovery', status: 'pending', icon: 'eye' },
+  { label: 'Engagement and intent', group: 'Coupon reveals, outbound clicks, comparison traffic', status: 'pending', icon: 'signal' },
+  { label: 'Acquisition', group: 'Orders, sales, CPA, ROAS where tracking is live', status: 'unavailable', icon: 'target' },
 ];
 
 export default function Screen35() {
   const c = copy[35];
   const drawer = useDrawer();
 
+  const openMetric = (label: string, group: string, status: EvidenceStatus) =>
+    drawer.open({
+      id: `case-metric-${label}`,
+      kind: 'metric',
+      eyebrow: 'Metric group',
+      title: label,
+      sections: [
+        { heading: 'What it covers', body: group },
+        { heading: 'How it is shown', body: 'Validated metrics only. Where tracking is not yet live, the group stays a labelled placeholder, never a stated result.' },
+      ],
+      evidence: [{ label: 'Value status', status }],
+    });
+
+  const openEvidence = () =>
+    drawer.open({
+      id: 'evidence-status',
+      kind: 'proof',
+      eyebrow: 'Evidence status',
+      title: 'What evidence status means',
+      sections: [
+        { heading: 'Known', body: 'Approved, source-backed, ready for client-facing use.' },
+        { heading: 'Pending validation', body: 'Exists but needs confirmation before use.' },
+        { heading: 'Unavailable', body: 'Not yet available. Shown as a placeholder, never as a fact.' },
+      ],
+    });
+
   return (
     <Screen index={35} tone="light" id="case-format" label="Case study format">
       <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
-      <div className="s-body">
-        <Reveal style={{ width: '100%', maxWidth: 980, margin: '0 auto' }}>
-          <ProofCard>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '14px 20px',
-                borderBottom: '1px solid var(--card-bd)',
-                background: '#fbfbfc',
-              }}
-            >
-              <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <Icon name="shield" size={18} style={{ color: 'var(--orange)' }} />
-                <span style={{ fontFamily: 'var(--font-headline)', fontWeight: 700, fontSize: 15, color: 'var(--ink)' }}>
-                  Case study template
-                </span>
+
+      <div className="s35-body">
+        <Reveal from="up" distance={20} className="s35-cardwrap">
+          {/* The one dominant object: a client-ready case proof card. */}
+          <article className="s35-card">
+            {/* File bar: reads as a proof document, with a quiet evidence-status hotspot. */}
+            <div className="s35-card__bar">
+              <span className="s35-card__filemark">
+                <Icon name="shield" size={16} />
               </span>
-              <button
-                type="button"
-                className="opentile__more"
-                style={{ background: 'none', border: 0, cursor: 'pointer' }}
-                onClick={() =>
-                  drawer.open({
-                    id: 'evidence-status',
-                    kind: 'proof',
-                    eyebrow: 'Evidence status',
-                    title: 'What evidence status means',
-                    sections: [
-                      { heading: 'Known', body: 'Approved, source-backed, ready for client-facing use.' },
-                      { heading: 'Pending validation', body: 'Exists but needs confirmation before use.' },
-                      { heading: 'Unavailable', body: 'Not yet available. Shown as a placeholder, never as a fact.' },
-                    ],
-                  })
-                }
-              >
+              <div className="s35-card__titles">
+                <span className="s35-card__title">Case proof card</span>
+                <span className="s35-card__sub">Client-ready proof module, one brand or category per card</span>
+              </div>
+              <button type="button" className="s35-evbtn mono" onClick={openEvidence}>
                 What evidence status means
                 <Icon name="arrow" size={12} />
               </button>
+              <span className="s35-card__tag">
+                <MockTag>Illustrative template, not final data</MockTag>
+              </span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: 'var(--card-bd)' }} className="case-grid">
-              {fields.map((f) => (
-                <div key={f.label} style={{ background: '#fff', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--grey)' }}>
-                    <Icon name={f.icon} size={14} style={{ color: 'var(--orange)' }} />
-                    {f.label}
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--muted-text)' }}>{f.placeholder}</span>
-                  <EvidenceTag status={f.status} />
+
+            <div className="s35-card__body">
+              {/* Identity row: brand or category + the growth problem it solves. */}
+              <div className="s35-top">
+                <div className="s35-id">
+                  <span className="s35-field-k mono">Brand or category</span>
+                  <span className="s35-id__name">Named brand or category</span>
+                  <EvidenceTag status="pending" />
                 </div>
-              ))}
+                <div className="s35-problem">
+                  <span className="s35-field-k mono">Growth problem</span>
+                  <p className="s35-problem__text">
+                    The specific growth problem this brand needed solved, stated in one line a similar brand would recognise.
+                  </p>
+                </div>
+              </div>
+
+              {/* Metadata strip: capabilities activated + engagement period. */}
+              <div className="s35-meta">
+                <div className="s35-meta__block">
+                  <span className="s35-field-k mono">Capabilities activated</span>
+                  <div className="s35-chips">
+                    {activated.map((a) => (
+                      <span key={a} className="s35-chip">{a}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="s35-meta__period">
+                  <span className="s35-field-k mono">Engagement period</span>
+                  <span className="s35-meta__val">
+                    <Icon name="calendar" size={16} />
+                    Length of the engagement
+                  </span>
+                  <EvidenceTag status="pending" />
+                </div>
+              </div>
+
+              {/* Lower grid: metric groups moved + the similar-brand implication. */}
+              <div className="s35-grid">
+                <div className="s35-metrics">
+                  <div className="s35-metrics__head">
+                    <span className="s35-metrics__title">Metrics moved</span>
+                    <span className="s35-metrics__hint mono">Validated groups only, select for source</span>
+                  </div>
+                  <div className="s35-metric-list">
+                    {metrics.map((m) => (
+                      <button
+                        key={m.label}
+                        type="button"
+                        className="s35-metric"
+                        onClick={() => openMetric(m.label, m.group, m.status)}
+                      >
+                        <span className="s35-metric__ico">
+                          <Icon name={m.icon} size={16} />
+                        </span>
+                        <span className="s35-metric__txt">
+                          <span className="s35-metric__label">{m.label}</span>
+                          <span className="s35-metric__group">{m.group}</span>
+                        </span>
+                        <EvidenceTag status={m.status} />
+                        <Icon name="arrow" size={13} className="s35-metric__more" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Single orange focal: why it matters for similar brands. */}
+                <aside className="s35-why">
+                  <span className="s35-why__kicker mono">Why it matters</span>
+                  <p className="s35-why__lead">
+                    What a similar brand can expect to learn from this case, framed as relevance, not a promised result.
+                  </p>
+                  <div className="s35-why__foot">
+                    <span className="s35-field-k mono">Similar brands</span>
+                    <span className="s35-why__note">
+                      The same system applies. Proof changes by category, so each card stands on its own evidence.
+                    </span>
+                  </div>
+                </aside>
+              </div>
             </div>
-          </ProofCard>
+          </article>
         </Reveal>
       </div>
-      <footer className="s-footer-row">
-        <NetBox>Missing evidence stays visible until it is approved.</NetBox>
-        <div className="cta-row">
-          <AdvanceCta label={c.cta} to={36} />
-        </div>
+
+      <footer className="s35-foot">
+        <AdvanceCta label={c.cta} to={36} />
+        <p className="s35-foot__note">{c.support}</p>
       </footer>
     </Screen>
   );
