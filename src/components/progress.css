@@ -14,7 +14,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end; /* every dot shares the same right edge */
-  gap: 4px;
+  /* Row pitch must clear the revealed label chip (~20px) so the hover labels
+     never overlap or cram together. */
+  gap: 16px;
 }
 
 /* Each dot is a fixed-width tick column. The label is taken out of flow
@@ -29,7 +31,7 @@
   width: 30px;
   background: none;
   border: 0;
-  padding: 6px 0;
+  padding: 8px 0;
 }
 .rail__tick {
   width: 22px;
