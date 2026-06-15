@@ -33,7 +33,7 @@ export function DeckNav() {
           Back to roadmap
         </button>
       )}
-      <div className="decknav__arrows">
+      <div className="decknav__cluster">
         <button
           type="button"
           className="decknav__arrow"
@@ -43,9 +43,15 @@ export function DeckNav() {
         >
           <Icon name="arrow" size={18} style={{ transform: 'rotate(180deg)' }} />
         </button>
+        {nextCta && (
+          <span className="decknav__hint" aria-hidden="true">
+            <span className="decknav__hint-eyebrow">Next</span>
+            <span className="decknav__hint-cta">{nextCta}</span>
+          </span>
+        )}
         <button
           type="button"
-          className="decknav__arrow"
+          className="decknav__arrow decknav__arrow--next"
           onClick={next}
           disabled={currentIndex === total - 1}
           aria-label={nextCta ? `Next: ${nextCta}` : 'Next screen'}

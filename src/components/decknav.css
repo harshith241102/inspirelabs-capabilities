@@ -15,27 +15,91 @@ html[data-drawer-open] .decknav {
   opacity: 0;
   pointer-events: none;
 }
-.decknav__arrows {
+/* Cohesive nav cluster: prev arrow + contextual next hint + next arrow share
+   one lightly frosted white container so the control reads as a single,
+   deliberate, finished piece of UI rather than two loose buttons. */
+.decknav__cluster {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--float);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.decknav__cluster:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-bd);
+  box-shadow: var(--float-lg);
+}
+/* Quiet contextual hint: the current slide's CTA, shown only when there is a
+   next slide. Secondary by design (mono eyebrow + small ink label), never a
+   competing button. */
+.decknav__hint {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  max-width: 260px;
+  padding: 0 6px 0 8px;
+  line-height: 1.15;
+  text-align: right;
+}
+.decknav__hint-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c4);
+}
+.decknav__hint-cta {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.decknav__cluster:hover .decknav__hint-cta {
+  color: var(--ink);
 }
 .decknav__arrow {
-  width: 42px;
-  height: 42px;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #fff;
-  border: 1px solid var(--border);
+  border: 1px solid var(--card-bd);
   color: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--float-sm);
-  transition: border-color 0.18s ease, transform 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+  transition: border-color 0.18s ease, transform 0.18s ease, color 0.18s ease,
+    background-color 0.18s ease, opacity 0.18s ease;
 }
 .decknav__arrow:hover:not(:disabled) {
   border-color: var(--orange);
   color: var(--orange-text);
   transform: translateY(-2px);
+}
+/* Next is the primary action: opaque orange focal (the one accent on this
+   control), inverting the chevron to white. Prev stays the quiet sibling. */
+.decknav__arrow--next {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.decknav__arrow--next:hover:not(:disabled) {
+  background: var(--orange-deep);
+  border-color: var(--orange-deep);
+  color: #fff;
 }
 .decknav__arrow:disabled {
   opacity: 0.35;
@@ -43,8 +107,10 @@ html[data-drawer-open] .decknav {
 }
 .decknav__arrow:focus-visible {
   outline: 3px solid var(--orange);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
+/* Secondary roadmap pill: same frosted treatment as the cluster so the two
+   read as one family, but quieter (no fill accent, lighter shadow). */
 .decknav__jump {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -52,20 +118,25 @@ html[data-drawer-open] .decknav {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--grey);
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 9px 16px;
-  transition: border-color 0.18s ease, color 0.18s ease;
+  padding: 11px 18px;
+  box-shadow: var(--float-sm);
+  transition: border-color 0.18s ease, color 0.18s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .decknav__jump:hover {
   border-color: var(--orange);
   color: var(--orange-text);
+  transform: translateY(-2px);
+  box-shadow: var(--float);
 }
 .decknav__jump:focus-visible {
   outline: 3px solid var(--orange);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 @media (max-width: 860px) {
@@ -76,11 +147,16 @@ html[data-drawer-open] .decknav {
     transform: translateX(-50%);
     gap: 10px;
   }
+  /* On narrow viewports the contextual hint is dropped so the cluster stays
+     compact; the CTA still lives on the next arrow's accessible name. */
+  .decknav__hint {
+    display: none;
+  }
   .decknav__arrow {
     width: 46px;
     height: 46px;
   }
   .decknav__jump {
-    padding: 10px 14px;
+    padding: 11px 15px;
   }
 }

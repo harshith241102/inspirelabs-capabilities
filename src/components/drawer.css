@@ -215,16 +215,45 @@
 
 /* AI Growth Studio drawer: ONE orange accent only (the human review checkpoint).
    Everything else is neutralised so the guardrail reads as the single focal. */
-.drawer--ai .drawer__head .eyebrow {
-  border: 0;
-  background: none;
-  box-shadow: none;
-  padding: 0;
+
+/* Masthead: a calm, finished header block sealed off with a hairline divider. */
+.drawer__masthead {
+  flex-shrink: 0;
+  padding-bottom: 18px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--card-bd);
+}
+.drawer__masthead .drawer__title {
+  padding-top: 16px;
+  padding-bottom: 2px;
+}
+
+/* Eyebrow as an AI mark + label lockup (no pill — kept quiet, not orange). */
+.drawer__eyebrow-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
   color: var(--sub);
 }
-.drawer--ai .drawer__head .eyebrow::before {
-  display: none;
+.drawer__ai-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  color: var(--grey);
+  flex-shrink: 0;
 }
+
 .drawer--ai .drawer__heading {
   color: var(--sub);
 }
@@ -237,6 +266,73 @@
 }
 .drawer--ai .drawer__note--input svg {
   color: var(--grey);
+}
+
+/* Section rhythm: even spacing with a hairline rule between each block so the
+   fixed-order sections read as deliberate, separated steps. Only the borderless
+   text sections carry the hairline + internal padding; the two note cards keep
+   their own box (the orange review note's full border is never overdrawn) and
+   pick up the same rhythm via margin. */
+.drawer--ai .drawer__body {
+  gap: 0;
+}
+.drawer--ai .drawer__body > .drawer__section {
+  padding-top: 18px;
+  border-top: 1px solid var(--card-bd);
+}
+.drawer--ai .drawer__body > .drawer__note {
+  margin-top: 18px;
+}
+.drawer--ai .drawer__body > *:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Numbered "Example workflow" steps, refined: a subtle guide line ties the
+   numbered markers into a single read-only sequence. */
+.drawer--ai .drawer__steps {
+  position: relative;
+  gap: 14px;
+}
+.drawer--ai .drawer__steps::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--card-bd);
+}
+.drawer--ai .drawer__steps li {
+  position: relative;
+  gap: 13px;
+}
+.drawer--ai .drawer__stepn {
+  background: #fff;
+  border-color: var(--c5);
+  color: var(--sub);
+  box-shadow: 0 0 0 4px #fff;
+}
+
+/* Output checklist, refined: neutral tick chips give the list a finished,
+   item-by-item cadence without competing with the orange review focal. */
+.drawer--ai .drawer__list {
+  gap: 10px;
+}
+.drawer--ai .drawer__list li {
+  align-items: center;
+  gap: 11px;
+}
+.drawer--ai .drawer__list li svg {
+  margin-top: 0;
+  width: 22px;
+  height: 22px;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  box-sizing: border-box;
 }
 
 /* Mobile: bottom sheet */

@@ -13,8 +13,21 @@ export function ProgressRail() {
   // Hide on cover + setup for a cleaner entry, and in export mode.
   if (IS_EXPORT || currentIndex <= 1) return null;
 
+  // Fraction (0-1) used to fill the connecting spine from the first tick centre
+  // down to the active tick centre, so the rail quietly shows deck progress.
+  const activeOrdinal = sections.findIndex((s) => s.label === active.label);
+  const progress =
+    sections.length > 1 ? Math.max(0, activeOrdinal) / (sections.length - 1) : 0;
+
   return (
-    <nav className="rail" aria-label="Deck sections">
+    <nav
+      className="rail"
+      aria-label="Deck sections"
+      style={{ ['--rail-progress' as string]: progress }}
+    >
+      <span className="rail__spine" aria-hidden="true">
+        <span className="rail__spine-fill" />
+      </span>
       <ul>
         {sections.map((s) => {
           const isActive = s.label === active.label;

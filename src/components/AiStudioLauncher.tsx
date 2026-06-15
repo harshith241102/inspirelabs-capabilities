@@ -31,8 +31,12 @@ export function AiStudioLauncher() {
     >
       <span className="ai-launch__spark">
         <Icon name="spark" size={18} />
+        <span className="ai-launch__dot" aria-hidden="true" />
       </span>
-      <span className="ai-launch__text">AI Growth Studio</span>
+      <span className="ai-launch__label">
+        <span className="ai-launch__eyebrow">This slide</span>
+        <span className="ai-launch__text">AI Growth Studio</span>
+      </span>
     </button>
   );
 }

@@ -167,15 +167,36 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
               transition={{ type: 'tween', duration: reduce ? 0 : 0.32, ease: [0.22, 0.61, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="drawer__head">
-                <span className="eyebrow">{payload.eyebrow ?? kindEyebrow[payload.kind ?? 'info']}</span>
-                <button type="button" className="drawer__close" onClick={close} aria-label="Close detail">
-                  <Icon name="arrow" size={18} style={{ transform: 'rotate(180deg)' }} />
-                  <span>Close</span>
-                </button>
-              </div>
-              <h2 className="drawer__title">{payload.title}</h2>
-              {payload.subLabel && <p className="drawer__sublabel">{payload.subLabel}</p>}
+              {payload.kind === 'ai' ? (
+                <header className="drawer__masthead">
+                  <div className="drawer__head">
+                    <span className="drawer__eyebrow-ai">
+                      <span className="drawer__ai-badge" aria-hidden="true">
+                        <Icon name="spark" size={14} />
+                      </span>
+                      {payload.eyebrow ?? kindEyebrow.ai}
+                    </span>
+                    <button type="button" className="drawer__close" onClick={close} aria-label="Close detail">
+                      <Icon name="arrow" size={18} style={{ transform: 'rotate(180deg)' }} />
+                      <span>Close</span>
+                    </button>
+                  </div>
+                  <h2 className="drawer__title">{payload.title}</h2>
+                  {payload.subLabel && <p className="drawer__sublabel">{payload.subLabel}</p>}
+                </header>
+              ) : (
+                <>
+                  <div className="drawer__head">
+                    <span className="eyebrow">{payload.eyebrow ?? kindEyebrow[payload.kind ?? 'info']}</span>
+                    <button type="button" className="drawer__close" onClick={close} aria-label="Close detail">
+                      <Icon name="arrow" size={18} style={{ transform: 'rotate(180deg)' }} />
+                      <span>Close</span>
+                    </button>
+                  </div>
+                  <h2 className="drawer__title">{payload.title}</h2>
+                  {payload.subLabel && <p className="drawer__sublabel">{payload.subLabel}</p>}
+                </>
+              )}
 
               <div className="drawer__body">
                 {payload.kind === 'ai' ? (

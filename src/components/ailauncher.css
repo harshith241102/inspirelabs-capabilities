@@ -4,23 +4,20 @@
    (bottom-centre). Fades out while the drawer is open. */
 .ai-launch {
   position: fixed;
-  bottom: 22px;
-  right: 26px;
+  bottom: 24px;
+  right: 28px;
   z-index: 50;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 18px 11px 12px;
+  gap: 12px;
+  padding: 9px 22px 9px 9px;
   background: #fff;
-  border: 1px solid var(--border);
+  border: 1px solid var(--card-bd);
   border-radius: 999px;
-  box-shadow: var(--float);
-  font-family: var(--font-headline);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: -0.01em;
+  box-shadow: var(--float-lg);
+  text-align: left;
   color: var(--ink);
-  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease,
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease,
     opacity 0.2s ease;
 }
 .ai-launch:hover {
@@ -32,9 +29,12 @@
   outline: 3px solid var(--orange);
   outline-offset: 3px;
 }
+
+/* The single orange focal: spark in a solid circular badge. */
 .ai-launch__spark {
-  width: 30px;
-  height: 30px;
+  position: relative;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -43,6 +43,10 @@
   color: #fff;
   flex-shrink: 0;
   box-shadow: 0 6px 16px rgba(255, 122, 69, 0.32);
+  transition: transform 0.2s ease;
+}
+.ai-launch:hover .ai-launch__spark {
+  transform: scale(1.04);
 }
 .ai-launch__spark svg {
   stroke: currentColor;
@@ -50,6 +54,49 @@
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* Quiet contextual indicator: signals the studio is wired to this slide.
+   Neutral by default (not a second orange accent); ringed so it reads on
+   the orange badge. */
+.ai-launch__dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--orange);
+  box-sizing: border-box;
+}
+
+/* Two-line label: a small mono eyebrow over the studio name, so the
+   control reads as a deliberate, finished piece of UI. */
+.ai-launch__label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1;
+}
+.ai-launch__eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  transition: color 0.2s ease;
+}
+.ai-launch:hover .ai-launch__eyebrow {
+  color: var(--orange-text);
+}
+.ai-launch__text {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 /* Fade out while the AI drawer is open (the drawer overlays the slide). */
@@ -60,9 +107,30 @@ html[data-drawer-open] .ai-launch {
 
 @media (max-width: 860px) {
   .ai-launch {
-    bottom: 14px;
-    right: 14px;
-    padding: 10px 16px 10px 10px;
-    font-size: 13px;
+    bottom: 16px;
+    right: 16px;
+    padding: 8px 18px 8px 8px;
+    gap: 10px;
+  }
+  .ai-launch__spark {
+    width: 36px;
+    height: 36px;
+  }
+  .ai-launch__text {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-launch,
+  .ai-launch__spark,
+  .ai-launch__eyebrow {
+    transition: none;
+  }
+  .ai-launch:hover {
+    transform: none;
+  }
+  .ai-launch:hover .ai-launch__spark {
+    transform: none;
   }
 }
