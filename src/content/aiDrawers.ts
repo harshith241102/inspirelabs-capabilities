@@ -40,7 +40,7 @@ export const aiDrawers: Record<AiContext, DrawerPayload> = {
     kind: 'ai',
     title: 'AI Search and Content Agents',
     subLabel: 'Contextual reference',
-    whatAiAdds: 'Search and content work around offer-led demand on the commerce-intent surface.',
+    whatAiAdds: 'Search and content work around offer-led demand where shoppers are ready to buy.',
     exampleWorkflow: [
       'Share the brand or category brief, target offers, and any keyword focus.',
       'Agents draft search cues, offer and comparison content, and run RankDrive scans.',

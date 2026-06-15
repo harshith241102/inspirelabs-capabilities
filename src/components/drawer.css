@@ -213,26 +213,40 @@
   margin-top: 1px;
 }
 
-/* AI Growth Studio drawer: ONE orange accent only (the human review checkpoint).
-   Everything else is neutralised so the guardrail reads as the single focal. */
+/* ============================================================
+   AI Growth Studio drawer (kind === 'ai')
+   A tinted body holding a STACK of premium white cards, with ONE
+   orange accent: the Human review checkpoint card. Everything else
+   stays neutral so the guardrail reads as the single focal.
+   ============================================================ */
 
-/* Masthead: a calm, finished header block sealed off with a hairline divider. */
+/* Masthead: a deliberate header zone, sealed with a hairline divider. */
 .drawer__masthead {
   flex-shrink: 0;
-  padding-bottom: 18px;
-  margin-bottom: 4px;
+  padding: 0 0 20px;
+  margin: 0 26px;
   border-bottom: 1px solid var(--card-bd);
 }
-.drawer__masthead .drawer__title {
-  padding-top: 16px;
-  padding-bottom: 2px;
+.drawer__masthead .drawer__head,
+.drawer__masthead .drawer__title,
+.drawer__masthead .drawer__sublabel {
+  padding-left: 0;
+  padding-right: 0;
+}
+.drawer__masthead .drawer__head {
+  padding-top: 22px;
+}
+.drawer__title--ai {
+  padding-top: 18px;
+  padding-bottom: 4px;
+  font-size: 27px;
 }
 
-/* Eyebrow as an AI mark + label lockup (no pill — kept quiet, not orange). */
+/* Eyebrow as a neutral AI mark + label lockup (no pill, never orange). */
 .drawer__eyebrow-ai {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
@@ -245,8 +259,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 9px;
   background: var(--net);
   border: 1px solid var(--card-bd);
@@ -254,43 +268,76 @@
   flex-shrink: 0;
 }
 
+/* Tinted body: the faint backdrop the white cards sit on. */
+.drawer--ai .drawer__body {
+  background: var(--net);
+  gap: 14px;
+  padding: 18px 22px 26px;
+}
+
+/* The headline change: every fixed section is a premium white card. */
+.drawer__card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: var(--float-sm);
+}
+
+/* Card headings: neutral mono labels, with an optional inline glyph. */
 .drawer--ai .drawer__heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   color: var(--sub);
 }
-.drawer--ai .drawer__list li svg {
+.drawer--ai .drawer__heading svg {
   color: var(--grey);
-}
-.drawer--ai .drawer__note--input {
-  background: var(--net);
-  border-color: var(--border);
-}
-.drawer--ai .drawer__note--input svg {
-  color: var(--grey);
+  flex-shrink: 0;
 }
 
-/* Section rhythm: even spacing with a hairline rule between each block so the
-   fixed-order sections read as deliberate, separated steps. Only the borderless
-   text sections carry the hairline + internal padding; the two note cards keep
-   their own box (the orange review note's full border is never overdrawn) and
-   pick up the same rhythm via margin. */
-.drawer--ai .drawer__body {
-  gap: 0;
-}
-.drawer--ai .drawer__body > .drawer__section {
-  padding-top: 18px;
-  border-top: 1px solid var(--card-bd);
-}
-.drawer--ai .drawer__body > .drawer__note {
-  margin-top: 18px;
-}
-.drawer--ai .drawer__body > *:first-child {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
+/* Required brand inputs: neutral, a hair quieter than the others. */
+.drawer__card--input {
+  background: #fff;
 }
 
-/* Numbered "Example workflow" steps, refined: a subtle guide line ties the
-   numbered markers into a single read-only sequence. */
+/* Human review checkpoint: the ONE orange accent + the emphasised block.
+   Orange-tinted card, bold orange left rail, shield mark. */
+.drawer__card--review {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fff6f2;
+  border-color: rgba(255, 122, 69, 0.4);
+  border-left: 3px solid var(--orange);
+  box-shadow: var(--float-sm);
+}
+.drawer__review-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid rgba(255, 122, 69, 0.4);
+  color: var(--orange-text);
+  flex-shrink: 0;
+}
+.drawer__review-body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.drawer--ai .drawer__heading--review {
+  color: var(--orange-text);
+}
+
+/* Numbered "Example workflow" steps: a subtle guide line ties the markers
+   into a single read-only sequence inside the card. */
 .drawer--ai .drawer__steps {
   position: relative;
   gap: 14px;
@@ -315,8 +362,7 @@
   box-shadow: 0 0 0 4px #fff;
 }
 
-/* Output checklist, refined: neutral tick chips give the list a finished,
-   item-by-item cadence without competing with the orange review focal. */
+/* Output checklist: neutral tick chips inside the card (never orange). */
 .drawer--ai .drawer__list {
   gap: 10px;
 }
@@ -332,7 +378,29 @@
   border-radius: 50%;
   background: var(--net);
   border: 1px solid var(--card-bd);
+  color: var(--grey);
   box-sizing: border-box;
+}
+
+/* Footer: a quiet, pinned read-only reminder under the scrolling stack. */
+.drawer__footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 26px;
+  border-top: 1px solid var(--card-bd);
+  background: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.drawer__footer svg {
+  color: var(--c4);
+  flex-shrink: 0;
 }
 
 /* Mobile: bottom sheet */

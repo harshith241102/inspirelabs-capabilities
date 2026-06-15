@@ -79,18 +79,18 @@ export const openingTailoring: Record<Familiarity, { headline: string; support: 
   new_to_inspirelabs: {
     headline: 'Inspirelabs is the growth system behind GrabOn.',
     support:
-      'The system helps brands capture commerce intent, distribute demand, activate shopper signals, and run measurable growth partnerships.',
+      'The system helps brands reach shoppers who are ready to buy, spread their reach, activate shopper behaviour, and run measurable growth partnerships.',
   },
   know_grabon: {
     headline: 'You may know us through GrabOn. Inspirelabs is the broader growth system behind it.',
     support:
-      'GrabOn remains the flagship commerce-intent surface. Inspirelabs expands it into distribution, AudienceSeed, AI Growth Studio, and measurable commitments.',
+      'GrabOn remains the flagship surface where shoppers are ready to buy. Inspirelabs expands it into distribution, AudienceSeed, AI Growth Studio, and measurable commitments.',
   },
   worked_with_grabon: {
     headline:
-      'You have seen GrabOn as a commerce-intent surface. Inspirelabs now expands that into a broader growth partnership.',
+      'You have seen GrabOn as a surface where shoppers are ready to buy. Inspirelabs now expands that into a broader growth partnership.',
     support:
-      'The next layer combines distribution assets, shopper intent signals, AI Growth Studio, and measurable growth commitments.',
+      'The next layer combines distribution assets, shopper behaviour, AI Growth Studio, and measurable growth commitments.',
   },
 };
 

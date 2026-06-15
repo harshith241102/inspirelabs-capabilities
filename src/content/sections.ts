@@ -8,14 +8,14 @@ export interface DeckSection {
 
 export const sections: DeckSection[] = [
   { label: 'Entry', short: 'Entry', start: 0, end: 1 },
-  { label: 'Repositioning', short: 'Reposition', start: 2, end: 6 },
-  { label: 'Capture Commerce Intent', short: 'Capture', start: 7, end: 10 },
-  { label: 'Distribute Demand', short: 'Distribute', start: 11, end: 19 },
+  { label: 'The bigger picture', short: 'Big picture', start: 2, end: 6 },
+  { label: 'Reach ready buyers', short: 'Get found', start: 7, end: 10 },
+  { label: 'Spread your reach', short: 'Spread reach', start: 11, end: 19 },
   { label: 'AudienceSeed', short: 'AudienceSeed', start: 20, end: 25 },
   { label: 'AI Growth Studio', short: 'AI Studio', start: 26, end: 31 },
-  { label: 'Growth Commitments', short: 'Commitments', start: 32, end: 33 },
-  { label: 'Proof', short: 'Proof', start: 34, end: 35 },
-  { label: 'Closing', short: 'Close', start: 36, end: 37 },
+  { label: 'What we commit to', short: 'Commitments', start: 32, end: 33 },
+  { label: 'Results', short: 'Results', start: 34, end: 35 },
+  { label: 'Next step', short: 'Next step', start: 36, end: 37 },
 ];
 
 export const sectionForIndex = (i: number): DeckSection =>

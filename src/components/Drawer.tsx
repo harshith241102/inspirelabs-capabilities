@@ -172,7 +172,7 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                   <div className="drawer__head">
                     <span className="drawer__eyebrow-ai">
                       <span className="drawer__ai-badge" aria-hidden="true">
-                        <Icon name="spark" size={14} />
+                        <Icon name="spark" size={15} />
                       </span>
                       {payload.eyebrow ?? kindEyebrow.ai}
                     </span>
@@ -181,7 +181,7 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                       <span>Close</span>
                     </button>
                   </div>
-                  <h2 className="drawer__title">{payload.title}</h2>
+                  <h2 className="drawer__title drawer__title--ai">{payload.title}</h2>
                   {payload.subLabel && <p className="drawer__sublabel">{payload.subLabel}</p>}
                 </header>
               ) : (
@@ -202,14 +202,14 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                 {payload.kind === 'ai' ? (
                   <>
                     {payload.whatAiAdds && (
-                      <section className="drawer__section">
+                      <section className="drawer__card">
                         <h3 className="drawer__heading">What AI adds here</h3>
                         <p className="drawer__text">{payload.whatAiAdds}</p>
                       </section>
                     )}
 
                     {payload.exampleWorkflow && payload.exampleWorkflow.length > 0 && (
-                      <section className="drawer__section">
+                      <section className="drawer__card">
                         <h3 className="drawer__heading">Example workflow</h3>
                         <ol className="drawer__steps">
                           {payload.exampleWorkflow.map((step, j) => (
@@ -223,27 +223,29 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                     )}
 
                     {payload.requiredInput && (
-                      <div className="drawer__note drawer__note--input">
-                        <Icon name="doc" size={16} />
-                        <div>
-                          <strong>Required brand inputs</strong>
-                          <p>{payload.requiredInput}</p>
-                        </div>
-                      </div>
+                      <section className="drawer__card drawer__card--input">
+                        <h3 className="drawer__heading">
+                          <Icon name="doc" size={14} />
+                          Required brand inputs
+                        </h3>
+                        <p className="drawer__text">{payload.requiredInput}</p>
+                      </section>
                     )}
 
                     {payload.humanReview && (
-                      <div className="drawer__note drawer__note--review">
-                        <Icon name="shield" size={16} />
-                        <div>
-                          <strong>Human review checkpoint</strong>
-                          <p>{payload.humanReview}</p>
+                      <section className="drawer__card drawer__card--review">
+                        <span className="drawer__review-mark" aria-hidden="true">
+                          <Icon name="shield" size={18} />
+                        </span>
+                        <div className="drawer__review-body">
+                          <h3 className="drawer__heading drawer__heading--review">Human review checkpoint</h3>
+                          <p className="drawer__text">{payload.humanReview}</p>
                         </div>
-                      </div>
+                      </section>
                     )}
 
                     {payload.output && payload.output.length > 0 && (
-                      <section className="drawer__section">
+                      <section className="drawer__card">
                         <h3 className="drawer__heading">Output</h3>
                         <ul className="drawer__list">
                           {payload.output.map((it, j) => (
@@ -311,6 +313,13 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                   </>
                 )}
               </div>
+
+              {payload.kind === 'ai' && (
+                <footer className="drawer__footer">
+                  <Icon name="eye" size={14} />
+                  <span>Read-only reference. Every output is human-reviewed.</span>
+                </footer>
+              )}
             </motion.aside>
           </motion.div>
         )}
