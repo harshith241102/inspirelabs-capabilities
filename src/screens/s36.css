@@ -2,22 +2,23 @@
    One dominant visual: four partnership stages on a left-to-right track,
    separated by proof gates. Stage 1 is in motion (the single orange focal);
    the rest stay locked behind their gate. Identical for every reader, no setup
-   personalisation and no inline tuning controls. Start over is a tertiary text
-   link; the primary CTA owns the bottom-left safe zone. Fixed-px for 1920x1080. */
+   personalisation and no inline tuning controls. Cards fill the canvas height
+   (the owner block grows so there is no internal blank gap) and all four stages
+   carry solid borders + ink labels so none reads as faint. Fixed-px for 1920x1080. */
 
 /* ---- Header: fixed headline, no tune controls ---- */
 .s36-header {
   flex-shrink: 0;
 }
 .s36-title {
-  margin-top: 20px;
-  font-size: 52px;
-  max-width: 24ch;
+  margin-top: 16px;
+  font-size: 46px;
+  max-width: 26ch;
 }
 .s36-sub {
-  margin-top: 14px;
-  font-size: 21px;
-  max-width: 70ch;
+  margin-top: 12px;
+  font-size: 19px;
+  max-width: 80ch;
 }
 
 /* ---- Body: the dominant board fills the canvas, then a legend strip ---- */
@@ -26,13 +27,12 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding: 30px 0 6px;
+  gap: 18px;
+  padding: 24px 0 6px;
 }
 
 /* The board: 4 stage cells, each holding a stage card + the link after it.
-   It grows to fill the available height so the stages are large and there is
-   no blank space. */
+   It grows to fill the available height so the stages are large. */
 .s36-board {
   flex: 1;
   min-height: 0;
@@ -44,7 +44,7 @@
   position: relative;
   display: flex;
   align-items: stretch;
-  padding-right: 56px; /* room for the connector node overlapping the gap */
+  padding-right: 52px; /* room for the connector node overlapping the gap */
 }
 .s36-cell:last-child {
   padding-right: 0;
@@ -52,6 +52,7 @@
 .s36-stage-wrap {
   width: 100%;
   display: flex;
+  align-items: stretch;
 }
 
 /* ---- Stage card ---- */
@@ -61,30 +62,31 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 16px;
   text-align: left;
-  padding: 24px 24px 22px;
+  padding: 26px 24px 24px;
   background: #fff;
-  border: 1px solid var(--card-bd);
+  border: 1.5px solid var(--border);
   border-radius: 18px;
-  box-shadow: var(--float-sm);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 14px 32px rgba(14, 15, 10, 0.08);
 }
 /* The single orange focal: stage 1, in motion */
 .s36-stage.is-active {
   border: 2px solid var(--orange);
-  box-shadow: 0 2px 4px rgba(255, 122, 69, 0.12), 0 22px 48px rgba(255, 122, 69, 0.16);
+  box-shadow: 0 2px 4px rgba(255, 122, 69, 0.14), 0 22px 48px rgba(255, 122, 69, 0.18);
 }
 
 .s36-stage__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 .s36-stage__no {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--c4);
+  color: var(--grey);
 }
 .s36-stage.is-active .s36-stage__no {
   color: var(--orange-text);
@@ -93,15 +95,15 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10.5px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--grey);
-  padding: 5px 9px;
-  border-radius: 7px;
-  background: #f4f5f7;
-  border: 1px solid var(--card-bd);
+  letter-spacing: 0.05em;
+  color: var(--sub);
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: #eef0f3;
+  border: 1px solid var(--border);
 }
 .s36-stage__state svg {
   stroke: currentColor;
@@ -109,27 +111,28 @@
   stroke-width: 1.9;
 }
 .s36-stage.is-active .s36-stage__state {
-  color: var(--orange-text);
-  background: #fff;
+  color: #fff;
+  background: var(--orange);
   border-color: var(--orange);
 }
 .s36-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--orange);
+  background: #fff;
 }
 
 .s36-stage__ico {
-  width: 48px;
-  height: 48px;
-  border-radius: 13px;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f4f5f7;
-  border: 1px solid var(--card-bd);
-  color: var(--grey);
+  background: #eef0f3;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  flex-shrink: 0;
 }
 .s36-stage__ico svg {
   stroke: currentColor;
@@ -142,33 +145,42 @@
   background: var(--orange);
   border-color: var(--orange);
   color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 122, 69, 0.32);
 }
 
 .s36-stage__label {
   font-family: var(--font-headline);
   font-weight: 700;
-  font-size: 20px;
-  line-height: 1.16;
-  letter-spacing: -0.018em;
+  font-size: 23px;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
   color: var(--ink);
+  flex-shrink: 0;
 }
 .s36-stage__when {
   font-family: var(--font-body);
-  font-size: 13.5px;
+  font-size: 15px;
   line-height: 1.4;
-  color: var(--muted-text);
+  color: var(--sub);
+  flex-shrink: 0;
 }
 
-/* Capability owners / surfaces / commitments list per stage */
+/* Capability owners / surfaces / commitments list per stage.
+   flex:1 so it fills the middle of the card (no blank gap), list centred. */
 .s36-owner {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 2px;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-top: 1px solid var(--card-bd);
+  border-bottom: 1px solid var(--card-bd);
 }
 .s36-owner__head {
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--grey);
@@ -176,46 +188,49 @@
 .s36-owner__list {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 11px;
 }
 .s36-owner__list li {
   display: flex;
   align-items: flex-start;
-  gap: 9px;
+  gap: 10px;
   font-family: var(--font-body);
-  font-size: 13.5px;
-  line-height: 1.32;
-  color: var(--body);
+  font-size: 15.5px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--ink);
 }
 .s36-owner__list li svg {
   flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--c4);
+  margin-top: 3px;
+  color: var(--grey);
   stroke: currentColor;
   fill: none;
-  stroke-width: 2.4;
+  stroke-width: 2.6;
 }
 .s36-stage.is-active .s36-owner__list li svg {
-  color: var(--orange-text);
+  color: var(--orange);
 }
 
-/* Per-stage proof gate */
+/* Per-stage proof gate (evidence gate visible on every stage) */
 .s36-stage__gate {
-  margin-top: auto;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 12px 14px;
+  padding: 13px 16px;
   border-radius: 11px;
   background: var(--net);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--c4);
 }
 .s36-stage.is-active .s36-stage__gate {
-  border-left: 4px solid var(--orange);
+  border-left-color: var(--orange);
+  background: #fff7f3;
 }
 .s36-stage__gatelabel {
-  font-size: 9.5px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--grey);
@@ -223,8 +238,8 @@
 .s36-stage__gatetext {
   font-family: var(--font-headline);
   font-weight: 600;
-  font-size: 13.5px;
-  line-height: 1.32;
+  font-size: 14.5px;
+  line-height: 1.3;
   color: var(--ink);
 }
 
@@ -235,7 +250,7 @@
   top: 0;
   bottom: 0;
   right: 0;
-  width: 56px;
+  width: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,24 +258,24 @@
 .s36-link__bar {
   position: absolute;
   top: 50%;
-  left: -4px;
-  right: -4px;
+  left: -2px;
+  right: -2px;
   transform: translateY(-50%);
 }
 .s36-link.is-live .s36-link__bar {
-  height: 2px;
+  height: 3px;
   border-radius: 2px;
   background: var(--orange);
 }
 .s36-link.is-locked .s36-link__bar {
   height: 0;
-  border-top: 2px dashed var(--c5);
+  border-top: 2px dashed var(--c4);
 }
 .s36-link__node {
   position: relative;
   z-index: 1;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -270,21 +285,22 @@
 .s36-link__node svg {
   stroke: currentColor;
   fill: none;
-  stroke-width: 2;
+  stroke-width: 2.2;
 }
 .s36-link.is-live .s36-link__node {
   color: #fff;
   background: var(--orange);
   border: none;
-  box-shadow: 0 4px 12px rgba(255, 122, 69, 0.32);
+  box-shadow: 0 4px 12px rgba(255, 122, 69, 0.34);
 }
 .s36-link.is-locked .s36-link__node {
-  color: var(--c4);
+  color: var(--grey);
   border: 1.5px solid var(--border);
 }
 
 /* ---- Legend under the board ---- */
 .s36-legend {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -294,8 +310,8 @@
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.45;
-  color: var(--muted-text);
-  max-width: 118ch;
+  color: var(--body);
+  max-width: 120ch;
 }
 
 /* ---- Footer: single primary CTA + tertiary Start over link ---- */

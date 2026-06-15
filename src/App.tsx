@@ -4,6 +4,7 @@ import { DrawerProvider } from './components/Drawer';
 import { ScrollDeck } from './components/ScrollDeck';
 import { ProgressRail } from './components/ProgressRail';
 import { DeckNav } from './components/DeckNav';
+import { MobileGate } from './components/MobileGate';
 import { deckScreens } from './screens/registry';
 import { TOTAL_SCREENS } from './content/sections';
 import { useDeckScale } from './lib/useDeckScale';
@@ -47,6 +48,7 @@ function Deck() {
       </ScrollDeck>
       <ProgressRail />
       <DeckNav />
+      <MobileGate />
     </DrawerProvider>
   );
 }

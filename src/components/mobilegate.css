@@ -1,0 +1,130 @@
+/* Desktop/tablet gate. Hidden by default; shown only on phone-width viewports,
+   where the deck is hidden (see global.css). Dark brand holding screen. */
+.mgate {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  /* hide the unreadable miniature deck + its chrome on phones */
+  .deck,
+  .rail,
+  .decknav,
+  .skip-link {
+    display: none !important;
+  }
+
+  .mgate {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 40px 40px;
+    padding: 32px 26px;
+    overflow-y: auto;
+  }
+  .mgate__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 460px;
+    width: 100%;
+  }
+  .mgate__lockup {
+    height: 38px;
+    width: auto;
+    display: block;
+  }
+  .mgate__eyebrow {
+    margin-top: 22px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c5);
+  }
+  .mgate__title {
+    margin-top: 12px;
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: #fff;
+  }
+  .mgate__body {
+    margin-top: 16px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    color: #c9ccd4;
+  }
+  .mgate__how {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .mgate__how li {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: #e6e8ee;
+  }
+  .mgate__how-ico {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--orange);
+  }
+  .mgate__how-ico svg {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* single orange focal: the primary action */
+  .mgate__action {
+    margin-top: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    background: var(--orange);
+    border-radius: 999px;
+    padding: 15px 26px;
+    box-shadow: 0 10px 26px rgba(255, 122, 69, 0.32);
+  }
+  .mgate__action svg {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+  .mgate__note {
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: #8a8e99;
+    letter-spacing: 0.02em;
+  }
+}
