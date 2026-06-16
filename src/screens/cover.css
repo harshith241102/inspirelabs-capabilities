@@ -5,7 +5,7 @@
   width: 100%;
   flex: 1;
   min-height: 0;
-  gap: 32px;
+  gap: 30px;
 }
 .cover__top {
   display: flex;
@@ -29,9 +29,9 @@
 .cover__main {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 0.92fr;
+  grid-template-columns: 1fr 1.02fr;
   align-items: center;
-  gap: 64px;
+  gap: 60px;
   min-height: 0;
 }
 .cover__copy {
@@ -68,7 +68,8 @@
   letter-spacing: 0.03em;
 }
 
-/* Hero: proof at scale - one big number, read in a glance. */
+/* Hero: the compound-vs-reset idea, kept simple (two lines: flat vs rising),
+   anchored by proof at scale. */
 .cover__hero {
   display: flex;
   flex-direction: column;
@@ -84,40 +85,44 @@
   overflow: hidden;
 }
 .cover__card-head {
-  padding: 18px 26px 0;
+  padding: 20px 26px 0;
 }
 .cover__card-title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.cover__chartwrap {
+  padding: 14px 24px 8px;
+}
+.cover__chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cover__chart-lblO {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--grey);
+  fill: var(--orange-text);
 }
-.cover__proof-lead {
-  padding: 8px 26px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.cover__chart-lblG {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  fill: var(--grey);
 }
-.cover__proof-num {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: var(--orange-text);
-}
-.cover__proof-cap {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--muted-text);
-  max-width: 34ch;
-}
+
+/* Proof at scale, anchoring the chart. */
 .cover__proof {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--card-bd);
   background: var(--net);
 }
@@ -125,7 +130,7 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  padding: 16px 20px;
+  padding: 15px 18px;
   border-left: 1px solid var(--card-bd);
 }
 .cover__stat:first-child {
@@ -134,14 +139,17 @@
 .cover__stat-v {
   font-family: var(--font-headline);
   font-weight: 700;
-  font-size: 24px;
+  font-size: 23px;
   letter-spacing: -0.02em;
   color: var(--ink);
   line-height: 1;
 }
+.cover__stat.is-accent .cover__stat-v {
+  color: var(--orange-text);
+}
 .cover__stat-l {
   font-family: var(--font-body);
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--muted-text);
 }
 

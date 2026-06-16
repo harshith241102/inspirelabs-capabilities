@@ -7,6 +7,7 @@ import { copy } from '../content/copy';
 import './cover.css';
 
 const proof = [
+  { v: '$4.8B', l: 'GMV influenced', accent: true },
   { v: '76M+', l: 'users' },
   { v: '3,800+', l: 'brands' },
   { v: '12+', l: 'years' },
@@ -62,15 +63,44 @@ export default function Screen00() {
           <Reveal from="right" distance={28} className="cover__hero">
             <div className="cover__card">
               <div className="cover__card-head">
-                <span className="cover__card-title">Proven at scale</span>
+                <span className="cover__card-title">Growth that compounds, not resets</span>
               </div>
-              <div className="cover__proof-lead">
-                <span className="cover__proof-num">$4.8B</span>
-                <span className="cover__proof-cap">GMV influenced across the network, every year.</span>
+              <div className="cover__chartwrap">
+                <svg
+                  className="cover__chart"
+                  viewBox="0 0 540 184"
+                  role="img"
+                  aria-label="Inspirelabs growth rises and compounds while rented agencies stay flat"
+                >
+                  {/* Rented agencies: a flat line that stays low */}
+                  <path
+                    d="M40,150 C160,148 300,147 486,144"
+                    fill="none"
+                    stroke="#aab0bb"
+                    strokeWidth="2"
+                    strokeDasharray="6 5"
+                    strokeLinecap="round"
+                  />
+                  <circle cx="486" cy="144" r="4.5" fill="#aab0bb" />
+
+                  {/* Inspirelabs: a line that rises and pulls away */}
+                  <path
+                    d="M40,150 C190,144 330,108 492,32"
+                    fill="none"
+                    stroke="#ff7a45"
+                    strokeWidth="3.6"
+                    strokeLinecap="round"
+                  />
+                  <circle cx="492" cy="32" r="6.5" fill="#ff7a45" />
+                  <path d="M492,32 l-9,2 M492,32 l-2,9" stroke="#ff7a45" strokeWidth="3" fill="none" strokeLinecap="round" />
+
+                  <text x="486" y="22" textAnchor="end" className="cover__chart-lblO">Inspirelabs</text>
+                  <text x="478" y="168" textAnchor="end" className="cover__chart-lblG">Rented agencies</text>
+                </svg>
               </div>
               <div className="cover__proof">
                 {proof.map((p) => (
-                  <div className="cover__stat" key={p.l}>
+                  <div className={`cover__stat${p.accent ? ' is-accent' : ''}`} key={p.l}>
                     <span className="cover__stat-v">{p.v}</span>
                     <span className="cover__stat-l">{p.l}</span>
                   </div>
