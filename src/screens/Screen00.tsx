@@ -13,12 +13,19 @@ const proof = [
   { v: '12+', l: 'years' },
 ];
 
-const modules: { label: string; sub: string; icon: IconName; hub?: boolean }[] = [
-  { label: 'GrabOn', sub: 'Where shoppers are ready to buy', icon: 'store', hub: true },
-  { label: 'Distribution', sub: 'Your own channels and placements', icon: 'share' },
-  { label: 'AudienceSeed', sub: 'Shopper buying signals', icon: 'signal' },
-  { label: 'AI Growth Studio', sub: 'Human-reviewed agents', icon: 'spark' },
-  { label: 'Growth commitments', sub: 'Measurable, accountable', icon: 'target' },
+const modules: { label: string; sub: string; icon: IconName }[] = [
+  { label: 'Reach ready buyers', sub: 'Show up where buying starts', icon: 'target' },
+  { label: 'Distribution', sub: 'Spread reach across your channels', icon: 'share' },
+  { label: 'AudienceSeed', sub: 'Read buying signals before the visit', icon: 'signal' },
+  { label: 'AI Growth Studio', sub: 'AI agents that scale execution', icon: 'spark' },
+  { label: 'Growth commitments', sub: 'Measurable goals and reviews', icon: 'shield' },
+];
+
+const surfaces: { name: string; sub: string; logo: string; lg?: boolean }[] = [
+  { name: 'GrabOn', sub: 'India · US · UAE · Canada', logo: ASSETS.grabonLogo, lg: true },
+  { name: 'GrabCash', sub: 'endorser-led', logo: ASSETS.grabcashLogo },
+  { name: 'GrabShare', sub: 'creator-led', logo: ASSETS.grabshareLogo },
+  { name: 'Alternatives', sub: 'software buyers', logo: ASSETS.alternativesLogo },
 ];
 
 export default function Screen00() {
@@ -63,40 +70,42 @@ export default function Screen00() {
           <Reveal from="right" distance={28} className="cover__hero">
             <div className="cover__card">
               <div className="cover__card-head">
-                <span className="cover__card-title">Growth that compounds, not resets</span>
+                <span className="cover__card-eyebrow mono">Where your customers already are</span>
+                <span className="cover__card-title">All of it runs on one system</span>
               </div>
-              <div className="cover__chartwrap">
-                <svg
-                  className="cover__chart"
-                  viewBox="0 0 540 184"
-                  role="img"
-                  aria-label="Inspirelabs growth rises and compounds while rented agencies stay flat"
-                >
-                  {/* Rented agencies: a flat line that stays low */}
-                  <path
-                    d="M40,150 C160,148 300,147 486,144"
-                    fill="none"
-                    stroke="#aab0bb"
-                    strokeWidth="2"
-                    strokeDasharray="6 5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="486" cy="144" r="4.5" fill="#aab0bb" />
+              <div className="cover__system">
+                <div className="cover__surfaces">
+                  {surfaces.map((s) => (
+                    <div className="cover__surface" key={s.name}>
+                      <img
+                        className={`cover__surface-logo${s.lg ? ' cover__surface-logo--lg' : ''}`}
+                        src={s.logo}
+                        alt={s.name}
+                        loading="eager"
+                      />
+                      <span className="cover__surface-sub">{s.sub}</span>
+                    </div>
+                  ))}
+                </div>
 
-                  {/* Inspirelabs: a line that rises and pulls away */}
-                  <path
-                    d="M40,150 C190,144 330,108 492,32"
-                    fill="none"
-                    stroke="#ff7a45"
-                    strokeWidth="3.6"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="492" cy="32" r="6.5" fill="#ff7a45" />
-                  <path d="M492,32 l-9,2 M492,32 l-2,9" stroke="#ff7a45" strokeWidth="3" fill="none" strokeLinecap="round" />
+                <span className="cover__system-link mono">
+                  <Icon name="arrowDown" size={13} />
+                  all run on
+                </span>
 
-                  <text x="486" y="22" textAnchor="end" className="cover__chart-lblO">Inspirelabs</text>
-                  <text x="478" y="168" textAnchor="end" className="cover__chart-lblG">Rented agencies</text>
-                </svg>
+                <div className="cover__platform">
+                  <span className="cover__platform-mark" aria-hidden="true">
+                    <img src={ASSETS.symbolInkCrop} alt="" />
+                  </span>
+                  <div className="cover__platform-id">
+                    <span className="cover__platform-name">Inspirelabs</span>
+                    <span className="cover__platform-sub">One growth system behind every surface</span>
+                  </div>
+                  <span className="cover__platform-out mono">
+                    <Icon name="arrow" size={15} />
+                    your brand, growing
+                  </span>
+                </div>
               </div>
               <div className="cover__proof">
                 {proof.map((p) => (
@@ -112,7 +121,7 @@ export default function Screen00() {
 
         <Reveal i={5} className="cover__strip">
           {modules.map((m) => (
-            <div className={`cover__chip${m.hub ? ' cover__chip--hub' : ''}`} key={m.label}>
+            <div className="cover__chip" key={m.label}>
               <span className="cover__chip-ico">
                 <Icon name={m.icon} size={18} />
               </span>

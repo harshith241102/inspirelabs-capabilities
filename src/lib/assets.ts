@@ -17,6 +17,7 @@ export const ASSETS = {
   wordmarkInk: a('logos/wordmark-ink.png'),
   symbolLight: a('logos/symbol-light-lg.png'),
   symbolInk: a('logos/symbol-ink.png'),
+  symbolInkCrop: a('logos/symbol-ink-crop.png'),
 
   // Product logos (platforms)
   grabonLogo: a('logos/platforms/grabon-logo.svg'),
