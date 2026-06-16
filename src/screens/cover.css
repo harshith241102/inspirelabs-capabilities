@@ -5,7 +5,7 @@
   width: 100%;
   flex: 1;
   min-height: 0;
-  gap: 40px;
+  gap: 32px;
 }
 .cover__top {
   display: flex;
@@ -14,7 +14,7 @@
   flex-shrink: 0;
 }
 .cover__lockup {
-  height: 44px;
+  height: 46px;
   width: auto;
   display: block;
 }
@@ -29,35 +29,35 @@
 .cover__main {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
+  grid-template-columns: 1fr 0.92fr;
   align-items: center;
-  gap: 72px;
+  gap: 64px;
   min-height: 0;
 }
 .cover__copy {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 .cover__title {
   font-family: var(--font-headline);
   font-weight: 700;
-  font-size: 58px;
-  line-height: 1.02;
+  font-size: 56px;
+  line-height: 1.03;
   letter-spacing: -0.03em;
   color: var(--ink);
   max-width: 15ch;
 }
 .cover__sub {
   font-family: var(--font-body);
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.5;
   color: var(--sub);
   max-width: 50ch;
 }
 .cover__support {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15.5px;
   line-height: 1.5;
   color: var(--muted-text);
   max-width: 46ch;
@@ -68,7 +68,7 @@
   letter-spacing: 0.03em;
 }
 
-/* The hero: a compounding-vs-resetting growth chart anchored by proof at scale. */
+/* Hero: proof at scale - one big number, read in a glance. */
 .cover__hero {
   display: flex;
   flex-direction: column;
@@ -84,54 +84,40 @@
   overflow: hidden;
 }
 .cover__card-head {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 20px 26px 2px;
+  padding: 18px 26px 0;
 }
 .cover__card-title {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-.cover__chartwrap {
-  padding: 8px 22px 4px;
-}
-.cover__chart {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.cover__chart-lblO {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  fill: var(--orange-text);
-}
-.cover__chart-lblG {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  fill: var(--grey);
-}
-.cover__chart-axis {
-  font-family: var(--font-mono);
-  font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  fill: var(--c4);
+  color: var(--grey);
 }
-
-/* Proof at scale, anchoring the chart. */
+.cover__proof-lead {
+  padding: 8px 26px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cover__proof-num {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--orange-text);
+}
+.cover__proof-cap {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--muted-text);
+  max-width: 34ch;
+}
 .cover__proof {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--card-bd);
   background: var(--net);
 }
@@ -139,7 +125,7 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  padding: 15px 18px;
+  padding: 16px 20px;
   border-left: 1px solid var(--card-bd);
 }
 .cover__stat:first-child {
@@ -153,13 +139,70 @@
   color: var(--ink);
   line-height: 1;
 }
-.cover__stat.is-accent .cover__stat-v {
-  color: var(--orange-text);
-}
 .cover__stat-l {
   font-family: var(--font-body);
   font-size: 12.5px;
   color: var(--muted-text);
+}
+
+/* Bottom strip: the five capabilities, as light blocks. */
+.cover__strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  flex-shrink: 0;
+}
+.cover__chip {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 18px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  box-shadow: var(--float-sm);
+}
+.cover__chip--hub {
+  border-color: var(--orange);
+}
+.cover__chip-ico {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.cover__chip--hub .cover__chip-ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.cover__chip-ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cover__chip-label {
+  display: block;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.cover__chip-sub {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--muted-text);
+  margin-top: 3px;
 }
 
 /* Mobile companion: the canvas is width-scaled, so layout is preserved. */

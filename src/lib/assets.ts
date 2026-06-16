@@ -8,6 +8,7 @@ const a = (p: string) => `${base}${p}`;
 export const ASSETS = {
   // Inspirelabs identity
   lockupInk: a('logos/il-lockup.png'),
+  lockupInkTagline: a('logos/lockup-ink-tagline.png'),
   lockupInkDark: a('logos/lockup-ink.png'),
   // Tight-cropped white wordmark + gridmark on the --ink (#0e0f0a) background,
   // for dark screens (cover, contact). The source lockup bakes a wide dark
