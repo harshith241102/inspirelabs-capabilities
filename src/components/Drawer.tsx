@@ -73,8 +73,8 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
     return () => mq.removeEventListener('change', sync);
   }, []);
 
-  const slideFrom = isMobile ? { y: '100%' } : { x: '100%' };
-  const slideTo = isMobile ? { y: 0 } : { x: 0 };
+  const slideFrom = isMobile ? { y: 40, opacity: 0 } : { x: 44, opacity: 0 };
+  const slideTo = isMobile ? { y: 0, opacity: 1 } : { x: 0, opacity: 1 };
 
   const open = useCallback(
     (p: DrawerPayload) => {
@@ -182,7 +182,7 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
                     </button>
                   </div>
                   <h2 className="drawer__title drawer__title--ai">{payload.title}</h2>
-                  {payload.subLabel && <p className="drawer__sublabel">{payload.subLabel}</p>}
+                  {payload.whatAiAdds && <p className="drawer__takeaway">{payload.whatAiAdds}</p>}
                 </header>
               ) : (
                 <>
@@ -201,13 +201,6 @@ export function DrawerProvider({ children }: { children: ReactNode }) {
               <div className="drawer__body">
                 {payload.kind === 'ai' ? (
                   <>
-                    {payload.whatAiAdds && (
-                      <section className="drawer__card">
-                        <h3 className="drawer__heading">What AI adds here</h3>
-                        <p className="drawer__text">{payload.whatAiAdds}</p>
-                      </section>
-                    )}
-
                     {payload.exampleWorkflow && payload.exampleWorkflow.length > 0 && (
                       <section className="drawer__card">
                         <h3 className="drawer__heading">Example workflow</h3>
