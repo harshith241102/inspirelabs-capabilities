@@ -9,14 +9,14 @@
   justify-content: flex-end;
   align-items: stretch;
   /* Floats the panel off all four edges. */
-  padding: 24px;
+  padding: 16px;
 }
 
 /* A floating, elevated, rounded sheet - detached from the screen edges, lifted
    off the dimmed slide with a layered shadow (dimensional-layering). */
 .drawer {
   width: 420px;
-  max-width: calc(100vw - 48px);
+  max-width: calc(100vw - 32px);
   height: 100%;
   background: #fff;
   border: 1px solid var(--border);
