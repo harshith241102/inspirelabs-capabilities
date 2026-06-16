@@ -192,11 +192,12 @@ a {
 /* Translucent brand gridmark, top-right safe zone of content slides */
 .gridmark {
   position: absolute;
-  top: 60px;
-  right: 72px;
-  width: 132px;
-  height: 132px;
-  opacity: 0.4;
+  top: 64px;
+  right: 76px;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  opacity: 0.38;
   mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
@@ -305,8 +306,8 @@ a {
   width: 100%;
   background: var(--net);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--orange);
-  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--orange);
+  border-radius: 12px;
   padding: 15px 26px;
   box-shadow: var(--float-sm);
 }

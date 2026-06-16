@@ -81,7 +81,7 @@ export const copy: Record<number, ScreenCopy> = {
     headline: 'The system moves from intent to accountable growth.',
     subheadline:
       'Reach shoppers who are ready to buy, spread your reach, activate shopper behaviour, scale execution with AI Growth Studio, and run with measurable commitments.',
-    support: 'Results sit alongside the system as evidence, not as a separate delivery capability.',
+    support: 'Every result feeds back into the system, so each cycle sharpens targeting and growth compounds over time.',
     cards: ['Reach ready buyers', 'Spread your reach', 'AudienceSeed shopper behaviour', 'AI Growth Studio', 'Growth commitments', 'Results by category'],
     cta: 'Start with reaching ready buyers',
     drawer: 'Each block opens a short definition and the screens that explain it.',

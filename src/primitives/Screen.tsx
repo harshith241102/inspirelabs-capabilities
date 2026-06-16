@@ -11,6 +11,8 @@ interface ScreenProps {
   label: string;
   children: ReactNode;
   className?: string;
+  /** suppress the decorative gridmark (e.g. when a slide has its own top-right element) */
+  hideGridmark?: boolean;
 }
 
 /**
@@ -20,7 +22,7 @@ interface ScreenProps {
  * discoverable by assistive tech / focus. (The drawer separately makes the
  * whole deck inert while open.)
  */
-export function Screen({ index, tone = 'light', id, label, children, className }: ScreenProps) {
+export function Screen({ index, tone = 'light', id, label, children, className, hideGridmark }: ScreenProps) {
   const ref = useRef<HTMLElement>(null);
   const { registerScreenView, currentIndex } = useApp();
   // Display position comes from the deck registry order (App provides it), so an
@@ -29,7 +31,7 @@ export function Screen({ index, tone = 'light', id, label, children, className }
   const pos = useScreenPos();
   const idx = pos ?? index;
   // Translucent Inspirelabs gridmark, top-right of light content slides.
-  const showGridmark = tone === 'light' && idx >= 2 && idx <= 37;
+  const showGridmark = tone === 'light' && idx >= 2 && idx <= 37 && !hideGridmark;
   const active = idx === currentIndex;
 
   useEffect(() => {
@@ -66,7 +68,7 @@ export function Screen({ index, tone = 'light', id, label, children, className }
     >
       <div className="screen__stage">
         {showGridmark && (
-          <img src={ASSETS.symbolInk} alt="" aria-hidden="true" className="gridmark" loading="lazy" />
+          <img src={ASSETS.symbolInkCrop} alt="" aria-hidden="true" className="gridmark" loading="lazy" />
         )}
         {children}
       </div>

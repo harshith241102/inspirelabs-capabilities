@@ -16,6 +16,7 @@ interface SurfaceRow {
   name: string;
   logo?: string;
   icon?: IconName;
+  phase: string;
   audience: string;
   intent: string;
   value: string;
@@ -25,6 +26,7 @@ const surfaces: SurfaceRow[] = [
   {
     name: 'GrabOn',
     logo: ASSETS.grabonLogo,
+    phase: 'During',
     audience: 'Deal seekers, coupon users, purchase-ready shoppers',
     intent: 'Savings intent, merchant search, coupon discovery, category browsing',
     value: 'Reaches shoppers close to the purchase decision',
@@ -32,6 +34,7 @@ const surfaces: SurfaceRow[] = [
   {
     name: 'GrabCash',
     logo: ASSETS.grabcashLogo,
+    phase: 'After',
     audience: 'Reward-led shoppers, repeat savers, community sharers',
     intent: 'Cashback motivation, repeat purchase behaviour, share-led traffic',
     value: 'Creates repeat engagement and payout-controlled distribution',
@@ -39,6 +42,7 @@ const surfaces: SurfaceRow[] = [
   {
     name: 'GrabShare',
     logo: ASSETS.grabshareLogo,
+    phase: 'Before',
     audience: 'Creators, micro-affiliates, social shoppers, product curators',
     intent: 'Creator-led recommendation, storefront browsing, peer-led discovery',
     value: 'Extends demand through creator and social commerce',
@@ -46,6 +50,7 @@ const surfaces: SurfaceRow[] = [
   {
     name: 'Alternatives.co',
     logo: ASSETS.alternativesLogo,
+    phase: 'Before',
     audience: 'B2B software evaluators, SaaS buyers, tool researchers',
     intent: 'Software evaluation, alternatives research, business-tool discovery',
     value: 'Reaches business buyers before vendor shortlisting',
@@ -53,6 +58,7 @@ const surfaces: SurfaceRow[] = [
   {
     name: 'Strategic partner surfaces',
     icon: 'partners',
+    phase: 'Before',
     audience: 'Partner-ecosystem users across BFSI, telecom, OTT, commerce, travel',
     intent: 'Contextual partner-surface demand',
     value: 'Extends campaigns into partner-owned audiences',
@@ -106,36 +112,38 @@ export default function Screen08DecisionMoments() {
           ))}
         </Reveal>
 
-        {/* Operating map: surface, audience and intent, brand value. */}
-        <div className="s08dm-map" role="table" aria-label="Which surface reaches which audience and the brand value">
-          <div className="s08dm-cols" role="row" aria-hidden="true">
-            <span className="s08dm-cols__c">Surface</span>
-            <span className="s08dm-cols__c">Audience and intent</span>
-            <span className="s08dm-cols__c">Brand value</span>
-          </div>
-
+        {/* Operating routes: each surface flows from the mindset it reaches to the
+            brand value it creates, tagged with the decision moment it plays into. */}
+        <div className="s08dm-lanes" aria-label="Each surface, the mindset it reaches, and the brand value it creates">
           {surfaces.map((s, i) => (
-            <Reveal key={s.name} i={i} step={0.06} from="up" distance={12} className="s08dm-row" role="row">
-              <div className="s08dm-surface" role="cell">
+            <Reveal key={s.name} i={i} step={0.06} from="up" distance={12} className="s08dm-lane">
+              <div className="s08dm-lane__surface">
                 {s.logo ? (
                   <img className="s08dm-logo" src={s.logo} alt={s.name} loading="lazy" />
                 ) : (
-                  <>
-                    <span className="s08dm-surface__ico">
-                      <Icon name={s.icon ?? 'partners'} size={20} />
+                  <span className="s08dm-lane__label">
+                    <span className="s08dm-lane__ico">
+                      <Icon name={s.icon ?? 'partners'} size={18} />
                     </span>
-                    <span className="s08dm-surface__name">{s.name}</span>
-                  </>
+                    {s.name}
+                  </span>
                 )}
+                <span className="s08dm-lane__phase mono">
+                  <span className="s08dm-lane__dot" aria-hidden="true" />
+                  {s.phase}
+                </span>
               </div>
-              <div className="s08dm-aud" role="cell">
-                <span className="s08dm-aud__who">{s.audience}</span>
-                <span className="s08dm-aud__intent mono">{s.intent}</span>
+
+              <div className="s08dm-lane__reach">
+                <span className="s08dm-lane__mindset">{s.audience}</span>
+                <span className="s08dm-lane__intent mono">{s.intent}</span>
               </div>
-              <div className="s08dm-value" role="cell">
-                <Icon name="check" size={14} />
-                <span>{s.value}</span>
-              </div>
+
+              <span className="s08dm-lane__to" aria-hidden="true">
+                <Icon name="arrow" size={16} />
+              </span>
+
+              <div className="s08dm-lane__value">{s.value}</div>
             </Reveal>
           ))}
         </div>

@@ -73,44 +73,33 @@
   stroke-width: 2;
 }
 
-/* ---- Operating map: rows of surface / audience+intent / brand value ---- */
-.s08dm-map {
+/* ---- Operating routes: surface -> mindset and intent -> brand value, each
+   tagged with the decision moment it plays into. Lighter than a table: no
+   column headers, a route arrow into the value, a phase tag linking to the
+   band. ---- */
+.s08dm-lanes {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 9px;
 }
-.s08dm-cols {
+.s08dm-lane {
   display: grid;
-  grid-template-columns: 220px 1fr 300px;
-  gap: 26px;
-  padding: 0 20px 2px;
-}
-.s08dm-cols__c {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--c4, #9ca1ae);
-}
-.s08dm-row {
-  display: grid;
-  grid-template-columns: 220px 1fr 300px;
-  gap: 26px;
+  grid-template-columns: 198px 1fr 30px 300px;
+  gap: 20px;
   align-items: center;
-  padding: 13px 20px;
+  padding: 12px 22px;
   background: #fff;
   border: 1px solid var(--card-bd);
   border-radius: 12px;
   box-shadow: var(--float-sm);
 }
-
-.s08dm-surface {
+.s08dm-lane__surface {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
   min-width: 0;
 }
 .s08dm-logo {
@@ -120,10 +109,20 @@
   object-fit: contain;
   display: block;
 }
-.s08dm-surface__ico {
-  width: 42px;
-  height: 42px;
-  border-radius: 11px;
+.s08dm-lane__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 13.5px;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.s08dm-lane__ico {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -132,55 +131,65 @@
   color: var(--ink);
   flex-shrink: 0;
 }
-.s08dm-surface__ico svg {
+.s08dm-lane__ico svg {
   stroke: currentColor;
   fill: none;
   stroke-width: 1.7;
 }
-.s08dm-surface__name {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.2;
-  color: var(--ink);
+.s08dm-lane__phase {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey);
 }
-
-.s08dm-aud {
+.s08dm-lane__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c4, #9ca1ae);
+  flex-shrink: 0;
+}
+.s08dm-lane__reach {
   display: flex;
   flex-direction: column;
   gap: 5px;
   min-width: 0;
 }
-.s08dm-aud__who {
+.s08dm-lane__mindset {
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.35;
   color: var(--ink);
 }
-.s08dm-aud__intent {
+.s08dm-lane__intent {
   font-family: var(--font-mono);
   font-size: 11.5px;
   line-height: 1.4;
   color: var(--muted-text);
 }
-
-.s08dm-value {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
+.s08dm-lane__to {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #c8ccd4;
+}
+.s08dm-lane__to svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.s08dm-lane__value {
   font-family: var(--font-body);
   font-size: 13.5px;
   line-height: 1.4;
   color: var(--body);
-}
-.s08dm-value svg {
-  color: var(--grey);
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2.4;
-  flex-shrink: 0;
-  margin-top: 3px;
+  padding-left: 18px;
+  border-left: 1px solid var(--card-bd);
 }
 
 /* ---- Footer takeaway (global .s-net styling) ---- */
