@@ -14,6 +14,7 @@ import Screen04 from './Screen04';
 import Screen05 from './Screen05';
 import Screen06 from './Screen06';
 import Screen07 from './Screen07';
+import Screen08DecisionMoments from './Screen08DecisionMoments';
 import Screen08 from './Screen08';
 import Screen09 from './Screen09';
 import Screen10 from './Screen10';
@@ -45,10 +46,57 @@ import Screen35 from './Screen35';
 import Screen36 from './Screen36';
 import Screen37 from './Screen37';
 
-/* Ordered registry of all 38 approved screens (0..37). */
-export const deckScreens: ComponentType[] = [
-  Screen00, Screen01, Screen02, Screen03, Screen04, Screen05, Screen06, Screen07, Screen08, Screen09,
-  Screen10, Screen11, Screen12, Screen13, Screen14, Screen15, Screen16, Screen17, Screen18, Screen19,
-  Screen20, Screen21, Screen22, Screen23, Screen24, Screen25, Screen26, Screen27, Screen28, Screen29,
-  Screen30, Screen31, Screen32, Screen33, Screen34, Screen35, Screen36, Screen37,
+/* Ordered registry of the deck. `pos` (array index) is the display order and the
+   single source of truth for navigation; `copy` is each screen's stable copy key
+   (which never has to be renumbered when a screen is inserted). Screen08DecisionMoments
+   is inserted at display position 8 (after Screen 07); existing screens keep their
+   files and copy keys unchanged, so their display position simply shifts by one. */
+export interface DeckEntry {
+  Component: ComponentType;
+  copy: number;
+}
+
+export const deckScreens: DeckEntry[] = [
+  { Component: Screen00, copy: 0 },
+  { Component: Screen01, copy: 1 },
+  { Component: Screen02, copy: 2 },
+  { Component: Screen03, copy: 3 },
+  { Component: Screen04, copy: 4 },
+  { Component: Screen05, copy: 5 },
+  { Component: Screen06, copy: 6 },
+  { Component: Screen07, copy: 7 },
+  { Component: Screen08DecisionMoments, copy: 38 },
+  { Component: Screen08, copy: 8 },
+  { Component: Screen09, copy: 9 },
+  { Component: Screen10, copy: 10 },
+  { Component: Screen11, copy: 11 },
+  { Component: Screen12, copy: 12 },
+  { Component: Screen13, copy: 13 },
+  { Component: Screen14, copy: 14 },
+  { Component: Screen15, copy: 15 },
+  { Component: Screen16, copy: 16 },
+  { Component: Screen17, copy: 17 },
+  { Component: Screen18, copy: 18 },
+  { Component: Screen19, copy: 19 },
+  { Component: Screen20, copy: 20 },
+  { Component: Screen21, copy: 21 },
+  { Component: Screen22, copy: 22 },
+  { Component: Screen23, copy: 23 },
+  { Component: Screen24, copy: 24 },
+  { Component: Screen25, copy: 25 },
+  { Component: Screen26, copy: 26 },
+  { Component: Screen27, copy: 27 },
+  { Component: Screen28, copy: 28 },
+  { Component: Screen29, copy: 29 },
+  { Component: Screen30, copy: 30 },
+  { Component: Screen31, copy: 31 },
+  { Component: Screen32, copy: 32 },
+  { Component: Screen33, copy: 33 },
+  { Component: Screen34, copy: 34 },
+  { Component: Screen35, copy: 35 },
+  { Component: Screen36, copy: 36 },
+  { Component: Screen37, copy: 37 },
 ];
+
+/** Stable copy key for a given display position. */
+export const copyKeyForPos = (pos: number): number => deckScreens[pos]?.copy ?? pos;

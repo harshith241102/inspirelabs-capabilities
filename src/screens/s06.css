@@ -6,15 +6,17 @@
   flex: 1;
   min-height: 0;
   display: flex;
-  align-items: center;
-  padding: 22px 0 18px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 0 8px;
 }
 
 /* ---- The dominant visual: proof-wrapped map ---- */
 .s06-map {
   position: relative;
   width: 100%;
-  padding: 70px 56px 56px;
+  padding: 54px 48px 42px;
   border: 1px solid var(--border);
   border-radius: 24px;
   background: var(--net);
@@ -294,4 +296,90 @@
   padding-left: 16px;
   border-left: 3px solid var(--orange);
   max-width: 78ch;
+}
+
+/* ---- Growth Engine framework: compact demand-funnel band beneath the map.
+   Neutral on purpose so the slide keeps one orange focal (the map goal). ---- */
+.s06-engine {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.s06-engine__label {
+  flex-shrink: 0;
+  width: 94px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--grey);
+  line-height: 1.25;
+}
+.s06-engine__label svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  flex-shrink: 0;
+}
+.s06-engine__rail {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+}
+.s06-eng-wrap {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+.s06-eng {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 16px 13px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  box-shadow: var(--float-sm);
+  cursor: default;
+}
+.s06-eng__step {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--c4, #9ca1ae);
+}
+.s06-eng__name {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.s06-eng__role {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted-text);
+}
+.s06-eng__link {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  flex-shrink: 0;
+  color: #c8ccd4;
+}
+.s06-eng__link svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
 }

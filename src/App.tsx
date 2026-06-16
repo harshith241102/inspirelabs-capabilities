@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { AppProvider, useApp } from './state/store';
+import { ScreenPosContext } from './state/screenPos';
 import { DrawerProvider } from './components/Drawer';
 import { ScrollDeck } from './components/ScrollDeck';
 import { ProgressRail } from './components/ProgressRail';
@@ -43,9 +44,14 @@ function Deck() {
         Skip to content
       </a>
       <ScrollDeck>
-        {deckScreens.map((Screen, i) => (
-          <Screen key={i} />
-        ))}
+        {deckScreens.map((entry, i) => {
+          const ScreenComponent = entry.Component;
+          return (
+            <ScreenPosContext.Provider key={i} value={i}>
+              <ScreenComponent />
+            </ScreenPosContext.Provider>
+          );
+        })}
       </ScrollDeck>
       <ProgressRail />
       <DeckNav />

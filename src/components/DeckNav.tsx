@@ -1,6 +1,7 @@
 import { useApp } from '../state/store';
 import { Icon } from '../primitives/icons';
 import { copy } from '../content/copy';
+import { copyKeyForPos } from '../screens/registry';
 import { JUMP_UNLOCK_INDEX, ROADMAP_INDEX } from '../content/sections';
 import { IS_EXPORT } from '../lib/deckMode';
 import './decknav.css';
@@ -19,7 +20,7 @@ export function DeckNav() {
 
   const showJump = currentIndex > JUMP_UNLOCK_INDEX && currentIndex < ROADMAP_INDEX;
   const showBackToRoadmap = currentIndex > ROADMAP_INDEX;
-  const nextCta = currentIndex < total - 1 ? copy[currentIndex]?.cta : undefined;
+  const nextCta = currentIndex < total - 1 ? copy[copyKeyForPos(currentIndex)]?.cta : undefined;
 
   return (
     <div className="decknav" role="group" aria-label="Deck navigation">

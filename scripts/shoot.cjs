@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
 
-const TOTAL = 38;
+const TOTAL = 39;
 
 (async () => {
   const rawBase = process.argv[2] || 'http://localhost:5191/';

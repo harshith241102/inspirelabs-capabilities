@@ -21,10 +21,52 @@ interface Stage {
 
 const stages: Stage[] = [
   { step: '01', label: 'Capture commerce intent', role: 'Meet demand where decisions form', icon: 'store', to: 7 },
-  { step: '02', label: 'Distribute demand', role: 'Move it across owned and activation surfaces', icon: 'share', to: 11 },
-  { step: '03', label: 'AudienceSeed shopper signals', role: 'Read intent before the brand visit', icon: 'signal', to: 20 },
-  { step: '04', label: 'AI Growth Studio', role: 'Scale execution with human-reviewed agents', icon: 'spark', to: 26 },
-  { step: '05', label: 'Growth commitments', role: 'Run to measurable, accountable goals', icon: 'target', to: 32 },
+  { step: '02', label: 'Distribute demand', role: 'Move it across owned and activation surfaces', icon: 'share', to: 12 },
+  { step: '03', label: 'AudienceSeed shopper signals', role: 'Read intent before the brand visit', icon: 'signal', to: 21 },
+  { step: '04', label: 'AI Growth Studio', role: 'Scale execution with human-reviewed agents', icon: 'spark', to: 27 },
+  { step: '05', label: 'Growth commitments', role: 'Run to measurable, accountable goals', icon: 'target', to: 33 },
+];
+
+/* The Growth Engine framework: the demand funnel the system runs on. Names and
+   one-line roles are visible; levers, tools, and outputs surface on hover so the
+   layer stays a compact operating band, not four heavy cards. */
+interface EngineStage {
+  name: string;
+  role: string;
+  levers: string;
+  tools: string;
+  outputs: string;
+}
+
+const growthEngine: EngineStage[] = [
+  {
+    name: 'Awareness',
+    role: 'Build visibility and recall',
+    levers: 'Influencer marketing, social campaigns, media amplification, partner promotions',
+    tools: 'GrabShare, strategic partnerships, channel amplification, AI Growth Studio',
+    outputs: 'Reach, impressions, engagement, creator output',
+  },
+  {
+    name: 'Discovery',
+    role: 'Be findable during active search or comparison',
+    levers: 'SEO, ASO, SGE, GEO, content, intent-led surfaces',
+    tools: 'GrabOn, Alternatives.co, RankDrive, WriteGenius',
+    outputs: 'Search visibility, category discovery, comparison traffic',
+  },
+  {
+    name: 'User Engagement',
+    role: 'Build repeat interaction and offer-led re-entry',
+    levers: 'Email, Telegram, WhatsApp, offer drops, cashback, retargeting inputs',
+    tools: 'GrabCash, AudienceSeed, strategic partnerships, promotional surfaces',
+    outputs: 'Repeat visits, offer response, audience readiness',
+  },
+  {
+    name: 'User Acquisition',
+    role: 'Convert interest into measurable action',
+    levers: 'Affiliate marketing, creator commerce, performance campaigns, retargeting',
+    tools: 'GrabOn, GrabCash, GrabShare, AudienceSeed, affiliate platforms, AI Growth Studio',
+    outputs: 'Leads, signups, installs, registrations, orders, sales',
+  },
 ];
 
 export default function Screen06() {
@@ -83,6 +125,33 @@ export default function Screen06() {
               <Icon name="check" size={15} />
               Accountable growth
             </span>
+          </div>
+        </Reveal>
+
+        {/* Growth Engine framework: the demand funnel the system runs on. */}
+        <Reveal from="up" distance={14} className="s06-engine">
+          <span className="s06-engine__label mono">
+            <Icon name="cycle" size={14} />
+            Growth Engine
+          </span>
+          <div className="s06-engine__rail">
+            {growthEngine.map((g, i) => (
+              <div className="s06-eng-wrap" key={g.name}>
+                <div
+                  className="s06-eng"
+                  title={`Levers: ${g.levers}. Tools: ${g.tools}. Outputs: ${g.outputs}.`}
+                >
+                  <span className="s06-eng__step mono">{`0${i + 1}`}</span>
+                  <span className="s06-eng__name">{g.name}</span>
+                  <span className="s06-eng__role">{g.role}</span>
+                </div>
+                {i < growthEngine.length - 1 && (
+                  <span className="s06-eng__link" aria-hidden="true">
+                    <Icon name="arrow" size={14} />
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
         </Reveal>
       </div>

@@ -1,0 +1,190 @@
+/* Inserted screen (display 8) - platform audiences + decision moments.
+   One operating map (surface / audience and intent / brand value) read against a
+   Before-During-After decision spectrum. One orange focal = the During band. */
+
+.s08dm-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px 0 6px;
+}
+
+/* ---- Decision spectrum band (top). Single orange focal = During. ---- */
+.s08dm-band {
+  display: grid;
+  grid-template-columns: 1fr 26px 1fr 26px 1fr;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+.s08dm-band__cell {
+  display: contents;
+}
+.s08dm-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 13px 18px 14px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+}
+.s08dm-phase.is-focal {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.s08dm-phase__cap {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.s08dm-phase__cap svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+.s08dm-phase.is-focal .s08dm-phase__cap {
+  color: #fff;
+}
+.s08dm-phase__moments {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--body);
+}
+.s08dm-phase.is-focal .s08dm-phase__moments {
+  color: #fff;
+}
+.s08dm-band__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #c1c6cf;
+}
+.s08dm-band__arrow svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ---- Operating map: rows of surface / audience+intent / brand value ---- */
+.s08dm-map {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.s08dm-cols {
+  display: grid;
+  grid-template-columns: 220px 1fr 300px;
+  gap: 26px;
+  padding: 0 20px 2px;
+}
+.s08dm-cols__c {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--c4, #9ca1ae);
+}
+.s08dm-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 300px;
+  gap: 26px;
+  align-items: center;
+  padding: 13px 20px;
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 12px;
+  box-shadow: var(--float-sm);
+}
+
+.s08dm-surface {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.s08dm-logo {
+  height: 25px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  display: block;
+}
+.s08dm-surface__ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--net);
+  border: 1px solid var(--card-bd);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.s08dm-surface__ico svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+}
+.s08dm-surface__name {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.s08dm-aud {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.s08dm-aud__who {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.s08dm-aud__intent {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--muted-text);
+}
+
+.s08dm-value {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--body);
+}
+.s08dm-value svg {
+  color: var(--grey);
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.4;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ---- Footer takeaway (global .s-net styling) ---- */
+.s08dm-foot {
+  flex-shrink: 0;
+  padding-top: 2px;
+}

@@ -93,7 +93,7 @@ export const copy: Record<number, ScreenCopy> = {
       'Place your brand where users are already discovering offers, comparing options, and moving toward purchase decisions.',
     support: 'Intent shows up through offer-led, commerce-led, and comparison-led behaviours.',
     cards: ['Offer-led intent', 'Active-shopping', 'Comparison-led intent'],
-    cta: 'See GrabOn',
+    cta: 'See who each surface reaches',
   },
   8: {
     eyebrow: 'Reach ready buyers',
@@ -397,5 +397,16 @@ export const copy: Record<number, ScreenCopy> = {
     support: 'The same proof-led partnership conversation applies to every brand we work with.',
     cards: ['Name', 'Work email', 'Company', 'Phone optional', 'Website optional', 'Message optional'],
     cta: 'Send roadmap request',
+  },
+  /* Inserted screen (display position 8), rendered after Screen 07. Key 38 keeps
+     existing 0..37 copy keys stable while the registry controls display order. */
+  38: {
+    eyebrow: 'Capability 1 · Platform audiences',
+    headline: 'Different surfaces reach different decision moments.',
+    subheadline:
+      'Each Inspirelabs surface reaches a different user mindset, from discovery to comparison, purchase, repeat engagement, and re-entry.',
+    support: 'One system spans the decision, from first search to repeat re-entry, surface by surface.',
+    cards: ['GrabOn', 'GrabCash', 'GrabShare', 'Alternatives.co', 'Strategic partner surfaces'],
+    cta: 'See GrabOn',
   },
 };

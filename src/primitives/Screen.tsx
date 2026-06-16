@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { useApp } from '../state/store';
+import { useScreenPos } from '../state/screenPos';
 import { ASSETS } from '../lib/assets';
 
 interface ScreenProps {
@@ -22,9 +23,14 @@ interface ScreenProps {
 export function Screen({ index, tone = 'light', id, label, children, className }: ScreenProps) {
   const ref = useRef<HTMLElement>(null);
   const { registerScreenView, currentIndex } = useApp();
-  // Translucent Inspirelabs gridmark, top-right of content slides (light, screens 2-36).
-  const showGridmark = tone === 'light' && index >= 2 && index <= 36;
-  const active = index === currentIndex;
+  // Display position comes from the deck registry order (App provides it), so an
+  // inserted screen shifts every later screen without renumbering files. Falls
+  // back to the hardcoded prop if a screen is rendered outside the registry.
+  const pos = useScreenPos();
+  const idx = pos ?? index;
+  // Translucent Inspirelabs gridmark, top-right of light content slides.
+  const showGridmark = tone === 'light' && idx >= 2 && idx <= 37;
+  const active = idx === currentIndex;
 
   useEffect(() => {
     const el = ref.current;
@@ -33,7 +39,7 @@ export function Screen({ index, tone = 'light', id, label, children, className }
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
-            registerScreenView(index);
+            registerScreenView(idx);
           }
         }
       },
@@ -41,7 +47,7 @@ export function Screen({ index, tone = 'light', id, label, children, className }
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [index, registerScreenView]);
+  }, [idx, registerScreenView]);
 
   // Active-screen state: only the current screen is exposed to AT / tab order.
   useEffect(() => {
@@ -54,8 +60,8 @@ export function Screen({ index, tone = 'light', id, label, children, className }
     <section
       ref={ref}
       id={id}
-      data-screen-index={index}
-      aria-label={`Screen ${index}: ${label}`}
+      data-screen-index={idx}
+      aria-label={`Screen ${idx}: ${label}`}
       className={`screen screen--${tone}${className ? ` ${className}` : ''}`}
     >
       <div className="screen__stage">

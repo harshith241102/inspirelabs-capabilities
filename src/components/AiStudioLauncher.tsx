@@ -1,6 +1,7 @@
 import { useApp } from '../state/store';
 import { useDrawer } from './Drawer';
 import { copy } from '../content/copy';
+import { copyKeyForPos } from '../screens/registry';
 import { aiDrawers } from '../content/aiDrawers';
 import { IS_EXPORT } from '../lib/deckMode';
 import { Icon } from '../primitives/icons';
@@ -19,7 +20,7 @@ export function AiStudioLauncher() {
   const drawer = useDrawer();
 
   if (IS_EXPORT || currentIndex <= 1) return null;
-  const context = copy[currentIndex]?.aiChip;
+  const context = copy[copyKeyForPos(currentIndex)]?.aiChip;
   if (!context) return null;
 
   return (
