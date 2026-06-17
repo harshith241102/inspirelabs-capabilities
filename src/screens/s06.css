@@ -108,8 +108,33 @@
 .s06-chip rect {
   transition: stroke 0.2s ease;
 }
-.s06-stage:hover {
-  cursor: default;
+.s06-stage {
+  cursor: pointer;
+}
+.s06-stage:focus {
+  outline: none;
+}
+/* keyboard focus: ring the plate without disturbing layout or motion */
+.s06-stage:focus-visible .s06-plate {
+  stroke: var(--orange, #ff7a45);
+  stroke-width: 2.4;
+}
+.s06-stage:focus-visible .s06-expand circle {
+  stroke: var(--orange, #ff7a45);
+}
+/* expand affordance: quiet at rest, reads as expandable on hover/focus */
+.s06-expand circle {
+  transition: stroke 0.2s ease;
+}
+.s06-expand path {
+  transition: stroke 0.2s ease;
+}
+.s06-stage:hover .s06-expand circle,
+.s06-stage:focus-visible .s06-expand circle {
+  stroke: #ffb594;
+}
+.s06-stage:hover .s06-expand path {
+  stroke: var(--orange, #ff7a45);
 }
 .s06-stage:hover .s06-stage__plate {
   transform: translateY(-6px);

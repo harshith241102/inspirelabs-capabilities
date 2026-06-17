@@ -113,45 +113,75 @@ export default function Screen08DecisionMoments() {
           ))}
         </Reveal>
 
-        {/* Operating routes: each surface flows from the mindset it reaches to the
-            brand value it creates, tagged with the decision moment it plays into. */}
+        {/* Operating routes: each surface is a station whose route runs through the
+            mindset and intent it reaches into the brand value it creates. The route
+            line and the phase tag are colour-encoded to the decision moment - the
+            During route carries the single orange focal; Before/After stay neutral.
+            No table columns, no cell dividers: a drawn route, not a row. */}
         <div className="s08dm-lanes" aria-label="Each surface, the mindset it reaches, and the brand value it creates">
-          {surfaces.map((s, i) => (
-            <Reveal key={s.name} i={i} step={0.06} from="up" distance={12} className="s08dm-lane mk-hover">
-              <div className="s08dm-lane__surface">
-                {s.logo ? (
-                  <img className="s08dm-logo" src={s.logo} alt={s.name} loading="lazy" />
-                ) : (
-                  <span className="s08dm-lane__label">
-                    <span className="s08dm-lane__ico">
-                      <Icon name={s.icon ?? 'partners'} size={18} />
+          {surfaces.map((s, i) => {
+            const isFocal = s.phase === 'During';
+            return (
+              <Reveal
+                key={s.name}
+                i={i}
+                step={0.06}
+                from="up"
+                distance={12}
+                className={`s08dm-lane mk-hover${isFocal ? ' is-focal' : ''}`}
+              >
+                {/* Station: surface origin + its decision-phase tag. */}
+                <div className="s08dm-lane__station">
+                  {s.logo ? (
+                    <img className="s08dm-logo" src={s.logo} alt={s.name} loading="lazy" />
+                  ) : (
+                    <span className="s08dm-lane__label">
+                      <span className="s08dm-lane__ico">
+                        <Icon name={s.icon ?? 'partners'} size={18} />
+                      </span>
+                      {s.name}
                     </span>
-                    {s.name}
+                  )}
+                  <span className="s08dm-lane__phase mono">
+                    <span className="s08dm-lane__node" aria-hidden="true" />
+                    {s.phase}
                   </span>
-                )}
-                <span className="s08dm-lane__phase mono">
-                  <span className="s08dm-lane__dot" aria-hidden="true" />
-                  {s.phase}
-                </span>
-              </div>
+                </div>
 
-              <div className="s08dm-lane__reach">
-                <span className="s08dm-lane__mindset">{s.audience}</span>
-                <span className="s08dm-lane__intent mono">{s.intent}</span>
-              </div>
+                {/* Route: mindset + intent ride the line that runs into the value. */}
+                <div className="s08dm-lane__route">
+                  <div className="s08dm-lane__reach">
+                    <span className="s08dm-lane__mindset">{s.audience}</span>
+                    <span className="s08dm-lane__intent mono">{s.intent}</span>
+                  </div>
 
-              <span className="s08dm-lane__to" aria-hidden="true">
-                <Icon name="arrow" size={16} />
-                {/* live route spark: intent flowing into the brand value */}
-                <span
-                  className="s08dm-lane__spark mk-spark"
-                  style={{ ['--mk-i']: i, ['--mk-dx']: '34px' } as CSSProperties}
-                />
-              </span>
+                  <span className="s08dm-lane__path" aria-hidden="true">
+                    {/* the continuous route line: draws in from the intent side
+                        (left) toward the value via mk-bar (kit-guarded). */}
+                    <span
+                      className="s08dm-route-line mk-bar"
+                      style={{ ['--mk-i']: i } as CSSProperties}
+                    />
+                    {/* arrowhead landing the route into the brand value. Fixed
+                        aspect (not stretched) so it stays a crisp arrow. */}
+                    <svg className="s08dm-route-head" viewBox="0 0 10 14" fill="none">
+                      <path d="M1 1 L8 7 L1 13" />
+                    </svg>
+                    {/* live route dot: intent converting into brand value, travelling
+                        the full visible line into the arrowhead. Subtle, hidden at
+                        rest, slide-active only; travel distance is the line length. */}
+                    <span
+                      className="s08dm-lane__spark mk-spark"
+                      style={{ ['--mk-i']: i, ['--mk-dx']: 'var(--s08dm-route-len)' } as CSSProperties}
+                    />
+                  </span>
+                </div>
 
-              <div className="s08dm-lane__value">{s.value}</div>
-            </Reveal>
-          ))}
+                {/* Destination: the brand value the route lands in. */}
+                <div className="s08dm-lane__value">{s.value}</div>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
 

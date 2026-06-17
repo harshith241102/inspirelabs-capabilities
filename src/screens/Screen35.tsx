@@ -7,6 +7,7 @@ import { useApp } from '../state/store';
 import { useDrawer } from '../components/Drawer';
 import { copy } from '../content/copy';
 import { labelFor } from '../content/setup';
+import type { GrowthPriority } from '../content/setup';
 import type { EvidenceStatus } from '../primitives/ui';
 import './s35.css';
 
@@ -29,6 +30,52 @@ const metrics: { label: string; group: string; status: EvidenceStatus; icon: Ico
   { label: 'Acquisition', group: 'Orders, sales, CPA, ROAS where tracking is live', status: 'unavailable', icon: 'target' },
 ];
 
+/* Priority-keyed framing for the proof card. When setup is complete and the
+   category is known, the growth-problem line and the why-it-matters lead are
+   FRAMED from the selected category label + growth priority. This personalises
+   the FRAMING only: the problem stays a PROBLEM statement (never a claimed
+   outcome), and every why line keeps proof-pending honesty, framing what
+   similar brands can LEARN or SEE, never a promised result.
+   `problem` interpolates the category label; `why` is priority-appropriate. */
+const frameFor: Record<GrowthPriority, { problem: (cat: string) => string; why: string }> = {
+  sales_orders: {
+    problem: (cat) => `A ${cat} brand needs ready-to-buy demand to turn into orders, not just traffic.`,
+    why: 'Similar brands can see which surfaces and intent signals carry shoppers from interest into orders, before sales lift is claimed.',
+  },
+  leads_signups: {
+    problem: (cat) => `A ${cat} brand struggles to convert early interest into qualified leads and signups.`,
+    why: 'Similar brands can see which signals and workflows move people from interest into qualified signups, before lead quality is claimed.',
+  },
+  app_installs_registrations: {
+    problem: (cat) => `A ${cat} brand needs intent to convert into installs and completed registrations, not drop off at the door.`,
+    why: 'Similar brands can see which surfaces and signals carry intent through install and into a completed registration, before retention is claimed.',
+  },
+  offer_led_acquisition: {
+    problem: (cat) => `A ${cat} brand relies on offers but cannot tell which ones actually pull in new buyers.`,
+    why: 'Similar brands can see which offers, surfaces, and reveals attract genuinely new buyers, before incremental acquisition is claimed.',
+  },
+  organic_visibility: {
+    problem: (cat) => `A ${cat} brand needs stronger organic discovery before paid acquisition scales.`,
+    why: 'Similar brands can see which surfaces, signals, and content workflows create visibility before conversion proof is claimed.',
+  },
+  creator_influencer_growth: {
+    problem: (cat) => `A ${cat} brand finds creator and influencer effort hard to direct and harder to attribute.`,
+    why: 'Similar brands can see which creator surfaces and signals translate into measurable interest, before creator-driven results are claimed.',
+  },
+  partner_ecosystem_expansion: {
+    problem: (cat) => `A ${cat} brand wants to grow through partner ecosystems but cannot see which surfaces carry real demand.`,
+    why: 'Similar brands can see which partner surfaces and signals surface qualified demand, before partner-led growth is claimed.',
+  },
+  reduce_execution_overhead: {
+    problem: (cat) => `A ${cat} brand spends too much manual effort running growth across fragmented surfaces.`,
+    why: 'Similar brands can see which workflows the AI Growth Studio absorbs and where human guardrails stay, before efficiency gains are claimed.',
+  },
+  not_sure: {
+    problem: (cat) => `A ${cat} brand has growth ambition but no clear read on where demand actually starts.`,
+    why: 'Similar brands can see which surfaces, signals, and workflows the system maps first, before any specific outcome is claimed.',
+  },
+};
+
 export default function Screen35() {
   const c = copy[35];
   const drawer = useDrawer();
@@ -39,6 +86,15 @@ export default function Screen35() {
   const priLabel = labelFor.priority(setup.growth_priority);
   const framed = setupComplete && setup.category !== 'other';
   const identityName = framed ? `A ${catLabel} brand` : 'Named brand or category';
+  // FRAMING only: when framed, derive the growth-problem and why-it-matters lead
+  // from the selected category + priority. Otherwise keep the generic placeholders.
+  const frame = framed ? frameFor[setup.growth_priority] : null;
+  const problemText = frame
+    ? frame.problem(catLabel)
+    : 'The brand’s core growth problem, in one line.';
+  const whyLead = frame
+    ? frame.why
+    : 'What a similar brand can expect to learn from this case.';
 
   const openMetric = (label: string, group: string, status: EvidenceStatus) =>
     drawer.open({
@@ -108,9 +164,7 @@ export default function Screen35() {
                 </div>
                 <div className="s35-problem">
                   <span className="s35-field-k mono">Growth problem</span>
-                  <p className="s35-problem__text">
-                    The brand&rsquo;s core growth problem, in one line.
-                  </p>
+                  <p className="s35-problem__text">{problemText}</p>
                 </div>
               </div>
 
@@ -169,9 +223,7 @@ export default function Screen35() {
                 <aside className="s35-why">
                   <span className="s35-why__halo" aria-hidden="true" />
                   <span className="s35-why__kicker mono">Why it matters</span>
-                  <p className="s35-why__lead">
-                    What a similar brand can expect to learn from this case.
-                  </p>
+                  <p className="s35-why__lead">{whyLead}</p>
                   <div className="s35-why__foot">
                     <span className="s35-field-k mono">Similar brands</span>
                     <span className="s35-why__note">

@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
+import { useDrawer } from '../components/Drawer';
 import { Icon, type IconName } from '../primitives/icons';
 import { useApp } from '../state/store';
 import { useScreenPos } from '../state/screenPos';
@@ -23,6 +24,13 @@ import './s06.css';
    All motion is disabled under ?export=1 and prefers-reduced-motion (final
    static state), so the PDF/screenshot path and overflow gate stay clean. */
 
+interface StageDrawer {
+  purpose: string;
+  levers: string[];
+  tools: string[];
+  outputs: string[];
+}
+
 interface Stage {
   name: string;
   benefit: string;
@@ -31,13 +39,70 @@ interface Stage {
   surfaces: string[];
   width: number;
   tone: string;
+  detail: StageDrawer;
 }
 
 const stages: Stage[] = [
-  { name: 'Awareness', benefit: 'Get discovered by new audiences', icon: 'megaphone', enters: 'New audiences', surfaces: ['GrabShare', 'Partnerships'], width: 772, tone: '#ffffff' },
-  { name: 'Discovery', benefit: 'Be found when they search', icon: 'search', enters: 'People searching', surfaces: ['GrabOn', 'Alternatives.co', 'RankDrive'], width: 628, tone: '#f6f8fa' },
-  { name: 'Engagement', benefit: 'Bring shoppers back', icon: 'cycle', enters: 'Returning shoppers', surfaces: ['GrabCash', 'AudienceSeed', 'Telegram'], width: 484, tone: '#eef2f6' },
-  { name: 'Acquisition', benefit: 'Turn interest into sales', icon: 'target', enters: 'Ready to buy', surfaces: ['GrabOn', 'GrabCash', 'Affiliates'], width: 340, tone: '#e6ebf1' },
+  {
+    name: 'Awareness',
+    benefit: 'Get discovered by new audiences',
+    icon: 'megaphone',
+    enters: 'New audiences',
+    surfaces: ['Creators', 'social', 'partners'],
+    width: 820,
+    tone: '#ffffff',
+    detail: {
+      purpose: 'Get discovered by new audiences',
+      levers: ['Influencer marketing', 'Social campaigns', 'Media amplification', 'Partner promotions'],
+      tools: ['GrabShare', 'Strategic partnerships', 'Channel amplification', 'AI Growth Studio'],
+      outputs: ['Reach', 'Impressions', 'Engagement', 'Creator output'],
+    },
+  },
+  {
+    name: 'Discovery',
+    benefit: 'Be found when people search or compare',
+    icon: 'search',
+    enters: 'People searching',
+    surfaces: ['GrabOn', 'Alternatives.co', 'RankDrive'],
+    width: 680,
+    tone: '#f6f8fa',
+    detail: {
+      purpose: 'Be found when people search or compare',
+      levers: ['SEO', 'ASO', 'SGE', 'GEO', 'Content', 'Intent-led surfaces'],
+      tools: ['GrabOn', 'Alternatives.co', 'RankDrive', 'WriteGenius'],
+      outputs: ['Search visibility', 'Category discovery', 'Comparison traffic'],
+    },
+  },
+  {
+    name: 'Engagement',
+    benefit: 'Bring shoppers back',
+    icon: 'cycle',
+    enters: 'Returning shoppers',
+    surfaces: ['GrabCash', 'AudienceSeed', 'Telegram'],
+    width: 540,
+    tone: '#eef2f6',
+    detail: {
+      purpose: 'Bring shoppers back',
+      levers: ['Email', 'Telegram', 'WhatsApp', 'Offer drops', 'Cashback', 'Retargeting inputs'],
+      tools: ['GrabCash', 'AudienceSeed', 'Strategic partnerships', 'Promotional surfaces'],
+      outputs: ['Repeat visits', 'Offer response', 'Audience readiness'],
+    },
+  },
+  {
+    name: 'Acquisition',
+    benefit: 'Turn interest into measurable action',
+    icon: 'target',
+    enters: 'Ready to buy',
+    surfaces: ['Affiliates', 'creators', 'performance'],
+    width: 400,
+    tone: '#e6ebf1',
+    detail: {
+      purpose: 'Turn interest into measurable action',
+      levers: ['Affiliate marketing', 'Creator commerce', 'Performance campaigns', 'Retargeting'],
+      tools: ['GrabOn', 'GrabCash', 'GrabShare', 'AudienceSeed', 'Affiliate platforms', 'AI Growth Studio'],
+      outputs: ['Leads', 'Signups', 'Installs', 'Registrations', 'Orders', 'Sales'],
+    },
+  },
 ];
 
 const CX = 880;
@@ -55,8 +120,23 @@ export default function Screen06() {
   const c = copy[6];
   const pos = useScreenPos();
   const { currentIndex } = useApp();
+  const drawer = useDrawer();
   const active = (pos ?? 6) === currentIndex;
   const lastBottom = plateY(stages.length - 1) + PLATE_H; // 510
+
+  const openStage = (s: Stage) =>
+    drawer.open({
+      id: `gestage-${s.name}`,
+      kind: 'info',
+      eyebrow: 'Growth engine stage',
+      title: s.name,
+      sections: [
+        { heading: 'Purpose', body: s.detail.purpose },
+        { heading: 'Levers', items: s.detail.levers },
+        { heading: 'Tools', items: s.detail.tools },
+        { heading: 'Outputs', items: s.detail.outputs },
+      ],
+    });
 
   return (
     <Screen index={6} tone="light" id="overview" label="Growth system overview">
@@ -89,8 +169,25 @@ export default function Screen06() {
 
               const vars = { ['--i']: i, ['--dx']: `${dx}px` } as CSSProperties;
               let chipX = pr + 24;
+              // expand affordance sits inside the plate's top-right corner
+              const exx = pr - 24;
+              const exy = y + 20;
               return (
-                <g key={s.name} className="s06-stage" style={vars}>
+                <g
+                  key={s.name}
+                  className="s06-stage"
+                  style={vars}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Open ${s.name} detail`}
+                  onClick={() => openStage(s)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openStage(s);
+                    }
+                  }}
+                >
                   {/* plate + content (this layer lifts on hover) */}
                   <g className="s06-stage__plate">
                     <rect className="s06-plate" x={px} y={y} width={s.width} height={PLATE_H} rx={18} fill={s.tone} stroke="#e4e6eb" filter="url(#s06plate)" />
@@ -105,6 +202,12 @@ export default function Screen06() {
                     </g>
                     <text x={tx} y={cy - 3} className="s06-fname">{s.name}</text>
                     <text x={tx} y={cy + 20} className="s06-fben">{s.benefit}</text>
+
+                    {/* subtle expand affordance - signals the plate opens a detail */}
+                    <g className="s06-expand" aria-hidden="true" transform={`translate(${exx}, ${exy})`}>
+                      <circle r="9" fill="#fff" stroke="#e0e3e9" />
+                      <path d="M-3.6 0 H3.6 M0 -3.6 V3.6" fill="none" stroke="#9aa0ad" strokeWidth="1.6" strokeLinecap="round" />
+                    </g>
                   </g>
 
                   {/* entry point hugs the funnel on the left */}
@@ -147,7 +250,7 @@ export default function Screen06() {
               <circle cx="742" cy={lastBottom + 71} r="23" fill="rgba(255,255,255,0.22)" />
               <path d={`M731 ${lastBottom + 71} l8 9 l14 -16`} fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
               <text x="782" y={lastBottom + 64} className="s06-fgoal">Measurable growth</text>
-              <text x="782" y={lastBottom + 89} className="s06-fgoalsub">Tracked to a repeat sale</text>
+              <text x="782" y={lastBottom + 89} className="s06-fgoalsub">Tracked outcomes and review cycles</text>
             </g>
           </svg>
         </Reveal>

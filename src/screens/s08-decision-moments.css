@@ -85,41 +85,53 @@
   stroke-width: 2;
 }
 
-/* ---- Operating routes: surface -> mindset and intent -> brand value, each
-   tagged with the decision moment it plays into. Lighter than a table: no
-   column headers, a route arrow into the value, a phase tag linking to the
-   band. ---- */
+/* ---- Operating routes (not a table). Each lane is a route on a map: a
+   surface station on the left, the mindset and intent riding a drawn route
+   line through the centre, an arrowhead landing the route in the brand value
+   on the right. No column headers, no cell dividers. The route line and the
+   phase tag are colour-encoded to the decision moment: the single orange
+   focal is the During route; Before / After routes stay neutral grey. ---- */
 .s08dm-lanes {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 9px;
+  /* per-lane accent: neutral by default, orange only on the During (focal) lane */
+  --lane-accent: var(--c4, #9ca1ae);
+  /* travel length for the live route dot: the rendered route line is about
+     1198px at the fixed 1920 canvas; the dot rides it into the arrowhead base.
+     The deck renders at a fixed 1920 width (scaled by transform elsewhere), so a
+     tuned length is deterministic. Frozen off in export / reduced-motion. */
+  --s08dm-route-len: 1080px;
 }
 .s08dm-lane {
   display: grid;
-  grid-template-columns: 198px 1fr 30px 300px;
-  gap: 20px;
+  grid-template-columns: 198px minmax(0, 1fr) 280px;
+  gap: 26px;
   align-items: center;
-  padding: 12px 22px;
+  padding: 13px 24px;
   background: #fff;
   border: 1px solid var(--card-bd);
-  border-radius: 12px;
+  border-radius: 14px;
   box-shadow: var(--float-sm);
 }
-/* Hover: the lane responds - orange border, deeper shadow, the route arrow
-   and surface dot light up to the accent. (Lift handled by kit .mk-hover.) */
+.s08dm-lane.is-focal {
+  --lane-accent: var(--orange);
+}
+/* Hover clarifies the lane-to-phase relationship: the lane lifts (kit) and
+   warms to its own phase accent - the border, the station node, and the route
+   line all light up in that lane's decision colour. */
 .s08dm-lane:hover {
-  border-color: var(--orange);
+  border-color: var(--lane-accent);
   box-shadow: var(--float-md, 0 14px 34px rgba(14, 15, 10, 0.12));
 }
-.s08dm-lane:hover .s08dm-lane__to {
-  color: var(--orange);
+.s08dm-lane:hover .s08dm-lane__phase {
+  color: var(--ink);
 }
-.s08dm-lane:hover .s08dm-lane__dot {
-  background: var(--orange);
-}
-.s08dm-lane__surface {
+
+/* -- Station: the surface origin + the decision phase it plays into -- */
+.s08dm-lane__station {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -160,27 +172,41 @@
   fill: none;
   stroke-width: 1.7;
 }
+/* Phase tag: a small route node in the lane's decision colour + the phase word,
+   sitting directly under the surface. Links the station to the band above. */
 .s08dm-lane__phase {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--grey);
 }
-.s08dm-lane__dot {
-  width: 6px;
-  height: 6px;
+.s08dm-lane.is-focal .s08dm-lane__phase {
+  color: var(--orange-text, #c85a2a);
+}
+.s08dm-lane__node {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: var(--c4, #9ca1ae);
+  background: #fff;
+  border: 2px solid var(--lane-accent);
   flex-shrink: 0;
+}
+
+/* -- Route region: mindset + intent ride above the drawn route line -- */
+.s08dm-lane__route {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 .s08dm-lane__reach {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   min-width: 0;
 }
 .s08dm-lane__mindset {
@@ -196,42 +222,91 @@
   line-height: 1.4;
   color: var(--muted-text);
 }
-.s08dm-lane__to {
+/* The route line itself: a continuous line that spans the centre and runs into
+   a crisp arrowhead landing in the value. The arrow is part of the route, not a
+   standalone decorative glyph and not a table-cell divider. */
+.s08dm-lane__path {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  color: #c8ccd4;
-  transition: color 0.22s ease;
+  height: 14px;
+  margin-top: 1px;
+  /* extend the route to the right so the arrowhead points into the value cell */
+  margin-right: -26px;
 }
-.s08dm-lane__to svg {
-  stroke: currentColor;
+/* line body: full-width 2px rule in the lane's decision colour. Draws in from
+   the left (intent side) via the kit's mk-bar (transform: scaleX, guarded). */
+.s08dm-route-line {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--lane-accent);
+  transform-origin: left center;
+}
+.s08dm-lane.is-focal .s08dm-route-line {
+  height: 2.4px;
+}
+/* arrowhead: fixed aspect (preserveAspectRatio default), so it stays a clean
+   chevron landing the route into the value. */
+.s08dm-route-head {
+  flex-shrink: 0;
+  width: 9px;
+  height: 13px;
+  margin-left: -1px;
+  display: block;
+}
+.s08dm-route-head path {
+  stroke: var(--lane-accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   fill: none;
-  stroke-width: 2;
 }
-/* Live route spark: a dot that travels the route arrow from the intent side
-   into the brand value, illustrating intent converting into brand value.
-   Hidden at rest (mk-spark base opacity 0); loops only while slide active;
-   guarded off in export / reduced-motion by the kit. */
+.s08dm-lane.is-focal .s08dm-route-head path {
+  stroke-width: 2.1;
+}
+/* Live route dot: travels the visible line from the intent side into the value,
+   showing intent converting into brand value. Subtle (small, soft), hidden at
+   rest (mk-spark base opacity 0), loops only while the slide is active, and is
+   frozen off in export / reduced-motion by the kit + the guard below. */
 .s08dm-lane__spark {
   position: absolute;
-  left: -2px;
+  left: 0;
   top: 50%;
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
   border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.16);
+  background: var(--lane-accent);
+  box-shadow: 0 0 0 3px rgba(156, 161, 174, 0.16);
   pointer-events: none;
 }
+.s08dm-lane.is-focal .s08dm-lane__spark {
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18);
+}
+
+/* -- Destination: the brand value the route lands in. No cell divider. -- */
 .s08dm-lane__value {
   font-family: var(--font-body);
   font-size: 13.5px;
   line-height: 1.4;
   color: var(--body);
-  padding-left: 18px;
-  border-left: 1px solid var(--card-bd);
+}
+
+/* ---- Export / reduced-motion guards for the route draw-in.
+   The route line rides the kit's .mk-bar (already guarded to scaleX(1) in both
+   export and reduced-motion). Pin it here too, defensively, so the final
+   readable map always shows every connector fully drawn - no missing or blank
+   route, no half-drawn line - regardless of guard order. ---- */
+html[data-export] .s08dm-route-line {
+  animation: none !important;
+  transform: scaleX(1) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s08dm-route-line {
+    animation: none !important;
+    transform: scaleX(1) !important;
+  }
 }
 
 /* ---- Footer takeaway (global .s-net styling) ---- */
