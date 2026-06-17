@@ -56,6 +56,10 @@ export default function Screen04() {
           {/* The journey track: continuous line under the nodes */}
           <div className="s04-track">
             <span className="s04-line" aria-hidden="true" />
+            {/* Live intent flowing left-to-right across the surfaces you do not
+                own, toward the late tracking boundary. Loops only while active;
+                invisible at rest so export/reduced-motion stay static. */}
+            <span className="s04-flowdot" aria-hidden="true" />
 
             <div className="s04-stages">
               {stages.map((s, i) => (
@@ -81,7 +85,7 @@ export default function Screen04() {
                 crosses late, after the decision is already forming. */}
             <Reveal i={5} from="none" className="s04-boundary">
               <span className="s04-boundary__line" aria-hidden="true" />
-              <span className="s04-boundary__flag">
+              <span className="s04-boundary__flag mk-breathe">
                 <Icon name="eye" size={16} />
                 Tracking boundary
               </span>

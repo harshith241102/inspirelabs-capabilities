@@ -254,6 +254,27 @@
   box-shadow: inset 3px 0 0 var(--orange);
 }
 
+/* Hover accent (lift comes from kit .mk-hover). The hovered row floats above
+   its neighbours, gains an orange ring + shadow, and its tool mark sharpens.
+   Rest state is untouched; mk-hover is collapsed in export / reduced-motion. */
+.s10-trow.mk-hover:hover {
+  z-index: 2;
+  border-radius: 10px;
+  border-bottom-color: transparent;
+  box-shadow:
+    0 14px 30px -14px rgba(14, 15, 10, 0.26),
+    inset 0 0 0 1.5px var(--orange);
+}
+.s10-trow--best.mk-hover:hover {
+  box-shadow:
+    0 14px 30px -14px rgba(200, 90, 42, 0.34),
+    inset 0 0 0 1.5px var(--orange),
+    inset 3px 0 0 var(--orange);
+}
+.s10-trow.mk-hover:hover .s10-tool__mark {
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18);
+}
+
 /* tool identity cell */
 .s10-tool {
   display: flex;
@@ -274,6 +295,7 @@
   font-size: 15px;
   color: #fff;
   letter-spacing: -0.02em;
+  transition: box-shadow 0.22s ease;
 }
 .s10-tool__meta {
   display: flex;

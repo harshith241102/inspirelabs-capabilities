@@ -341,6 +341,94 @@
   color: var(--grey);
 }
 
+/* ---------- In-slide motion (additive; rest state unchanged) ---------- */
+
+/* Hover accent on the channel chips: mk-hover supplies the -5px lift; this
+   layer adds the orange border, stronger shadow, and icon emphasis so the
+   hovered channel feels like it responds. Held (dashed) chips solidify. */
+.s18-chan.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 12px 28px rgba(14, 15, 10, 0.14);
+}
+.s18-chan.mk-hover:hover .s18-chan__ico {
+  color: var(--orange-text);
+}
+.s18-chan.is-held.mk-hover:hover {
+  background: #fff;
+  border-style: solid;
+}
+.s18-chan.is-held.mk-hover:hover .s18-chan__label {
+  color: var(--ink);
+}
+
+/* The single orange focal (live Telegram channel) carries a slow, soft
+   pulsing ring while the slide is open, marking the proven live destination.
+   The ring is an overlay at opacity 0 at rest, so export stays clean. */
+.s18-chan.is-live {
+  position: relative;
+}
+.s18-chan.is-live::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 11px;
+  border: 2px solid var(--orange);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s18-chan.is-live::after {
+  animation: s18-livepulse 2.8s ease-in-out infinite;
+}
+@keyframes s18-livepulse {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(1.05); }
+}
+
+/* Flow sparks riding the two zone connectors (creative -> gate -> channels):
+   one approved creative set travelling through selection into chosen channels.
+   Dots sit on the connector centreline, hidden at rest, and stream left->right
+   only while the slide is active. */
+.s18-flow {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.s18-flow--a { left: 340px; }
+.s18-flow--b { left: 604px; }
+.screen[data-active="true"] .s18-flow {
+  animation: s18-flowspark 2.2s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+.screen[data-active="true"] .s18-flow--b {
+  animation-delay: 0.55s;
+}
+@keyframes s18-flowspark {
+  0%   { opacity: 0; transform: translateX(0); }
+  14%  { opacity: 1; }
+  86%  { opacity: 1; transform: translateX(20px); }
+  100% { opacity: 0; transform: translateX(20px); }
+}
+
+/* Export / reduced-motion: freeze a deterministic, clean static frame. */
+html[data-export] .s18-chan.is-live::after,
+html[data-export] .s18-flow {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s18-chan.is-live::after,
+  .s18-flow {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
 /* ---------- Net takeaway ---------- */
 .s18-foot {
   flex-shrink: 0;

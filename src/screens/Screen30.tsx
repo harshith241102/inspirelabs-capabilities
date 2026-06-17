@@ -104,7 +104,9 @@ export default function Screen30() {
           <div className="s30-cockpit">
             {/* Cockpit bar: live monitoring, honestly labelled. */}
             <div className="s30-bar">
-              <span className="s30-bar__live" aria-hidden="true" />
+              <span className="s30-bar__live" aria-hidden="true">
+                <span className="s30-bar__ping" aria-hidden="true" />
+              </span>
               <div className="s30-bar__titles">
                 <span className="s30-bar__title">AI Growth Studio · Live monitoring</span>
                 <span className="s30-bar__sub">Campaign live · tracking on · reads and next actions</span>
@@ -121,7 +123,7 @@ export default function Screen30() {
                   const m = cellMeta[p.cell];
                   return (
                     <Reveal i={i} step={0.05} key={p.label} role="listitem">
-                      <button type="button" className="s30-read" onClick={() => openPanel(p)}>
+                      <button type="button" className="s30-read mk-hover" onClick={() => openPanel(p)}>
                         <span className="s30-read__ico">
                           <Icon name={p.icon} size={18} />
                         </span>

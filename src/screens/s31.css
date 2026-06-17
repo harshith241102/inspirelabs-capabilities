@@ -250,6 +250,8 @@
   gap: 10px;
 }
 .s31-field {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -257,6 +259,77 @@
   background: var(--net);
   border: 1px solid var(--card-bd);
   border-radius: 12px;
+}
+
+/* hover accent (the translateY(-5px) lift comes from .mk-hover): the
+   scoped field responds with an orange edge, deeper shadow, lit icon */
+.s31-field:hover {
+  border-color: var(--orange);
+  box-shadow: 0 2px 4px rgba(14, 15, 10, 0.05), 0 14px 30px rgba(255, 122, 69, 0.15);
+}
+.s31-field:hover .s31-field__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
+}
+
+/* in-slide scope-fill sweep: a soft orange light passes left-to-right
+   through each field, staggered field-to-field, illustrating the agent
+   being scoped and resolving on the orange approval-owner gate. Invisible
+   at rest (opacity 0); runs only while the slide is active; loops. */
+.s31-field__scan {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 32%,
+    rgba(255, 122, 69, 0.14) 50%,
+    transparent 68%,
+    transparent 100%
+  );
+  background-size: 260% 100%;
+  background-position: 130% 0;
+}
+.screen[data-active="true"] .s31-field__scan {
+  animation: s31-scan 5.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation-delay: calc(var(--mk-i, 0) * 0.16s);
+}
+@keyframes s31-scan {
+  0%   { opacity: 0; background-position: 130% 0; }
+  6%   { opacity: 1; }
+  26%  { opacity: 1; background-position: -130% 0; }
+  32%  { opacity: 0; background-position: -130% 0; }
+  100% { opacity: 0; background-position: -130% 0; }
+}
+/* the gate (orange focal) gets a touch more presence in the sweep */
+.s31-field.is-gate .s31-field__scan {
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 32%,
+    rgba(255, 122, 69, 0.22) 50%,
+    transparent 68%,
+    transparent 100%
+  );
+  background-size: 260% 100%;
+  background-position: 130% 0;
+}
+
+/* export / reduced-motion: freeze the clean static frame (no sweep, hidden) */
+html[data-export] .s31-field__scan,
+html[data-export] .s31-field.is-gate .s31-field__scan {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s31-field__scan,
+  .s31-field.is-gate .s31-field__scan {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 .s31-field__ico {
   display: inline-flex;

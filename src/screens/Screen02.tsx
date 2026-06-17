@@ -71,6 +71,12 @@ export default function Screen02() {
           </div>
 
           <div className="s02-mods">
+            {/* In-slide flow: an expansion pulse travels down the spine from the
+                commerce anchor (GrabOn) into the rest of the system. Decorative
+                only; base-hidden + export/reduced-motion guarded in s02.css. */}
+            <span className="s02-mods__rail" aria-hidden="true">
+              <span className="s02-mods__pulse" />
+            </span>
             {moduleTiles.map((m, i) => {
               // Fixed anchor focal for every reader: commerce intent (GrabOn).
               const anchor = m.key === 'commerce';
@@ -81,9 +87,9 @@ export default function Screen02() {
                   step={0.06}
                   from="right"
                   distance={14}
-                  className={`s02-mod${anchor ? ' s02-mod--on' : ''}`}
+                  className={`s02-mod mk-hover${anchor ? ' s02-mod--on' : ''}`}
                 >
-                  <span className="s02-mod__ico">
+                  <span className={`s02-mod__ico${anchor ? ' mk-breathe' : ''}`}>
                     <Icon name={m.icon} size={19} />
                   </span>
                   <span className="s02-mod__txt">

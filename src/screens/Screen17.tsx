@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -64,8 +65,12 @@ export default function Screen17() {
             <div className="s17-dash__body">
               {/* Source-to-outcome lane: the report sits at the end of it. */}
               <div className="s17-lane" role="list" aria-label="Publisher source to performance report">
+                {/* live flow: a spark travels source -> tracked click -> order -> report */}
+                <span className="s17-laneflow" aria-hidden="true">
+                  <span className="s17-laneflow__spark" />
+                </span>
                 {lane.map((step, i) => (
-                  <div className="s17-lane__step" role="listitem" key={step.label}>
+                  <div className="s17-lane__step mk-hover" role="listitem" key={step.label}>
                     <span className={`s17-lane__ico${i === lane.length - 1 ? ' is-accent' : ''}`}>
                       <Icon name={step.icon} size={18} />
                     </span>
@@ -86,11 +91,11 @@ export default function Screen17() {
                     <span className="s17-panel__hint mono">Select a source for setup and metrics</span>
                   </div>
                   <div className="s17-sources">
-                    {sources.map((s) => (
+                    {sources.map((s, i) => (
                       <button
                         key={s.label}
                         type="button"
-                        className="s17-src"
+                        className="s17-src mk-hover"
                         onClick={() => openSource(s.label, s.note)}
                       >
                         <span className="s17-src__ico">
@@ -98,7 +103,10 @@ export default function Screen17() {
                         </span>
                         <span className="s17-src__label">{s.label}</span>
                         <span className="s17-src__track" aria-hidden="true">
-                          <span className="s17-src__bar" style={{ width: `${s.bar}%` }} />
+                          <span
+                            className="s17-src__bar mk-bar"
+                            style={{ width: `${s.bar}%`, ['--mk-i']: i, ['--mk-d']: '0.25s' } as CSSProperties}
+                          />
                         </span>
                         <Icon name="arrow" size={13} className="s17-src__more" />
                       </button>
@@ -114,7 +122,7 @@ export default function Screen17() {
                   </div>
                   <div className="s17-kpis">
                     {kpis.map((k, i) => (
-                      <div key={k} className={`s17-kpi${i === 2 ? ' is-accent' : ''}`}>
+                      <div key={k} className={`s17-kpi${i === 2 ? ' is-accent s17-kpi--focal' : ''}`}>
                         <span className="s17-kpi__label mono">{k}</span>
                         <span className="s17-kpi__value">Pending</span>
                         <span className="s17-kpi__unit mono">per campaign</span>

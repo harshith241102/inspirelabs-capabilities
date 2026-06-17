@@ -132,11 +132,52 @@
   left: 0;
   z-index: 5;
 }
+
+/* ---- Storyboard flow overlay: one left-to-right journey through the three
+   surfaces. Sits behind the phones; the dashed connector is static at rest,
+   a single orange spark rides it only while the slide is active. ---- */
+.s16-flow {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 50%;
+  height: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.s16-flow__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--card-bd) 0,
+    var(--card-bd) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+  opacity: 0.7;
+}
+.s16-flow__spark {
+  position: absolute;
+  left: 0;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.18);
+}
+
 .s16-frame {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  position: relative;
+  z-index: 1;
 }
 .s16-phone {
   height: 488px;
@@ -168,6 +209,29 @@
   border: 2px solid var(--orange);
   border-radius: 34px;
   pointer-events: none;
+}
+
+/* Hover accent (lift handled by .mk-hover): the surface "responds" with a
+   warmer, deeper shadow and an emphasised step marker. */
+.s16-frame .s16-phone {
+  transition: box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.s16-frame:hover {
+  z-index: 3;
+}
+.s16-frame--side:hover .s16-phone {
+  border-color: var(--orange);
+  box-shadow: 0 26px 52px rgba(14, 15, 10, 0.22), 0 0 0 1px rgba(255, 122, 69, 0.35);
+}
+.s16-frame--lead:hover .s16-phone {
+  box-shadow: 0 34px 70px rgba(255, 122, 69, 0.3);
+}
+.s16-frame .s16-step__n {
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+.s16-frame--side:hover .s16-step__n {
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 
 .s16-step {
@@ -236,4 +300,17 @@
   color: var(--muted-text);
   max-width: 30ch;
   text-align: right;
+}
+
+/* ---- Export / reduced-motion: freeze a clean static frame. The travelling
+   spark must be invisible at rest. (Hover accents never fire in export.) ---- */
+html[data-export] .s16-flow__spark {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s16-flow__spark {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -129,7 +130,11 @@ export default function Screen21() {
                     </span>
                     <span className="s21-event__label">{e.label}</span>
                   </button>
-                  {i < events.length - 1 && <span className="s21-link" aria-hidden="true" />}
+                  {i < events.length - 1 && (
+                    <span className="s21-link" aria-hidden="true">
+                      <span className="s21-link__spark" style={{ ['--mk-i']: i } as CSSProperties} />
+                    </span>
+                  )}
                 </Reveal>
               ))}
             </div>
@@ -138,7 +143,7 @@ export default function Screen21() {
           {/* the single orange focal: the pixel boundary */}
           <div className="s21-boundary">
             <span className="s21-boundary__line" aria-hidden="true" />
-            <span className="s21-boundary__badge">
+            <span className="s21-boundary__badge mk-breathe">
               <Icon name="eye" size={15} />
               Pixel starts here
             </span>

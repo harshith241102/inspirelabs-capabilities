@@ -287,3 +287,105 @@
   fill: none;
   stroke-width: 1.8;
 }
+
+/* ============================================================
+   MOTION  -  in-slide flow + hover (ADDITIVE)
+   Rest state = the board exactly as authored. The flow overlay sits
+   at opacity 0 at rest; hover accents only apply on :hover. All motion
+   runs only while .screen[data-active="true"], and is frozen in export
+   and prefers-reduced-motion (clean static board for the PDF + gate).
+   ============================================================ */
+
+/* ---- hover: each repeating unit responds (lift via .mk-hover) ---- */
+/* Moment column headers: lift gets an orange edge + a warmer float. */
+.s19-col.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 2px 4px rgba(14, 15, 10, 0.05), 0 16px 32px rgba(255, 122, 69, 0.16);
+}
+.s19-col.mk-hover:hover .s19-col__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+/* The focal column already carries a permanent orange frame; keep its
+   accent and just deepen the float so the lift still reads. */
+.s19-col.is-focal.mk-hover:hover {
+  box-shadow: 0 2px 4px rgba(14, 15, 10, 0.05), 0 18px 36px rgba(255, 122, 69, 0.22);
+}
+
+/* Board cells: lift gets an orange edge + lifted shadow. */
+.s19-cell.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 12px 26px rgba(255, 122, 69, 0.14);
+}
+.s19-cell--focal.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 14px 30px rgba(255, 122, 69, 0.2);
+}
+.s19-cell.mk-hover:hover .s19-cell__dot {
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.18);
+}
+
+/* ---- live flow: a launch pulse cascading down the focal lane ---- */
+/* Anchor the overlay to the focal cell; it is a thin left-edge accent
+   that lights and travels down, row by row, reading as the worked launch
+   progressing through Objective -> Offer -> ... -> Reporting. */
+.s19-cell--focal {
+  position: relative;
+}
+.s19-cell__flow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 11px 0 0 11px;
+  background: var(--orange);
+  opacity: 0;
+  transform-origin: top center;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s19-cell__flow {
+  animation: s19-laneflow 5.2s ease-in-out infinite;
+  /* stagger by lane index so the pulse travels top -> bottom and loops */
+  animation-delay: calc(var(--mk-i, 0) * 0.32s);
+}
+@keyframes s19-laneflow {
+  0%, 100% { opacity: 0; transform: scaleY(0.4); }
+  8%       { opacity: 0.9; transform: scaleY(1); }
+  20%      { opacity: 0.28; transform: scaleY(1); }
+  86%      { opacity: 0; transform: scaleY(1); }
+}
+
+/* The focal lead dot breathes in sync with the lane flow. */
+.s19-cell--focal .s19-cell__dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.screen[data-active="true"] .s19-cell--focal .s19-cell__dot {
+  animation: s19-dotbreathe 5.2s ease-in-out infinite;
+  animation-delay: calc(var(--mk-i, 0) * 0.32s);
+}
+@keyframes s19-dotbreathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 122, 69, 0); }
+  8%       { box-shadow: 0 0 0 5px rgba(255, 122, 69, 0.22); }
+  24%      { box-shadow: 0 0 0 0 rgba(255, 122, 69, 0); }
+}
+
+/* ---- export / reduced-motion: deterministic static board ---- */
+html[data-export] .s19-cell__flow,
+html[data-export] .s19-cell--focal .s19-cell__dot {
+  animation: none !important;
+}
+html[data-export] .s19-cell__flow {
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s19-cell__flow,
+  .s19-cell--focal .s19-cell__dot {
+    animation: none !important;
+  }
+  .s19-cell__flow {
+    opacity: 0 !important;
+  }
+}

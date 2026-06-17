@@ -266,9 +266,24 @@
   transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 .s22-rung__btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
   border-color: var(--c5);
   box-shadow: var(--float);
+}
+/* hovered rung "responds": its event icon lifts + deepens its signal tint */
+.s22-rung__btn:hover .s22-rung__ico:not(.is-focal) {
+  transform: translateY(-1px);
+  border-color: var(--as);
+  color: var(--as);
+  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.18);
+}
+/* the orange focal keeps its identity, just lifts + intensifies its glow */
+.s22-rung__btn:hover .s22-rung__ico.is-focal {
+  transform: translateY(-1px);
+  box-shadow: 0 9px 22px rgba(255, 122, 69, 0.42);
+}
+.s22-rung__ico {
+  transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 .s22-rung__btn:focus-visible {
   outline: 3px solid var(--orange);
@@ -431,6 +446,42 @@
 }
 .s22-rung__meter-fill.is-focal {
   background: var(--orange);
+}
+
+/* ---- In-slide flow: live intent pulse on the orange focal ----
+   The "Coupon reveal" rung is the intent pivot the headline rests on.
+   While the slide is open, a soft ring breathes outward from its icon -
+   the one signal reading as live purchase intent. Hidden at rest;
+   frozen clean in export / reduced-motion. */
+.s22-rung__ico.is-focal {
+  position: relative;
+}
+.s22-rung__ico.is-focal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid var(--orange);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s22-rung__ico.is-focal::after {
+  animation: s22-intent-ping 2.6s cubic-bezier(0.4, 0, 0.4, 1) infinite;
+}
+@keyframes s22-intent-ping {
+  0%   { opacity: 0.55; transform: scale(1); }
+  70%  { opacity: 0; transform: scale(1.85); }
+  100% { opacity: 0; transform: scale(1.85); }
+}
+html[data-export] .s22-rung__ico.is-focal::after {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s22-rung__ico.is-focal::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 .s22-rung.is-focal .s22-rung__strength {
   color: var(--orange-text);

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -96,7 +97,7 @@ export default function Screen08DecisionMoments() {
         <Reveal from="up" distance={14} className="s08dm-band" role="list" aria-label="Decision-moment spectrum">
           {phases.map((p, i) => (
             <div key={p.cap} className="s08dm-band__cell" role="listitem">
-              <div className={`s08dm-phase${p.focal ? ' is-focal' : ''}`}>
+              <div className={`s08dm-phase mk-hover${p.focal ? ' is-focal mk-breathe' : ''}`}>
                 <span className="s08dm-phase__cap mono">
                   <Icon name={p.icon} size={14} />
                   {p.cap}
@@ -116,7 +117,7 @@ export default function Screen08DecisionMoments() {
             brand value it creates, tagged with the decision moment it plays into. */}
         <div className="s08dm-lanes" aria-label="Each surface, the mindset it reaches, and the brand value it creates">
           {surfaces.map((s, i) => (
-            <Reveal key={s.name} i={i} step={0.06} from="up" distance={12} className="s08dm-lane">
+            <Reveal key={s.name} i={i} step={0.06} from="up" distance={12} className="s08dm-lane mk-hover">
               <div className="s08dm-lane__surface">
                 {s.logo ? (
                   <img className="s08dm-logo" src={s.logo} alt={s.name} loading="lazy" />
@@ -141,6 +142,11 @@ export default function Screen08DecisionMoments() {
 
               <span className="s08dm-lane__to" aria-hidden="true">
                 <Icon name="arrow" size={16} />
+                {/* live route spark: intent flowing into the brand value */}
+                <span
+                  className="s08dm-lane__spark mk-spark"
+                  style={{ ['--mk-i']: i, ['--mk-dx']: '34px' } as CSSProperties}
+                />
               </span>
 
               <div className="s08dm-lane__value">{s.value}</div>

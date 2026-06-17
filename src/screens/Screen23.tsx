@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -85,12 +86,12 @@ export default function Screen23() {
                   <span className="s23-table__h s23-table__h--status">Status</span>
                 </div>
                 <div className="s23-table__rows" role="list" aria-label="Offer format response">
-                  {formats.map((f) => (
+                  {formats.map((f, i) => (
                     <button
                       key={f.label}
                       type="button"
                       role="listitem"
-                      className={`s23-row${f.lead ? ' is-lead' : ''}`}
+                      className={`s23-row mk-hover${f.lead ? ' is-lead' : ''}`}
                       onClick={() => openFormat(f.label, f.note, f.lead)}
                     >
                       <span className="s23-row__name">
@@ -102,8 +103,8 @@ export default function Screen23() {
                       </span>
                       <span className="s23-row__track" aria-hidden="true">
                         <span
-                          className={`s23-row__bar${f.lead ? ' is-lead' : ''}`}
-                          style={{ width: `${f.bar}%` }}
+                          className={`s23-row__bar mk-bar${f.lead ? ' is-lead' : ''}`}
+                          style={{ width: `${f.bar}%`, ['--mk-i']: i } as CSSProperties}
                         />
                       </span>
                       <span className="s23-row__status mono">Pending</span>
@@ -145,6 +146,7 @@ export default function Screen23() {
                 </div>
 
                 <div className="s23-action">
+                  <span className="s23-action__pulse" aria-hidden="true" />
                   <span className="s23-action__kicker mono">Recommended next action</span>
                   <p className="s23-action__body">
                     Test the strongest-responding format before committing larger media spend.

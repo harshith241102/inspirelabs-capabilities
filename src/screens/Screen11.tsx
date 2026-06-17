@@ -65,7 +65,7 @@ export default function Screen11() {
               </div>
               <div className="s11-owned">
                 {owned.map((o) => (
-                  <div key={o.label} className="s11-surf">
+                  <div key={o.label} className="s11-surf mk-hover">
                     <div className="s11-surf__shot">
                       <img src={o.src} alt={`${o.label} surface`} loading="lazy" style={{ objectPosition: o.pos }} />
                     </div>
@@ -90,7 +90,7 @@ export default function Screen11() {
                 </div>
                 <div className="s11-activate__families">
                   {activation.map((af) => (
-                    <div key={af.label} className="s11-fam">
+                    <div key={af.label} className="s11-fam mk-hover">
                       <span className="s11-fam__ico">
                         <Icon name={af.icon} size={17} />
                       </span>
@@ -102,10 +102,20 @@ export default function Screen11() {
             </Reveal>
           </div>
 
+          {/* Convergence cue: both bands route down into the one orange output.
+             Dashed connectors carry an ambient flow while the slide is open;
+             invisible at rest/export so the static frame is unchanged. */}
+          <div className="s11-route" aria-hidden="true">
+            <svg viewBox="0 0 1000 56" preserveAspectRatio="none" role="presentation">
+              <path className="s11-route__line s11-flow" d="M250 0 V18 Q250 38 360 38 H640 Q750 38 750 18 V0" fill="none" stroke="#ff7a45" strokeWidth="2" strokeDasharray="4 6" vectorEffect="non-scaling-stroke" />
+              <path className="s11-route__stem s11-flow" d="M500 38 V56" fill="none" stroke="#ff7a45" strokeWidth="2" strokeDasharray="4 6" vectorEffect="non-scaling-stroke" />
+            </svg>
+          </div>
+
           {/* The single orange focal: measurable-action output rail */}
           <Reveal from="up" distance={14} className="s11-output">
             <div className="s11-output__head">
-              <span className="s11-output__node">
+              <span className="s11-output__node s11-output__node--pulse">
                 <Icon name="target" size={22} />
               </span>
               <div className="s11-output__titles">
@@ -118,7 +128,7 @@ export default function Screen11() {
             </div>
             <div className="s11-output__chips">
               {actions.map((act) => (
-                <span key={act} className="s11-action">
+                <span key={act} className="s11-action mk-hover">
                   {act}
                 </span>
               ))}

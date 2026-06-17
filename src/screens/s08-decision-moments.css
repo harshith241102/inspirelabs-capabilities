@@ -34,6 +34,18 @@
   background: var(--orange);
   border-color: var(--orange);
 }
+/* Hover on a phase cell: it responds. Non-focal cells gain an orange border
+   and the cap glyph warms; the focal (orange) cell deepens its shadow.
+   Lift handled by kit .mk-hover. */
+.s08dm-phase:not(.is-focal):hover {
+  border-color: var(--orange);
+}
+.s08dm-phase:not(.is-focal):hover .s08dm-phase__cap {
+  color: var(--orange-text, #c85a2a);
+}
+.s08dm-phase.is-focal:hover {
+  box-shadow: 0 16px 36px rgba(255, 122, 69, 0.32);
+}
 .s08dm-phase__cap {
   display: inline-flex;
   align-items: center;
@@ -94,6 +106,18 @@
   border: 1px solid var(--card-bd);
   border-radius: 12px;
   box-shadow: var(--float-sm);
+}
+/* Hover: the lane responds - orange border, deeper shadow, the route arrow
+   and surface dot light up to the accent. (Lift handled by kit .mk-hover.) */
+.s08dm-lane:hover {
+  border-color: var(--orange);
+  box-shadow: var(--float-md, 0 14px 34px rgba(14, 15, 10, 0.12));
+}
+.s08dm-lane:hover .s08dm-lane__to {
+  color: var(--orange);
+}
+.s08dm-lane:hover .s08dm-lane__dot {
+  background: var(--orange);
 }
 .s08dm-lane__surface {
   display: flex;
@@ -173,15 +197,33 @@
   color: var(--muted-text);
 }
 .s08dm-lane__to {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #c8ccd4;
+  transition: color 0.22s ease;
 }
 .s08dm-lane__to svg {
   stroke: currentColor;
   fill: none;
   stroke-width: 2;
+}
+/* Live route spark: a dot that travels the route arrow from the intent side
+   into the brand value, illustrating intent converting into brand value.
+   Hidden at rest (mk-spark base opacity 0); loops only while slide active;
+   guarded off in export / reduced-motion by the kit. */
+.s08dm-lane__spark {
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.16);
+  pointer-events: none;
 }
 .s08dm-lane__value {
   font-family: var(--font-body);

@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/global.css';
 import './styles/shared.css';
+import './styles/motion-kit.css';
 import './primitives/deck.css';
 // Shared cross-screen footer rule (.s-footer-row) used by ~22 screens; loaded
 // here now that the Screen 02 refactor no longer imports hero.css.

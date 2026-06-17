@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -165,13 +166,16 @@ export default function Screen22() {
             </div>
 
             <ol className="s22-rungs" role="list">
-              {[...rungs].reverse().map((r) => {
+              {[...rungs].reverse().map((r, row) => {
                 const position = rungs.indexOf(r) + 1;
+                /* fills cascade bottom -> top so the eye reads the ascent;
+                   row 0 is the top (strongest) rung, so invert for the index */
+                const fillStep = rungs.length - 1 - row;
                 return (
                   <li key={r.label} className={`s22-rung${r.focal ? ' is-focal' : ''}`}>
                     <button
                       type="button"
-                      className="s22-rung__btn"
+                      className="s22-rung__btn mk-hover"
                       onClick={() => openRung(r, position)}
                       aria-label={`${r.label}, ${strengthLabel[r.strength]} signal. View detail.`}
                     >
@@ -186,8 +190,8 @@ export default function Screen22() {
 
                       <span className="s22-rung__meter" aria-hidden="true">
                         <span
-                          className={`s22-rung__meter-fill${r.focal ? ' is-focal' : ''}`}
-                          style={{ width: `${r.fill}%` }}
+                          className={`s22-rung__meter-fill mk-bar${r.focal ? ' is-focal' : ''}`}
+                          style={{ width: `${r.fill}%`, ['--mk-i']: fillStep } as CSSProperties}
                         />
                       </span>
 

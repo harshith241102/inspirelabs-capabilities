@@ -355,3 +355,95 @@
   outline-offset: 3px;
   border-radius: 3px;
 }
+
+/* ============================================================
+   IN-SLIDE MOTION  (additive only - rest state unchanged)
+   1) Hover: the hovered stage card lifts (mk-hover) and responds.
+   2) Flow: the partnership is "in motion" at the live gate -
+      a ping on stage 1's status dot + a spark travelling the live
+      connector toward the next stage, looping while the slide is open.
+   Guards below freeze a clean static frame for export / reduced motion.
+   ============================================================ */
+
+/* --- 1) Hover accent on the repeating stage cards --- */
+/* Locked cards: deepen shadow + warm the border so they "respond". */
+.s36-stage.mk-hover:hover {
+  border-color: #c9ccd2;
+  box-shadow: 0 4px 8px rgba(14, 15, 10, 0.07), 0 24px 52px rgba(14, 15, 10, 0.16);
+}
+.s36-stage.mk-hover:hover .s36-stage__ico {
+  border-color: #c9ccd2;
+}
+/* The active (orange focal) card keeps its accent and lifts a touch stronger. */
+.s36-stage.is-active.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 4px 9px rgba(255, 122, 69, 0.2), 0 30px 60px rgba(255, 122, 69, 0.26);
+}
+
+/* --- 2) Live flow: ping on the in-motion status dot --- */
+/* An echo ring expands from the dot; invisible at rest (base opacity 0). */
+.s36-stage.is-active .s36-stage__state {
+  position: relative;
+}
+.s36-dot {
+  position: relative;
+}
+.s36-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s36-dot::after {
+  animation: s36-ping 2.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+@keyframes s36-ping {
+  0%   { opacity: 0.75; transform: scale(0.6); }
+  70%  { opacity: 0;    transform: scale(2.4); }
+  100% { opacity: 0;    transform: scale(2.4); }
+}
+
+/* --- 2) Live flow: spark travelling the live connector bar --- */
+/* Only the live link carries a visible spark; locked links stay still. */
+.s36-link__spark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 8px rgba(255, 122, 69, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+.s36-link.is-locked .s36-link__spark {
+  display: none;
+}
+.screen[data-active="true"] .s36-link.is-live .s36-link__spark {
+  animation: s36-spark 2.4s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+@keyframes s36-spark {
+  0%   { opacity: 0; left: 2px; }
+  14%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { opacity: 0; left: calc(100% - 9px); }
+}
+
+/* --- export / reduced-motion: deterministic clean static frame --- */
+html[data-export] .s36-dot::after,
+html[data-export] .s36-link__spark {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s36-dot::after,
+  .s36-link__spark {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}

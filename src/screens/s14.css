@@ -97,7 +97,14 @@
 }
 .s14-row:hover {
   border-color: var(--orange);
-  transform: translateX(3px);
+  box-shadow: 0 2px 4px rgba(14, 15, 10, 0.05), 0 16px 34px rgba(255, 122, 69, 0.16);
+}
+/* icon picks up the orange accent as the row responds */
+.s14-row:hover .s14-row__ico {
+  color: var(--orange-text);
+}
+.s14-row:hover .s14-row__more {
+  color: var(--orange-text);
 }
 .s14-row:focus-visible {
   outline: 3px solid var(--orange);
@@ -159,6 +166,8 @@
 
 /* ---------- Measurement strip (neutral, not the orange focal) ---------- */
 .s14-measure {
+  position: relative;
+  overflow: hidden;
   margin-top: auto;
   display: flex;
   flex-direction: column;
@@ -167,6 +176,46 @@
   background: var(--net);
   border: 1px solid var(--border);
   border-radius: 12px;
+}
+
+/* Live tracking sweep: a thin orange scan glides across the measurement
+   strip while the slide is open, signalling performance streaming in
+   creator by creator. Invisible at rest; export/reduced-motion freeze it. */
+.s14-measure__scan {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 88px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 122, 69, 0) 0%,
+    rgba(255, 122, 69, 0.14) 50%,
+    rgba(255, 122, 69, 0) 100%
+  );
+  border-left: 1.5px solid rgba(255, 122, 69, 0.55);
+}
+.screen[data-active="true"] .s14-measure__scan {
+  animation: s14-scan 3.6s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+  animation-delay: 0.45s;
+}
+@keyframes s14-scan {
+  0%   { opacity: 0; transform: translateX(-88px); }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(482px); }
+}
+html[data-export] .s14-measure__scan {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s14-measure__scan {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 .s14-measure__head {
   display: inline-flex;

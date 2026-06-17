@@ -20,6 +20,8 @@
   gap: 10px;
 }
 .s08-row {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -31,9 +33,30 @@
   transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
   box-shadow: var(--float-sm);
 }
+/* hover accent: the row responds - orange border, deeper float, number + arrow
+   light up. The lift itself comes from the kit's .mk-hover (translateY -5px). */
 .s08-row:hover {
   border-color: var(--orange);
+  box-shadow: 0 14px 30px -14px rgba(14, 15, 10, 0.28);
+}
+.s08-row:hover .s08-row__n {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+.s08-row:hover .s08-row__ico {
+  transform: scale(1.08);
+}
+.s08-row:hover .s08-row__more {
+  color: var(--orange);
   transform: translateX(3px);
+}
+.s08-row__n,
+.s08-row__more {
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.s08-row__ico {
+  transition: transform 0.18s ease;
 }
 .s08-row:focus-visible {
   outline: 3px solid var(--orange);
@@ -98,4 +121,57 @@
 }
 .s08-foot {
   flex-shrink: 0;
+}
+
+/* ============================================================
+   MOTION  -  in-slide flow (the surfaces are live)
+   A soft orange "demand" pulse sweeps down the surface list while
+   the slide is open, illustrating intent flowing across the
+   commerce-intent surfaces. Invisible at rest (opacity 0), so the
+   export / reduced-motion frame stays byte-for-byte the resting look.
+   Runs only while the slide is active and re-fires on open.
+   ============================================================ */
+.s08-row__scan {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--orange);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s08-row__scan {
+  animation: s08-scan 5.4s ease-in-out infinite;
+  /* stagger each surface so the pulse travels top -> bottom down the menu */
+  animation-delay: calc(var(--mk-i, 0) * 0.32s);
+}
+@keyframes s08-scan {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0.4);
+  }
+  6% {
+    opacity: 0.9;
+    transform: scaleY(1);
+  }
+  16% {
+    opacity: 0;
+    transform: scaleY(0.4);
+  }
+}
+
+/* hard stop in export + reduced-motion: clean static rows */
+html[data-export] .s08-row__scan {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s08-row__scan {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }

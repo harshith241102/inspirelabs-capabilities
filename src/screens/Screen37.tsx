@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, type CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { Reveal } from '../primitives/Reveal';
 import { Icon } from '../primitives/icons';
@@ -79,7 +79,7 @@ export default function Screen37() {
               <span className="s37-brief__kicker mono">What the discussion is built on</span>
               <ul className="s37-basis">
                 {partnershipBasis.map((b) => (
-                  <li className="s37-basis__item" key={b.label}>
+                  <li className="s37-basis__item mk-hover" key={b.label}>
                     <span className="s37-basis__ico">
                       <Icon name={b.icon} size={15} />
                     </span>
@@ -92,8 +92,12 @@ export default function Screen37() {
             <div className="s37-next">
               <span className="s37-next__head mono">What happens next</span>
               <ol className="s37-steps">
+                {/* live process: a pulse travels the rail through the 3 stages while open */}
+                <span className="s37-flowrail" aria-hidden="true">
+                  <span className="s37-flowdot" />
+                </span>
                 {nextSteps.map((st, i) => (
-                  <li className="s37-step" key={st.title}>
+                  <li className="s37-step mk-hover" key={st.title} style={{ ['--mk-i']: i } as CSSProperties}>
                     <span className="s37-step__n">{i + 1}</span>
                     <div>
                       <span className="s37-step__t">{st.title}</span>

@@ -116,7 +116,55 @@
   flex-direction: column;
   gap: 12px;
   justify-content: space-between;
+  position: relative;
 }
+
+/* ---------- In-slide flow: expansion pulse down the spine ----------
+   The commerce anchor (top tile) expands INTO the rest of the system; a
+   single orange dot travels the icon column top -> bottom while the slide
+   is open. The dashed rail sits behind the icons at a whisper. Both the
+   rail and dot are invisible/static at rest, so export + reduced-motion
+   freeze a clean frame (guards at the foot of this file). */
+.s02-mods__rail {
+  position: absolute;
+  left: 40px; /* icon-column centre: 18px tile pad + 23px (half of 46px icon) */
+  top: 18px;
+  bottom: 18px;
+  width: 2px;
+  border-left: 2px dashed rgba(255, 122, 69, 0.22);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s02-mods__rail {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.45s;
+}
+.s02-mods__pulse {
+  position: absolute;
+  left: -3px; /* centres the 8px dot on the 2px rail (icon-column centre) */
+  top: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px; /* centre the dot on its top position */
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.16);
+  opacity: 0;
+}
+.screen[data-active="true"] .s02-mods__pulse {
+  animation: s02-expand-pulse 3.4s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+  animation-delay: 0.55s;
+}
+/* `top` is a percentage of the rail height, so the travel adapts to the
+   column without any hardcoded pixel distance. */
+@keyframes s02-expand-pulse {
+  0%   { opacity: 0; top: 0%; }
+  8%   { opacity: 1; }
+  82%  { opacity: 1; top: 100%; }
+  92%  { opacity: 0; top: 100%; }
+  100% { opacity: 0; top: 100%; }
+}
+
 .s02-mod {
   display: flex;
   align-items: center;
@@ -126,6 +174,24 @@
   border-radius: 14px;
   padding: 15px 18px;
   box-shadow: var(--float-sm);
+  position: relative;
+  z-index: 1; /* tiles sit above the decorative rail */
+}
+
+/* Hover accent: the tile responds - orange hairline border + lifted shadow
+   + icon emphasis. The mk-hover kit class supplies the translateY(-5px). */
+.s02-mod:hover {
+  border-color: var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 18px 40px rgba(255, 122, 69, 0.18);
+}
+.s02-mod:hover .s02-mod__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+/* Keep the anchor's heavier border/shadow on hover (it is already orange). */
+.s02-mod--on:hover {
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 22px 46px rgba(255, 122, 69, 0.24);
 }
 .s02-mod--on {
   border: 2px solid var(--orange);
@@ -143,6 +209,7 @@
   justify-content: center;
   color: var(--ink);
   flex-shrink: 0;
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
 }
 .s02-mod__ico svg {
   stroke: currentColor;
@@ -188,6 +255,32 @@
   border: 1px solid var(--orange);
   border-radius: 7px;
   padding: 5px 9px;
+}
+
+/* ---------- export / reduced-motion: freeze a clean static frame ----------
+   The rail + travelling dot are purely ambient; at rest both are invisible,
+   so the PDF/screenshot path and overflow gate stay byte-for-byte unchanged.
+   (The mk-hover lift and mk-breathe icon pulse are already guarded by the
+   motion kit.) */
+html[data-export] .s02-mods__rail,
+html[data-export] .s02-mods__pulse {
+  animation: none !important;
+  opacity: 0 !important;
+  transition: none !important;
+}
+html[data-export] .s02-mod__ico {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s02-mods__rail,
+  .s02-mods__pulse {
+    animation: none !important;
+    opacity: 0 !important;
+    transition: none !important;
+  }
+  .s02-mod__ico {
+    transition: none !important;
+  }
 }
 
 /* ---------- CTA safe zone ---------- */

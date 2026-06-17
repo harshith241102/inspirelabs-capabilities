@@ -59,8 +59,19 @@
   transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
 .s07-lane:hover {
-  transform: translateY(-3px);
+  border-color: rgba(255, 122, 69, 0.55);
   box-shadow: var(--float);
+}
+/* hovered lane responds: icon picks up the accent so the unit feels live */
+.s07-lane:hover .s07-meta__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
+  box-shadow: 0 6px 16px rgba(255, 122, 69, 0.18);
+}
+/* the accent lane is already orange-iconed; deepen its lift instead */
+.s07-lane.is-accent:hover .s07-meta__ico {
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 122, 69, 0.38);
 }
 
 /* The single orange focal: middle (commerce-intent) lane */
@@ -278,13 +289,57 @@
   overflow: hidden;
 }
 .s07-strength__fill {
+  position: relative;
   display: block;
   height: 100%;
   border-radius: 999px;
+  overflow: hidden;
   background: var(--c4); /* neutral grey for non-accent lanes */
 }
 .is-accent .s07-strength__fill {
   background: var(--orange);
+}
+
+/* Live commerce-intent focal: a soft highlight sweeps the accent fill while the
+   slide is open, reading as live intent moving through the lane. Invisible at
+   rest (opacity 0) so the export/PDF frame stays the clean static bar. */
+.s07-strength__spark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -42%;
+  width: 42%;
+  border-radius: 999px;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.72) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+.screen[data-active="true"] .s07-strength__spark {
+  animation: s07-intent-sweep 2.6s cubic-bezier(0.45, 0, 0.5, 1) infinite;
+  animation-delay: 0.9s; /* let the mk-bar fill settle first */
+}
+@keyframes s07-intent-sweep {
+  0%   { opacity: 0; transform: translateX(0); }
+  12%  { opacity: 1; }
+  60%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(340%); }
+}
+
+/* Export / reduced-motion: deterministic clean frame (spark stays invisible) */
+html[data-export] .s07-strength__spark {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s07-strength__spark {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* ---------------- B2B evaluation mock (comparison lane) ---------------- */

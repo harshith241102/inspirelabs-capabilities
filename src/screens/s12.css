@@ -76,8 +76,8 @@
 }
 .s12-frame:hover {
   border-color: var(--orange);
-  transform: translateY(-3px);
-  box-shadow: 0 22px 48px rgba(14, 15, 10, 0.16);
+  transform: translateY(-5px);
+  box-shadow: 0 24px 52px rgba(14, 15, 10, 0.18);
 }
 .s12-frame:focus-visible {
   outline: 3px solid var(--orange);
@@ -234,6 +234,7 @@
   white-space: nowrap;
 }
 .s12-path__link {
+  position: relative;
   flex: 1 1 auto;
   height: 2px;
   min-width: 34px;
@@ -245,6 +246,22 @@
     transparent 7px,
     transparent 14px
   );
+}
+
+/* Live intake spark: a dot rides each connector left-to-right, showing both
+   engines feeding the same measurable path while the slide is open. Hidden at
+   rest (mk-spark base opacity 0) so export/reduced-motion freeze clean. */
+.s12-path__spark {
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18);
+  pointer-events: none;
 }
 .s12-path .ev {
   margin-left: auto;

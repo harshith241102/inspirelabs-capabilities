@@ -78,9 +78,12 @@
   transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 .s29-stage:hover {
-  transform: translateY(-3px);
-  border-color: #d6d8de;
-  box-shadow: var(--float);
+  transform: translateY(-5px);
+  border-color: var(--orange);
+  box-shadow: var(--float), 0 0 0 1px var(--orange);
+}
+.s29-stage:hover .s29-stage__ico {
+  color: var(--orange-text);
 }
 .s29-stage:focus-visible {
   outline: 3px solid var(--orange);
@@ -200,6 +203,7 @@
 
 /* connector between stages */
 .s29-conn {
+  position: relative;
   flex-shrink: 0;
   align-self: center;
   display: flex;
@@ -214,6 +218,32 @@
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* live production-line flow: an orange pulse travels stage to stage while the
+   slide is open. Hidden at rest (opacity 0), so the export frame stays clean. */
+.s29-conn__flow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 6px rgba(255, 122, 69, 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s29-conn__flow {
+  animation: s29-flow 2.8s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+  animation-delay: calc(var(--s29-ci, 0) * 0.22s);
+}
+@keyframes s29-flow {
+  0% { opacity: 0; transform: translateX(-13px) scale(0.5); }
+  18% { opacity: 1; transform: translateX(-9px) scale(1); }
+  72% { opacity: 1; transform: translateX(9px) scale(1); }
+  90%, 100% { opacity: 0; transform: translateX(13px) scale(0.5); }
 }
 
 /* ---------- artefact row: real assets + human approval gate ---------- */
@@ -245,6 +275,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+/* artefact tiles respond on hover (mk-hover supplies the -5px lift) */
+.s29-art__frame.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: var(--float), 0 0 0 1px var(--orange);
 }
 .s29-art__frame--wide img {
   object-position: center top;
@@ -363,4 +398,23 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+}
+
+/* ---------- export / reduced-motion: freeze bespoke motion to a clean frame ---------- */
+html[data-export] .s29-conn__flow,
+html[data-export] .s29-stage {
+  animation: none !important;
+  transition: none !important;
+}
+html[data-export] .s29-conn__flow {
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s29-conn__flow {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .s29-stage {
+    transition: none !important;
+  }
 }

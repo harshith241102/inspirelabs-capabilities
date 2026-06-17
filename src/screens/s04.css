@@ -115,7 +115,7 @@
   transition: transform 0.16s ease;
 }
 .s04-stage:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
 }
 .s04-stage:focus-visible {
   outline: 3px solid var(--orange);
@@ -163,6 +163,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--float-sm);
+  transition: color 0.18s ease, border-color 0.18s ease;
 }
 .s04-stage__label {
   font-family: var(--font-headline);
@@ -171,6 +172,7 @@
   letter-spacing: -0.01em;
   color: var(--ink);
   line-height: 1.1;
+  transition: color 0.18s ease;
 }
 .s04-stage__cap {
   font-family: var(--font-body);
@@ -321,4 +323,77 @@
   font-size: 12.5px;
   letter-spacing: 0.03em;
   color: var(--grey);
+}
+
+/* ============================================================
+   MOTION  -  in-slide flow + hover accent (additive only)
+   Rest state = the existing static map (so export / reduced-motion
+   render a clean frame). The travelling flow dot sits at opacity 0
+   at rest and only animates while the slide is the active one.
+   ============================================================ */
+
+/* ---------- Hover accent: the hovered stage responds ---------- */
+/* (the -5px lift + node orange border are on the base .s04-stage rules) */
+.s04-stage:hover .s04-stage__label {
+  color: var(--orange-text);
+}
+.s04-stage:hover .s04-stage__node {
+  color: var(--orange);
+}
+.s04-stage:hover .s04-stage__pin {
+  border-color: var(--orange);
+  color: var(--orange-text);
+}
+
+/* ---------- Live flow: intent travelling the baseline ---------- */
+/* A single orange spark runs along the dashed journey line, left to
+   right, toward the late tracking boundary - the demand forming across
+   surfaces the brand does not own. Hidden at rest. */
+.s04-flowdot {
+  position: absolute;
+  top: 60px; /* sits on .s04-line */
+  left: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px; /* centre the 10px dot on the 3px line */
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.16);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s04-flowdot {
+  animation: s04-flow 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: 0.6s;
+}
+@keyframes s04-flow {
+  0%   { left: 0;                 opacity: 0; }
+  8%   {                          opacity: 1; }
+  82%  { left: calc(100% - 300px); opacity: 1; }
+  100% { left: calc(100% - 300px); opacity: 0; }
+}
+
+/* ---------- Hard stop in export + reduced-motion ---------- */
+html[data-export] .s04-flowdot,
+html[data-export] .s04-boundary__flag {
+  animation: none !important;
+  opacity: 0;
+}
+html[data-export] .s04-boundary__flag {
+  opacity: 1; /* the flag itself stays visible; only its breathe stops */
+}
+html[data-export] .s04-stage {
+  transition: none !important;
+  transform: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s04-flowdot {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .s04-stage {
+    transition: none !important;
+    transform: none !important;
+  }
 }

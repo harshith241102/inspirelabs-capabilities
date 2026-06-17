@@ -101,14 +101,20 @@ export default function Screen03() {
           </p>
         </Reveal>
 
-        {/* Connector: GrabOn feeds the broader system */}
+        {/* Connector: GrabOn feeds the broader system. The travelling feed dot
+            (s03-bridge__feed) loops only while the slide is active, showing the
+            GrabOn signal flowing into the system; invisible/frozen on export. */}
         <div className="s03-bridge" aria-hidden="true">
-          <span className="s03-bridge__line" />
+          <span className="s03-bridge__line">
+            <span className="s03-bridge__feed" />
+          </span>
           <span className="s03-bridge__node">
             <Icon name="arrow" size={22} />
           </span>
           <span className="s03-bridge__label">connects into</span>
-          <span className="s03-bridge__line" />
+          <span className="s03-bridge__line">
+            <span className="s03-bridge__feed s03-bridge__feed--b" />
+          </span>
         </div>
 
         {/* The five-module expansion board */}
@@ -125,7 +131,7 @@ export default function Screen03() {
                 from="right"
                 distance={16}
                 key={m.label}
-                className={`s03-mod${i === 0 ? ' s03-mod--accent' : ''}`}
+                className={`s03-mod mk-hover${i === 0 ? ' s03-mod--accent' : ''}`}
               >
                 <span className="s03-mod__n">{String(i + 1).padStart(2, '0')}</span>
                 <span className="s03-mod__ico">

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -108,7 +109,7 @@ export default function Screen26() {
               </header>
               <ul className="s26-list" role="list">
                 {inputs.map((it) => (
-                  <li key={it.label} className="s26-item">
+                  <li key={it.label} className="s26-item mk-hover">
                     <span className="s26-item__ico">
                       <Icon name={it.icon} size={15} />
                     </span>
@@ -118,8 +119,9 @@ export default function Screen26() {
               </ul>
             </section>
 
-            <span className="s26-flow" aria-hidden="true">
+            <span className="s26-flow" aria-hidden="true" style={{ ['--mk-i']: 0 } as CSSProperties}>
               <Icon name="arrow" size={16} />
+              <span className="s26-flow__spark mk-spark" />
             </span>
 
             {/* Column 2 - active tasks */}
@@ -132,7 +134,7 @@ export default function Screen26() {
               </header>
               <ul className="s26-tasks" role="list">
                 {tasks.map((t) => (
-                  <li key={t.label} className="s26-task">
+                  <li key={t.label} className="s26-task mk-hover">
                     <span className="s26-task__top">
                       <span className="s26-task__label">{t.label}</span>
                       <span className={`s26-state s26-state--${t.state}`}>
@@ -146,8 +148,9 @@ export default function Screen26() {
               </ul>
             </section>
 
-            <span className="s26-flow" aria-hidden="true">
+            <span className="s26-flow" aria-hidden="true" style={{ ['--mk-i']: 1 } as CSSProperties}>
               <Icon name="arrow" size={16} />
+              <span className="s26-flow__spark mk-spark" />
             </span>
 
             {/* Column 3 - human-review queue (orange focal) */}
@@ -161,7 +164,7 @@ export default function Screen26() {
               </header>
               <ul className="s26-list" role="list">
                 {reviewQueue.map((r) => (
-                  <li key={r.label} className="s26-review">
+                  <li key={r.label} className="s26-review mk-hover">
                     <span className="s26-review__label">{r.label}</span>
                     <span className="s26-review__owner">
                       <Icon name="users" size={13} />
@@ -176,8 +179,9 @@ export default function Screen26() {
               </p>
             </section>
 
-            <span className="s26-flow" aria-hidden="true">
+            <span className="s26-flow" aria-hidden="true" style={{ ['--mk-i']: 2 } as CSSProperties}>
               <Icon name="arrow" size={16} />
+              <span className="s26-flow__spark mk-spark" />
             </span>
 
             {/* Column 4 - output queue */}
@@ -190,7 +194,7 @@ export default function Screen26() {
               </header>
               <ul className="s26-list" role="list">
                 {outputs.map((o) => (
-                  <li key={o.label} className="s26-item">
+                  <li key={o.label} className="s26-item mk-hover">
                     <span className="s26-item__ico">
                       <Icon name={o.icon} size={15} />
                     </span>

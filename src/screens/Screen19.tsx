@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, NetBox, EvidenceTag, MockTag } from '../primitives/ui';
 import { FlowStrip } from '../primitives/deck';
@@ -128,7 +129,7 @@ export default function Screen19() {
               <span className="s19-corner-sub mono">Moments, not a date plan</span>
             </div>
             {moments.map((m) => (
-              <div key={m.label} className={`s19-col${m.focal ? ' is-focal' : ''}`}>
+              <div key={m.label} className={`s19-col mk-hover${m.focal ? ' is-focal' : ''}`}>
                 <span className="s19-col__ico">
                   <Icon name={m.icon} size={17} />
                 </span>
@@ -155,8 +156,11 @@ export default function Screen19() {
                 </span>
               </button>
 
-              {/* Focal column cell */}
-              <div className="s19-cell s19-cell--focal">
+              {/* Focal column cell - the worked launch example. A live flow
+                  pulse cascades down this lane (top to bottom) while the slide
+                  is open, reading the launch progressing through every row. */}
+              <div className="s19-cell s19-cell--focal mk-hover" style={{ ['--mk-i']: i } as CSSProperties}>
+                <span className="s19-cell__flow" aria-hidden="true" />
                 {lane.asset ? (
                   <span className="s19-cell__art">
                     <img src={lane.asset.src} alt={lane.asset.alt} loading="lazy" />
@@ -169,7 +173,7 @@ export default function Screen19() {
 
               {/* Remaining moment cells (placeholders) */}
               {moments.slice(1).map((m) => (
-                <div className="s19-cell" key={m.label}>
+                <div className="s19-cell mk-hover" key={m.label}>
                   <span className="s19-cell__ph mono">{lane.cell}</span>
                 </div>
               ))}

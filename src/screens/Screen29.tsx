@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -152,8 +153,13 @@ export default function Screen29() {
                   </span>
                 </button>
                 {i < stages.length - 1 && (
-                  <span className="s29-conn" aria-hidden="true">
+                  <span
+                    className="s29-conn"
+                    aria-hidden="true"
+                    style={{ ['--s29-ci']: i } as CSSProperties}
+                  >
                     <Icon name="arrow" size={16} />
+                    <span className="s29-conn__flow" />
                   </span>
                 )}
               </Reveal>
@@ -163,7 +169,7 @@ export default function Screen29() {
           {/* Real artefact strip: grounds the channel + creator stages */}
           <div className="s29-artrow">
             <Reveal className="s29-art">
-              <span className="s29-art__frame s29-art__frame--wide">
+              <span className="s29-art__frame s29-art__frame--wide mk-hover">
                 <img src={ASSETS.telegramAd} alt="Telegram ad creative produced as channel copy" loading="lazy" />
               </span>
               <span className="s29-art__cap">
@@ -172,7 +178,7 @@ export default function Screen29() {
               </span>
             </Reveal>
             <Reveal i={1} className="s29-art">
-              <span className="s29-art__frame s29-art__frame--tall">
+              <span className="s29-art__frame s29-art__frame--tall mk-hover">
                 <img src={ASSETS.telegramPost} alt="Telegram channel post produced for creator-led sharing" loading="lazy" />
               </span>
               <span className="s29-art__cap">
@@ -187,7 +193,7 @@ export default function Screen29() {
                 <Icon name="shield" size={20} />
                 Human approval
               </span>
-              <span className="s29-gate__big">6</span>
+              <span className="s29-gate__big mk-breathe">6</span>
               <span className="s29-gate__sub">
                 Brand fit, claims, approvals, and tracking readiness are checked before any asset goes live.
               </span>

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, NetBox } from '../primitives/ui';
 import { DeckStage } from '../primitives/deck';
@@ -101,7 +102,7 @@ export default function Screen32() {
                 <Reveal key={g.label} i={i} step={0.035} from="up" distance={12} className="s32-gatewrap">
                   <button
                     type="button"
-                    className={`s32-gate${focal ? ' is-focal' : ''}`}
+                    className={`s32-gate mk-hover${focal ? ' is-focal' : ''}`}
                     data-band={g.band}
                     onClick={() => openGate(g, i + 1)}
                   >
@@ -113,8 +114,13 @@ export default function Screen32() {
                     </span>
                     <span className="s32-gate__label">{g.label}</span>
                     <span className="s32-gate__short">{g.short}</span>
+                    {focal && <span className="s32-gate__pulse" aria-hidden="true" />}
                   </button>
-                  {i < gates.length - 1 && <span className="s32-gate__link" aria-hidden="true" />}
+                  {i < gates.length - 1 && (
+                    <span className="s32-gate__link" aria-hidden="true">
+                      <span className="s32-gate__flow mk-spark" style={{ ['--mk-i']: i, ['--mk-dx']: '16px' } as CSSProperties} />
+                    </span>
+                  )}
                 </Reveal>
               );
             })}

@@ -96,6 +96,17 @@
   font-size: 15.5px;
   letter-spacing: -0.01em;
   color: #fff;
+  /* hover accent (mk-hover supplies the lift); layout-neutral props only */
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+.s37-basis__item:hover {
+  border-color: rgba(255, 122, 69, 0.55);
+  background: rgba(255, 122, 69, 0.06);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+}
+.s37-basis__item:hover .s37-basis__ico {
+  background: var(--orange);
+  color: #fff;
 }
 .s37-basis__ico {
   width: 34px;
@@ -107,6 +118,7 @@
   justify-content: center;
   background: rgba(255, 122, 69, 0.14);
   color: var(--orange);
+  transition: background 0.22s ease, color 0.22s ease;
 }
 .s37-basis__ico svg {
   stroke: currentColor;
@@ -128,11 +140,95 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
 }
 .s37-step {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  position: relative;
+  border-radius: 11px;
+  /* hover accent paints with shadow only (zero layout shift); mk-hover lifts */
+  transition: box-shadow 0.22s ease, background 0.22s ease;
+}
+.s37-step:hover {
+  background: rgba(255, 122, 69, 0.05);
+  box-shadow: 0 0 0 1px rgba(255, 122, 69, 0.4), 0 14px 34px rgba(0, 0, 0, 0.4);
+}
+.s37-step:hover .s37-step__n {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+/* ---------- Live process flow: a pulse travels the 3 next-steps while open ---------- */
+.s37-flowrail {
+  position: absolute;
+  /* span from the centre of the first step number to the centre of the last */
+  top: 16px;
+  bottom: 16px;
+  /* centre on the 32px step number (16px = half-circle) */
+  left: 16px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 122, 69, 0) 0%,
+    rgba(255, 122, 69, 0.35) 12%,
+    rgba(255, 122, 69, 0.35) 88%,
+    rgba(255, 122, 69, 0) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+.s37-flowdot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.22), 0 0 14px 2px rgba(255, 122, 69, 0.6);
+  opacity: 0;
+}
+.screen[data-active="true"] .s37-flowrail {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.35s;
+}
+.screen[data-active="true"] .s37-flowdot {
+  animation: s37-flowdot 3.4s cubic-bezier(0.55, 0, 0.45, 1) infinite;
+  animation-delay: 0.5s;
+}
+@keyframes s37-flowdot {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+html[data-export] .s37-flowrail,
+html[data-export] .s37-flowdot {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s37-flowrail,
+  .s37-flowdot {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 .s37-step__n {
   flex-shrink: 0;

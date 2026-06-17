@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -119,7 +120,7 @@ export default function Screen35() {
                   <span className="s35-field-k mono">Capabilities activated</span>
                   <div className="s35-chips">
                     {activated.map((a) => (
-                      <span key={a} className="s35-chip">{a}</span>
+                      <span key={a} className="s35-chip mk-hover">{a}</span>
                     ))}
                   </div>
                 </div>
@@ -141,15 +142,17 @@ export default function Screen35() {
                     <span className="s35-metrics__hint mono">Validated groups only, select for source</span>
                   </div>
                   <div className="s35-metric-list">
-                    {metrics.map((m) => (
+                    {metrics.map((m, i) => (
                       <button
                         key={m.label}
                         type="button"
-                        className="s35-metric"
+                        className="s35-metric mk-hover"
+                        style={{ ['--mk-i']: i } as CSSProperties}
                         onClick={() => openMetric(m.label, m.group, m.status)}
                       >
                         <span className="s35-metric__ico">
                           <Icon name={m.icon} size={16} />
+                          <span className="s35-metric__scan" aria-hidden="true" />
                         </span>
                         <span className="s35-metric__txt">
                           <span className="s35-metric__label">{m.label}</span>
@@ -164,6 +167,7 @@ export default function Screen35() {
 
                 {/* Single orange focal: why it matters for similar brands. */}
                 <aside className="s35-why">
+                  <span className="s35-why__halo" aria-hidden="true" />
                   <span className="s35-why__kicker mono">Why it matters</span>
                   <p className="s35-why__lead">
                     What a similar brand can expect to learn from this case, framed as relevance, not a promised result.

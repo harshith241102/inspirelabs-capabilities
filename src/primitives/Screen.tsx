@@ -63,6 +63,7 @@ export function Screen({ index, tone = 'light', id, label, children, className, 
       ref={ref}
       id={id}
       data-screen-index={idx}
+      data-active={active ? 'true' : undefined}
       aria-label={`Screen ${idx}: ${label}`}
       className={`screen screen--${tone}${className ? ` ${className}` : ''}`}
     >

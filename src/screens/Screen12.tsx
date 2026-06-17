@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, NetBox, EvidenceTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -91,7 +92,7 @@ export default function Screen12() {
 
               <button
                 type="button"
-                className={`s12-frame s12-frame--${e.shape}`}
+                className={`s12-frame s12-frame--${e.shape} mk-hover`}
                 onClick={() => openEngine(e)}
                 aria-label={`${e.name}: roles, actions and metrics`}
               >
@@ -119,15 +120,25 @@ export default function Screen12() {
         <Reveal i={2} from="up" distance={16} className="s12-pathwrap">
           <span className="s12-path__cap">Both engines feed one measurable action path</span>
           <div className="s12-path">
-            {path.map((p, i) => (
-              <div key={p.label} className="s12-path__node">
-                <span className={`s12-path__ico${i === path.length - 1 ? ' is-end' : ''}`}>
-                  <Icon name={p.icon} size={19} />
-                </span>
-                <span className="s12-path__label">{p.label}</span>
-                {i < path.length - 1 && <span className="s12-path__link" aria-hidden="true" />}
-              </div>
-            ))}
+            {path.map((p, i) => {
+              const isEnd = i === path.length - 1;
+              return (
+                <div key={p.label} className="s12-path__node">
+                  <span className={`s12-path__ico${isEnd ? ' is-end mk-breathe' : ''}`}>
+                    <Icon name={p.icon} size={19} />
+                  </span>
+                  <span className="s12-path__label">{p.label}</span>
+                  {!isEnd && (
+                    <span className="s12-path__link" aria-hidden="true">
+                      <span
+                        className="s12-path__spark mk-spark"
+                        style={{ ['--mk-i']: i, ['--mk-dx']: '54px' } as CSSProperties}
+                      />
+                    </span>
+                  )}
+                </div>
+              );
+            })}
             <EvidenceTag status="pending">Where tracking is available</EvidenceTag>
           </div>
         </Reveal>

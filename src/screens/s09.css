@@ -352,3 +352,89 @@
   color: var(--grey);
   max-width: 620px;
 }
+
+/* ============================================================
+   MOTION  -  in-slide flow + hover (additive only)
+   Rest state = the composed board exactly as authored above, so the
+   export / reduced-motion path freezes a clean static frame. The
+   single ambient flow loops only while the slide is the open one
+   (.screen[data-active="true"]); hover is always live.
+   ============================================================ */
+
+/* --- 1) HOVER: the placement overlays respond (lift + accent) --- */
+/* Overlays had no hover; give the repeating placement cards a lift and a
+   crisp accent. The orange focal keeps its colour, just elevates further. */
+.s09-ov {
+  transition: transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.22s ease, border-color 0.22s ease;
+  will-change: transform;
+}
+.s09-ov:hover {
+  transform: translateY(-5px);
+  border-color: var(--orange);
+  box-shadow: 0 20px 44px rgba(14, 15, 10, 0.34);
+}
+.s09-ov--featured:hover {
+  border-color: #fff;
+  box-shadow: 0 24px 54px rgba(255, 122, 69, 0.55);
+}
+
+/* Rail items: keep the resting look, but make the lift read like the
+   overlays so the rail and the board respond as one object. */
+.s09-item {
+  transition: border-color 0.18s ease, transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.22s ease;
+}
+.s09-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(14, 15, 10, 0.12);
+}
+.s09-item:hover .s09-item__ico {
+  color: var(--orange);
+}
+
+/* --- 2) FLOW: attention lands on the single orange focal ---
+   The point of the slide is that a brand offer placed on the live commerce
+   surface concentrates attention. A soft impression ring breathes out from
+   the featured-campaign overlay while the slide is open. Invisible at rest
+   (base opacity 0), so the static export frame is unchanged. */
+.s09-ov--featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid var(--orange);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.screen[data-active="true"] .s09-ov--featured::before {
+  animation: s09-impression 3s ease-out infinite;
+}
+@keyframes s09-impression {
+  0% { opacity: 0; transform: scale(1); }
+  18% { opacity: 0.55; }
+  70%, 100% { opacity: 0; transform: scale(1.14); }
+}
+
+/* --- Hard stop in export + reduced-motion: clean static board --- */
+html[data-export] .s09-ov,
+html[data-export] .s09-item {
+  transition: none !important;
+  transform: none !important;
+}
+html[data-export] .s09-ov--featured::before {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s09-ov,
+  .s09-item {
+    transition: none !important;
+    transform: none !important;
+  }
+  .s09-ov--featured::before {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}

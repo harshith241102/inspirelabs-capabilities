@@ -85,7 +85,7 @@ export default function Screen20() {
             </p>
             <ul className="s20-events" role="list">
               {events.map((e) => (
-                <li key={e.label} className="s20-event">
+                <li key={e.label} className="s20-event mk-hover">
                   <span className="s20-event__ico">
                     <Icon name={e.icon} size={17} />
                   </span>
@@ -98,9 +98,10 @@ export default function Screen20() {
             </ul>
           </Reveal>
 
-          {/* Flow connector */}
+          {/* Flow connector: shopper events travel into the signal layer */}
           <div className="s20-link" aria-hidden="true">
             <Icon name="arrow" size={20} />
+            <span className="s20-flowdot s20-flowdot--in" />
           </div>
 
           {/* Stage 2: approved signal layer (the orange focal) */}
@@ -109,7 +110,7 @@ export default function Screen20() {
               <MockTag>AudienceSeed by Inspirelabs</MockTag>
             </span>
             <header className="s20-stage__head">
-              <span className="s20-stage__ico s20-stage__ico--gate">
+              <span className="s20-stage__ico s20-stage__ico--gate mk-breathe">
                 <Icon name="shield" size={22} />
               </span>
               <div>
@@ -124,15 +125,16 @@ export default function Screen20() {
             <div className="s20-gate__quality">
               <span className="s20-gate__quality-label">Audience quality before spend scales</span>
               <span className="s20-gate__meter" aria-hidden="true">
-                <span className="s20-gate__meter-fill" />
+                <span className="s20-gate__meter-fill s20-meter-fill" />
               </span>
               <span className="s20-gate__quality-note">Improving with signal depth and freshness</span>
             </div>
           </Reveal>
 
-          {/* Flow connector */}
+          {/* Flow connector: approved signals travel into activation outputs */}
           <div className="s20-link" aria-hidden="true">
             <Icon name="arrow" size={20} />
+            <span className="s20-flowdot s20-flowdot--out" />
           </div>
 
           {/* Stage 3: activation outputs */}
@@ -148,7 +150,7 @@ export default function Screen20() {
             </header>
             <div className="s20-outputs">
               {outputs.map((o) => (
-                <div key={o.label} className="s20-output">
+                <div key={o.label} className="s20-output mk-hover">
                   <span className="s20-output__ico">
                     <Icon name={o.icon} size={18} />
                   </span>

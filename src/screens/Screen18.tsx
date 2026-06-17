@@ -64,6 +64,12 @@ export default function Screen18() {
       <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
 
       <div className="s18-board">
+        {/* Live flow: one creative set travels through selection into the
+            chosen channels. Sparks ride the two zone connectors while active;
+            invisible at rest and frozen in export (see s18.css). */}
+        <span className="s18-flow s18-flow--a" aria-hidden="true" />
+        <span className="s18-flow s18-flow--b" aria-hidden="true" />
+
         {/* Zone 1 - one creative set (real Telegram ad creative) */}
         <Reveal from="up" distance={16} className="s18-source">
           <span className="s18-zone-kicker mono">One creative set</span>
@@ -113,7 +119,7 @@ export default function Screen18() {
           <span className="s18-zone-kicker mono">Selected channels</span>
           <div className="s18-channels">
             {channels.map((ch) => (
-              <div key={ch.label} className={`s18-chan is-${ch.state}`}>
+              <div key={ch.label} className={`s18-chan mk-hover is-${ch.state}`}>
                 <span className="s18-chan__ico">
                   <Icon name={ch.icon} size={17} />
                 </span>

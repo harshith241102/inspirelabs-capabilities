@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
@@ -57,7 +58,7 @@ export default function Screen13() {
         <aside className="s13-side">
           <ol className="s13-flow" aria-label="How an offer moves through GrabCash">
             {steps.map((s, i) => (
-              <li key={s.n} className="s13-step">
+              <li key={s.n} className="s13-step mk-hover" style={{ ['--mk-i']: i } as CSSProperties}>
                 <span className="s13-step__n">{s.n}</span>
                 <span className="s13-step__ico">
                   <Icon name={s.icon} size={18} />
@@ -66,7 +67,11 @@ export default function Screen13() {
                   <span className="s13-step__title">{s.title}</span>
                   <span className="s13-step__body">{s.body}</span>
                 </div>
-                {i < steps.length - 1 && <span className="s13-step__link" aria-hidden="true" />}
+                {i < steps.length - 1 && (
+                  <span className="s13-step__link" aria-hidden="true">
+                    <span className="s13-step__spark" style={{ ['--mk-i']: i } as CSSProperties} />
+                  </span>
+                )}
               </li>
             ))}
           </ol>

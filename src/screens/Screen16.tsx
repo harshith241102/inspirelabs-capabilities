@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, EvidenceTag, AssetImg, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -82,13 +83,21 @@ export default function Screen16() {
           <div className="s16-stage__tag">
             <MockTag>Partner surfaces · validation pending</MockTag>
           </div>
+          {/* Storyboard flow: a quiet handoff travelling offer -> engagement ->
+              tracked acquisition, showing the three surfaces are one left-to-
+              right journey. Connector is static at rest; the spark rides it only
+              while the slide is active (export/reduced-motion safe). */}
+          <div className="s16-flow" aria-hidden="true">
+            <span className="s16-flow__line" />
+            <span className="s16-flow__spark mk-spark" style={{ ['--mk-dx']: '520px' } as CSSProperties} />
+          </div>
           {surfaces.map((s, i) => (
             <Reveal
               key={s.src}
               i={i}
               from="up"
               distance={18}
-              className={`s16-frame${s.lead ? ' s16-frame--lead' : ' s16-frame--side'}`}
+              className={`s16-frame mk-hover${s.lead ? ' s16-frame--lead' : ' s16-frame--side'}`}
             >
               <div className="phone s16-phone">
                 <AssetImg src={s.src} alt={`Partner ecosystem surface example: ${s.title}`} />

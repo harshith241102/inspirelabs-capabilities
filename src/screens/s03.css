@@ -49,6 +49,8 @@
 .s03-bridge__line {
   width: 2px;
   flex: 1;
+  position: relative;
+  overflow: hidden;
   background: repeating-linear-gradient(
     to bottom,
     var(--border) 0,
@@ -56,6 +58,34 @@
     transparent 6px,
     transparent 12px
   );
+}
+
+/* Travelling feed dot: shows the GrabOn signal flowing down into the system.
+   Hidden at rest (opacity 0) so a frozen export frame stays clean; loops only
+   while the slide is active. */
+.s03-bridge__feed {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 6px rgba(255, 122, 69, 0.65);
+  opacity: 0;
+}
+.screen[data-active="true"] .s03-bridge__feed {
+  animation: s03-feed 2.4s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+.screen[data-active="true"] .s03-bridge__feed--b {
+  animation-delay: 0.5s;
+}
+@keyframes s03-feed {
+  0%   { opacity: 0; transform: translateY(0); }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(100%); }
 }
 .s03-bridge__node {
   width: 46px;
@@ -76,6 +106,15 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+/* Gentle breathe on the orange focal node where the feed lands. Rest = the
+   authored solid node; only pulses while the slide is open. */
+.screen[data-active="true"] .s03-bridge__node {
+  animation: s03-node-breathe 2.8s ease-in-out infinite;
+}
+@keyframes s03-node-breathe {
+  0%, 100% { box-shadow: var(--float-sm); }
+  50%      { box-shadow: var(--float-sm), 0 0 0 5px rgba(255, 122, 69, 0.1); }
 }
 .s03-bridge__label {
   font-family: var(--font-mono);
@@ -179,6 +218,27 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* Hover accent (lift comes from mk-hover). The hovered row responds: orange
+   border, deeper float, and the icon tile fills orange. Layout is preserved -
+   the non-accent border is already 1px and we keep it 1px (recolour only); the
+   accent row keeps its 2px orange border and only deepens its shadow. Colour /
+   shadow transitions sit on the base rules so resting + export look unchanged. */
+.s03-mod {
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.s03-mod__ico {
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+.s03-mod.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 2px 6px rgba(14, 15, 10, 0.06), 0 16px 34px rgba(14, 15, 10, 0.13);
+}
+.s03-mod.mk-hover:hover .s03-mod__ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
 .s03-mod__text {
   flex: 1;
   min-width: 0;
@@ -269,4 +329,26 @@
 }
 .s03-foot .cta-row {
   flex-shrink: 0;
+}
+
+/* ---------- export / reduced-motion: deterministic static frame ----------
+   The bespoke flow overlays freeze invisible (feed dot) or to their authored
+   resting state (node shadow). mk-hover is already guarded by the motion kit. */
+html[data-export] .s03-bridge__feed,
+html[data-export] .s03-bridge__feed--b {
+  animation: none !important;
+  opacity: 0 !important;
+}
+html[data-export] .s03-bridge__node {
+  animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s03-bridge__feed,
+  .s03-bridge__feed--b {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .s03-bridge__node {
+    animation: none !important;
+  }
 }

@@ -44,8 +44,12 @@ export default function Screen28() {
       <DeckHeader eyebrow={c.eyebrow} title={c.headline} sub={c.subheadline} titleWide />
 
       <div className="s28-body">
-        {/* Thin orientation strip: the flow runs from a real scan to a real output, gated by review */}
-        <FlowStrip steps={flow.map((s) => ({ label: s.label, state: s.state, sub: s.sub }))} style={{ flexShrink: 0 }} />
+        {/* Thin orientation strip: the flow runs from a real scan to a real output, gated by review.
+            A live spark travels the strip while the slide is open to show the pipeline running. */}
+        <div className="s28-flow">
+          <FlowStrip steps={flow.map((s) => ({ label: s.label, state: s.state, sub: s.sub }))} style={{ flexShrink: 0 }} />
+          <span className="s28-flow__spark" aria-hidden="true" />
+        </div>
 
         {/* Dominant dual-screenshot proof: RankDrive scan -> WriteGenius output */}
         <div className="s28-split">
@@ -65,6 +69,7 @@ export default function Screen28() {
           />
 
           <div className="s28-arrow" aria-hidden="true">
+            <span className="s28-arrow__ping" />
             <Icon name="arrow" size={26} />
           </div>
 

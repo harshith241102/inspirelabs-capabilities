@@ -105,11 +105,42 @@
 
 /* three operating columns */
 .s27-room__grid {
+  position: relative;
   flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns: 1.32fr 1fr 0.92fr;
 }
+
+/* ---------- live handoff flow: agents -> review -> output ----------
+   A thin, non-interactive overlay pinned to the column-header baseline.
+   Two sparks ride the two column dividers, reading as work being handed
+   from agents into review, and review into output, while the slide is
+   open. The sparks (mk-spark) sit at opacity 0 at rest, so the export
+   and reduced-motion frames are byte-for-byte the resting look. */
+.s27-flow {
+  position: absolute;
+  top: 38px;            /* aligned to the column-header rule baseline */
+  left: 0;
+  right: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.s27-flow__spark {
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.16);
+}
+/* spark A: rides the agents | review divider region */
+.s27-flow__spark--a { left: 52.4%; }
+/* spark B: rides the review | output divider region, slightly later */
+.s27-flow__spark--b { left: 80.8%; }
 .s27-col {
   display: flex;
   flex-direction: column;
@@ -190,7 +221,15 @@
 }
 .s27-stream:hover {
   border-color: var(--orange);
-  transform: translateX(3px);
+  box-shadow: 0 10px 26px rgba(14, 15, 10, 0.12);
+}
+/* hovered agent's status icon / thumbnail lifts with an orange accent */
+.s27-stream:hover .s27-stream__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
+}
+.s27-stream:hover .s27-stream__thumb {
+  border-color: var(--orange);
 }
 .s27-stream:focus-visible {
   outline: 3px solid var(--orange);
@@ -308,6 +347,11 @@
   border-color: var(--orange);
   border-left: 3px solid var(--orange);
 }
+/* hovered review item responds: orange border + lifted shadow */
+.s27-rev:hover {
+  border-color: var(--orange);
+  box-shadow: 0 12px 28px rgba(14, 15, 10, 0.13);
+}
 .s27-rev__top {
   display: flex;
   align-items: center;
@@ -405,6 +449,15 @@
   background: #fff;
   border-color: rgba(47, 163, 122, 0.35);
 }
+/* hovered output row responds: orange border + lifted shadow */
+.s27-outrow:hover {
+  border-color: var(--orange);
+  box-shadow: 0 12px 28px rgba(14, 15, 10, 0.13);
+}
+.s27-outrow:hover .s27-outrow__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
+}
 .s27-outrow__ico {
   display: inline-flex;
   align-items: center;
@@ -456,4 +509,27 @@
   line-height: 1.5;
   color: var(--muted-text);
   max-width: 720px;
+}
+
+/* ---------- export / reduced-motion: freeze the resting frame ----------
+   The handoff sparks must be invisible at rest (the resting + export look is
+   the studio without travelling dots). mk-spark already guards itself; this
+   is an explicit belt-and-suspenders so the PDF/screenshot path is static. */
+html[data-export] .s27-flow__spark,
+html[data-export] .s27-stream,
+html[data-export] .s27-rev,
+html[data-export] .s27-outrow {
+  animation: none !important;
+  transition: none !important;
+}
+html[data-export] .s27-flow__spark {
+  opacity: 0 !important;
+  transform: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s27-flow__spark {
+    animation: none !important;
+    opacity: 0 !important;
+    transform: none !important;
+  }
 }

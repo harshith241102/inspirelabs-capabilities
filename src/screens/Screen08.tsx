@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, EvidenceTag, NetBox } from '../primitives/ui';
 import { AnnotatedShot } from '../primitives/deck';
@@ -63,9 +64,12 @@ export default function Screen08() {
               <button
                 key={s.label}
                 type="button"
-                className="s08-row"
+                className="s08-row mk-hover"
+                style={{ ['--mk-i']: i } as CSSProperties}
                 onClick={() => openSurface(s.label, s.what)}
               >
+                {/* live intake: an orange demand pulse travels down the surfaces while open */}
+                <span className="s08-row__scan" aria-hidden="true" />
                 <span className="s08-row__n">{i + 1}</span>
                 <span className="s08-row__ico">
                   <Icon name={s.icon} size={17} />

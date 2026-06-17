@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Icon, type IconName } from '../primitives/icons';
@@ -76,11 +77,12 @@ export default function Screen07() {
       </header>
 
       <div className="s07-board" role="list" aria-label="Three intent lanes, each with a real surface example">
-        {lanes.map((l) => (
+        {lanes.map((l, i) => (
           <article
             key={l.num}
             role="listitem"
-            className={`s07-lane${l.accent ? ' is-accent' : ''}`}
+            className={`s07-lane mk-hover${l.accent ? ' is-accent' : ''}`}
+            style={{ ['--mk-i']: i } as CSSProperties}
           >
             <div className="s07-frame">
               <div className="s07-frame__bar">
@@ -131,7 +133,12 @@ export default function Screen07() {
             <div className="s07-strength" aria-hidden="true">
               <span className="s07-strength__cap">Intent signal, illustrative</span>
               <span className="s07-strength__track">
-                <span className="s07-strength__fill" style={{ width: `${l.level}%` }} />
+                <span
+                  className="s07-strength__fill mk-bar"
+                  style={{ width: `${l.level}%`, ['--mk-i']: i } as CSSProperties}
+                >
+                  {l.accent && <span className="s07-strength__spark" />}
+                </span>
               </span>
             </div>
           </article>

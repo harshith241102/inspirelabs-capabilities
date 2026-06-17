@@ -96,7 +96,7 @@ export default function Screen33() {
               <Reveal i={i} from="up" distance={16}>
                 <button
                   type="button"
-                  className={`s33-stage is-${s.state}`}
+                  className={`s33-stage mk-hover is-${s.state}`}
                   onClick={() => openStage(s, i)}
                   aria-label={`${s.label}, ${s.state === 'active' ? 'in motion' : 'locked'}. Open detail.`}
                 >
@@ -133,6 +133,7 @@ export default function Screen33() {
               {i < stages.length - 1 && (
                 <div className={`s33-gate ${s.state === 'active' ? 'is-live' : 'is-locked'}`} aria-hidden="true">
                   <span className="s33-gate__bar" />
+                  {s.state === 'active' && <span className="s33-gate__spark" />}
                   <span className="s33-gate__chip">
                     <Icon name={s.state === 'active' ? 'check' : 'shield'} size={12} />
                     {s.gate}

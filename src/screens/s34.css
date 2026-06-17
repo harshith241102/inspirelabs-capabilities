@@ -122,6 +122,41 @@
   letter-spacing: 0.02em;
   color: #d6d9e0;
 }
+/* In-slide flow: a live "verifying" scan travels the plate's orange edge while
+   the slide is open, reading as the category proof being continuously checked
+   against the live surface. Invisible at rest (base opacity 0); the resting /
+   export look is the plain orange border, unchanged. */
+.s34-shot__plate-scan {
+  position: absolute;
+  left: -3px;
+  top: 0;
+  width: 3px;
+  height: 38%;
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(255, 122, 69, 0) 0%, var(--orange) 45%, #ffd2bc 50%, var(--orange) 55%, rgba(255, 122, 69, 0) 100%);
+  box-shadow: 0 0 10px 1px rgba(255, 122, 69, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s34-shot__plate-scan {
+  animation: s34-scan 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes s34-scan {
+  0%   { transform: translateY(0); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(166%); opacity: 0; }
+}
+html[data-export] .s34-shot__plate-scan {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s34-shot__plate-scan {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
 
 /* Gap note shown when the hero is the closest available proof, not exact */
 .s34-gap {
@@ -192,9 +227,12 @@
   box-shadow: var(--float-sm);
   transition: border-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
 }
+/* Lift is owned by .mk-hover (-5px); this rule owns the accent only so the
+   two never fight. Resting look is unchanged. */
 .s34-cat:hover {
   border-color: var(--orange);
-  transform: translateY(-1px);
+  color: var(--orange-text);
+  box-shadow: 0 12px 26px -12px rgba(255, 122, 69, 0.45), var(--float-sm);
 }
 .s34-cat:focus-visible {
   outline: 3px solid var(--orange);
@@ -303,6 +341,11 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 6px 12px;
+}
+/* Lighter response on the metric chips: .mk-hover owns the lift, this the accent */
+.s34-metric:hover {
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 
 /* Quiet drawer trigger (hotspot, not a button wall) */

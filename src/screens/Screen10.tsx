@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -193,8 +194,12 @@ export default function Screen10() {
                 <span className="s10-th">Buyer stage</span>
               </div>
               <div className="s10-tbody">
-                {tools.map((t) => (
-                  <div key={t.name} className={`s10-trow${t.best ? ' s10-trow--best' : ''}`}>
+                {tools.map((t, i) => (
+                  <div
+                    key={t.name}
+                    className={`s10-trow mk-hover${t.best ? ' s10-trow--best' : ''}`}
+                    style={{ ['--mk-i']: i } as CSSProperties}
+                  >
                     <span className="s10-tool">
                       <span className="s10-tool__mark" style={{ background: t.markBg }}>
                         {t.mark}
@@ -203,7 +208,7 @@ export default function Screen10() {
                         <span className="s10-tool__name">
                           {t.name}
                           {t.best && (
-                            <span className="s10-best">
+                            <span className="s10-best mk-breathe">
                               <Icon name="check" size={10} />
                               Best fit
                             </span>
@@ -218,8 +223,8 @@ export default function Screen10() {
                     <span className="s10-fit">
                       <span className="s10-fit__track">
                         <span
-                          className={`s10-fit__bar${t.best ? ' is-best' : ''}`}
-                          style={{ width: `${t.fit}%` }}
+                          className={`s10-fit__bar mk-bar${t.best ? ' is-best' : ''}`}
+                          style={{ width: `${t.fit}%`, ['--mk-d']: '0.35s' } as CSSProperties}
                         />
                       </span>
                       <span className="s10-fit__pct">{t.fit}</span>

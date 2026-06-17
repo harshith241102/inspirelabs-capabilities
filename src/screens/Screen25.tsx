@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, EvidenceTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -71,8 +72,8 @@ export default function Screen25() {
             <div className="s25-dash__body">
               {/* Top row: the three decision summaries the report answers. */}
               <div className="s25-summary" role="list" aria-label="Decision summaries">
-                {summaries.map((s) => (
-                  <div className="s25-sum" role="listitem" key={s.label}>
+                {summaries.map((s, i) => (
+                  <div className="s25-sum mk-hover" role="listitem" key={s.label} style={{ ['--mk-i']: i } as CSSProperties}>
                     <span className="s25-sum__ico">
                       <Icon name={s.icon} size={18} />
                     </span>
@@ -94,7 +95,7 @@ export default function Screen25() {
                     <span className="s25-panel__hint mono">Select a field for definition and source</span>
                   </div>
                   <div className="s25-reads">
-                    {reads.map((r) => (
+                    {reads.map((r, i) => (
                       <button
                         key={r.label}
                         type="button"
@@ -103,7 +104,10 @@ export default function Screen25() {
                       >
                         <span className="s25-read__label">{r.label}</span>
                         <span className="s25-read__track" aria-hidden="true">
-                          <span className="s25-read__bar" style={{ width: `${r.bar}%` }} />
+                          <span
+                            className="s25-read__bar mk-bar"
+                            style={{ width: `${r.bar}%`, ['--mk-i']: i } as CSSProperties}
+                          />
                         </span>
                         <span className="s25-read__status mono">Pending</span>
                         <Icon name="arrow" size={13} className="s25-read__more" />
@@ -115,7 +119,7 @@ export default function Screen25() {
 
                 {/* Right: the recommended action. The single orange focal of the
                     screen, carrying the human-reviewed guarantee. */}
-                <div className="s25-action">
+                <div className="s25-action s25-action--live">
                   <span className="s25-action__kicker mono">Recommended action</span>
                   <p className="s25-action__lead">
                     Move budget toward the strongest offer format and the freshest signals before scaling spend.

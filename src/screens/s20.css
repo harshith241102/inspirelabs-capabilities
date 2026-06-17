@@ -164,10 +164,12 @@
 
 /* ---------- Flow connector ---------- */
 .s20-link {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--c5);
+  overflow: visible;
 }
 .s20-link svg {
   stroke: currentColor;
@@ -342,4 +344,100 @@
   fill: none;
   stroke-width: 2;
   flex-shrink: 0;
+}
+
+/* ============================================================
+   IN-SLIDE MOTION (additive) - the signal flows through the system
+   while the slide is open; hovered units respond. Rest state is the
+   clean static look; export / reduced-motion guards freeze it.
+   ============================================================ */
+
+/* ---------- Hover: event rows + output cards respond ----------
+   Blue signal accent (orange is reserved for the Stage 2 focal). */
+.s20-event.mk-hover:hover {
+  border-color: rgba(59, 130, 246, 0.42);
+  background: #f4f8ff;
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.14);
+}
+.s20-event.mk-hover:hover .s20-event__ico {
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(59, 130, 246, 0.42);
+}
+.s20-output.mk-hover:hover {
+  border-color: rgba(59, 130, 246, 0.42);
+  background: #f4f8ff;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.15);
+}
+.s20-output.mk-hover:hover .s20-output__ico {
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(59, 130, 246, 0.42);
+}
+
+/* ---------- Flow: a signal dot travels each connector ----------
+   Invisible at rest; loops left -> right only while the slide is
+   active. The two dots are phase-offset so the stream reads as one
+   continuous run from events -> signal layer -> outputs. */
+.s20-flowdot {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s20-flowdot {
+  animation: s20-flow 2.6s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+.screen[data-active="true"] .s20-flowdot--out {
+  animation-delay: 0.9s;
+}
+@keyframes s20-flow {
+  0% { opacity: 0; transform: translateX(0); }
+  14% { opacity: 1; }
+  72% { opacity: 1; transform: translateX(40px); }
+  100% { opacity: 0; transform: translateX(40px); }
+}
+
+/* ---------- Focal: the quality meter fills on open ----------
+   72% width is the authored rest state; we scale it in from the
+   left each time the slide opens. Rest (no animation) = full. */
+.s20-meter-fill {
+  transform-origin: left center;
+}
+.screen[data-active="true"] .s20-meter-fill {
+  animation: s20-meterfill 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: 0.35s;
+}
+@keyframes s20-meterfill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- Export / reduced-motion: deterministic static frame ---------- */
+html[data-export] .s20-flowdot,
+html[data-export] .s20-meter-fill {
+  animation: none !important;
+}
+html[data-export] .s20-flowdot {
+  opacity: 0 !important;
+}
+html[data-export] .s20-meter-fill {
+  transform: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s20-flowdot,
+  .s20-meter-fill {
+    animation: none !important;
+  }
+  .s20-flowdot {
+    opacity: 0 !important;
+  }
+  .s20-meter-fill {
+    transform: none !important;
+  }
 }

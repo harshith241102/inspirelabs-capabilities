@@ -30,10 +30,33 @@
   white-space: nowrap;
 }
 .s05-rail__line {
+  position: relative;
   flex: 1;
   width: 2px;
   border-radius: 2px;
   background: linear-gradient(to bottom, var(--orange), var(--border) 70%);
+}
+/* Travelling pulse down the rail: literal "assets in motion". Hidden at rest. */
+.s05-rail__spark {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 8px 2px rgba(255, 122, 69, 0.5);
+  opacity: 0;
+}
+.screen[data-active="true"] .s05-rail__spark {
+  animation: s05-railspark 3.4s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+@keyframes s05-railspark {
+  0% { opacity: 0; top: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; top: 100%; }
+  100% { opacity: 0; top: 100%; }
 }
 
 /* The board grid: 5 equal operating-asset columns reading as one row */
@@ -63,12 +86,22 @@
   transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 .s05-tile:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--c5);
   box-shadow: 0 18px 40px rgba(14, 15, 10, 0.12);
 }
 .s05-tile.is-accent:hover {
   border-color: var(--orange);
+}
+/* Hover accent: the asset's icon responds, signalling the column is "live" */
+.s05-tile__ico {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.s05-tile:hover .s05-tile__ico {
+  color: #fff;
+  background: var(--orange);
+  border-color: var(--orange);
+  transform: scale(1.06);
 }
 .s05-tile:focus-visible {
   outline: 3px solid var(--orange);
@@ -124,13 +157,30 @@
   height: 100%;
   padding-top: 26px;
 }
-.s05-built__bars span {
+.s05-built__bars > span {
+  position: relative;
   flex: 1;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+/* Inner fill carries the colour; the bar grows from its base on slide open */
+.s05-built__fill {
+  position: absolute;
+  inset: 0;
   border-radius: 5px 5px 0 0;
   background: var(--as);
 }
-.s05-built__bars span:nth-child(4) {
+.s05-built__bars > span:nth-child(4) .s05-built__fill {
   background: var(--as-deep);
+}
+.screen[data-active="true"] .s05-built__fill {
+  transform-origin: bottom center;
+  animation: s05-fill 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: calc(var(--mk-i, 0) * 0.08s + 0.12s);
+}
+@keyframes s05-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 .s05-built--measure {
   background: linear-gradient(180deg, #fbfbfc, #f1f2f5);
@@ -289,4 +339,36 @@
   color: var(--body);
   border-left: 3px solid var(--orange);
   padding-left: 16px;
+}
+
+/* Export / reduced-motion: freeze bespoke motion to the clean rest frame */
+html[data-export] .s05-built__fill,
+html[data-export] .s05-rail__spark {
+  animation: none !important;
+}
+html[data-export] .s05-built__fill {
+  transform: none !important;
+}
+html[data-export] .s05-rail__spark {
+  opacity: 0 !important;
+}
+html[data-export] .s05-tile,
+html[data-export] .s05-tile__ico {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s05-built__fill,
+  .s05-rail__spark {
+    animation: none !important;
+  }
+  .s05-built__fill {
+    transform: none !important;
+  }
+  .s05-rail__spark {
+    opacity: 0 !important;
+  }
+  .s05-tile,
+  .s05-tile__ico {
+    transition: none !important;
+  }
 }

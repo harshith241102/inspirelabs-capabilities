@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, NetBox, MockTag } from '../primitives/ui';
 import { Icon, type IconName } from '../primitives/icons';
@@ -109,14 +110,14 @@ export default function Screen15() {
         <div className="s15-origin">
           <span className="s15-origin__kicker">Demand enters from</span>
           <span className="s15-origin__title">Owned distribution</span>
-          <span className="s15-origin__node">
+          <span className="s15-origin__node mk-breathe">
             <Icon name="share" size={22} />
           </span>
           <span className="s15-origin__fan" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
+            <i style={{ ['--mk-i']: 0 } as CSSProperties} />
+            <i style={{ ['--mk-i']: 1 } as CSSProperties} />
+            <i style={{ ['--mk-i']: 2 } as CSSProperties} />
+            <i style={{ ['--mk-i']: 3 } as CSSProperties} />
           </span>
           <span className="s15-origin__note">Four external families, shown separately</span>
         </div>
@@ -124,7 +125,7 @@ export default function Screen15() {
         {/* Four activation lanes reading as one map */}
         <div className="s15-lanes">
           {families.map((f, i) => (
-            <article key={f.label} className={`s15-lane${f.accent ? ' is-accent' : ''}`}>
+            <article key={f.label} className={`s15-lane mk-hover${f.accent ? ' is-accent' : ''}`}>
               <header className="s15-lane__head">
                 <span className="s15-lane__ico">
                   <Icon name={f.icon} size={19} />

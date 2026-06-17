@@ -91,10 +91,36 @@
   padding: 18px 0;
 }
 .s15-origin__fan i {
+  position: relative;
   display: block;
   height: 2px;
   background: linear-gradient(90deg, var(--orange), rgba(255, 122, 69, 0.25));
   border-radius: 2px;
+}
+/* travelling demand spark riding each fan connector out toward the lanes;
+   overlay only - the connector line is the authored rest state. */
+.s15-origin__fan i::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 7px rgba(255, 122, 69, 0.65);
+  opacity: 0;
+}
+.screen[data-active="true"] .s15-origin__fan i::after {
+  animation: s15-demand 2s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+  animation-delay: calc(var(--mk-i, 0) * 0.32s + 0.2s);
+}
+@keyframes s15-demand {
+  0%   { opacity: 0; transform: translateX(0); }
+  14%  { opacity: 1; }
+  86%  { opacity: 1; transform: translateX(20px); }
+  100% { opacity: 0; transform: translateX(22px); }
 }
 
 /* ---------- Four activation lanes ---------- */
@@ -117,6 +143,18 @@
 }
 .s15-lane.is-accent {
   border-color: var(--orange);
+}
+/* hover accent: the mk-hover kit class supplies the -5px lift + transition;
+   this adds the orange edge, deeper shadow, and icon emphasis so any lane
+   "responds". Resting look is unchanged. */
+.s15-lane.mk-hover:hover {
+  border-color: var(--orange);
+  box-shadow: 0 16px 34px rgba(14, 15, 10, 0.13);
+}
+.s15-lane.mk-hover:hover .s15-lane__ico {
+  background: rgba(255, 122, 69, 0.12);
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 
 .s15-lane__head {
@@ -368,4 +406,16 @@
   line-height: 1.45;
   color: var(--muted-text);
   max-width: 62ch;
+}
+
+/* ---------- export / reduced-motion: freeze the demand spark cleanly ---------- */
+html[data-export] .s15-origin__fan i::after {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s15-origin__fan i::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }

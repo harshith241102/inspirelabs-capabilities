@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -210,10 +210,11 @@ export default function Screen31() {
                 </header>
 
                 <div className="s31-fields">
-                  {fields.map((f) => (
+                  {fields.map((f, i) => (
                     <div
                       key={f.key}
-                      className={`s31-field${f.gate ? ' is-gate' : ''}${f.close ? ' is-close' : ''}`}
+                      className={`s31-field mk-hover${f.gate ? ' is-gate' : ''}${f.close ? ' is-close' : ''}`}
+                      style={{ ['--mk-i']: i } as CSSProperties}
                     >
                       <span className="s31-field__ico">
                         <Icon name={f.icon} size={16} />
@@ -222,7 +223,10 @@ export default function Screen31() {
                         <span className="s31-field__label mono">{f.label}</span>
                         <span className="s31-field__value">{p.scope[f.key]}</span>
                       </span>
-                      {f.gate && <span className="s31-field__flag mono">Human sign-off</span>}
+                      {/* scope-fill sweep: each field lights left-to-right as the
+                          agent is scoped, terminating on the orange gate row */}
+                      <span className="s31-field__scan" aria-hidden="true" />
+                      {f.gate && <span className="s31-field__flag mk-breathe mono">Human sign-off</span>}
                     </div>
                   ))}
                 </div>

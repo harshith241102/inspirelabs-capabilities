@@ -150,6 +150,22 @@
   z-index: 0;
 }
 
+/* Live intake spark: an orange dot travels each connector left -> right,
+   staggered down the lane, so the eight commitments read as one moving
+   cycle. Hidden at rest (mk-spark opacity:0), so export stays clean. */
+.s32-gate__flow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 2px rgba(255, 122, 69, 0.22);
+}
+
 .s32-gate {
   position: relative;
   z-index: 1;
@@ -166,10 +182,14 @@
   box-shadow: var(--float-sm);
   transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
+/* Hover accent (the -5px lift is owned by the kit class .mk-hover). */
 .s32-gate:hover {
   border-color: var(--orange);
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px -18px rgba(14, 15, 10, 0.4);
+  box-shadow: 0 16px 34px -18px rgba(255, 122, 69, 0.45);
+}
+.s32-gate:hover .s32-gate__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 .s32-gate:focus-visible {
   outline: 3px solid var(--orange);
@@ -247,6 +267,39 @@
 }
 .s32-gate.is-focal .s32-gate__label {
   color: var(--orange-text);
+}
+
+/* Focal "the loop turns here" breathe: a soft orange halo on the Review
+   gate, pulsing only while the slide is active. Invisible at rest so the
+   exported/reduced-motion frame is the clean bordered focal card. */
+.s32-gate__pulse {
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  border: 2px solid var(--orange);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active='true'] .s32-gate__pulse {
+  animation: s32-pulse 2.8s ease-in-out infinite;
+}
+@keyframes s32-pulse {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.035); }
+}
+
+/* Export / reduced-motion: freeze the clean static frame. */
+html[data-export] .s32-gate__pulse,
+html[data-export] .s32-gate__flow {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s32-gate__pulse,
+  .s32-gate__flow {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* ---------- Bottom takeaway footer ---------- */

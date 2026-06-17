@@ -223,6 +223,12 @@
   color: var(--ink);
   letter-spacing: -0.005em;
 }
+/* Capability chips respond on hover: kit mk-hover lifts, this adds the accent. */
+.s35-chip.mk-hover:hover {
+  border-color: var(--orange);
+  color: var(--orange-text);
+  box-shadow: 0 10px 20px -10px rgba(14, 15, 10, 0.22);
+}
 .s35-meta__period {
   display: flex;
   flex-direction: column;
@@ -308,17 +314,26 @@
   border-radius: 12px;
   text-align: left;
   box-shadow: var(--float-sm);
-  transition: border-color 0.16s ease, transform 0.16s ease;
+  /* mk-hover owns transform; this layer owns the accent on hover */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.s35-metric:hover {
+/* Accent on hover: stronger orange edge + deeper shadow + icon emphasis.
+   The lift (translateY ~ -5px) is supplied by the kit class mk-hover. */
+.s35-metric.mk-hover:hover {
   border-color: var(--orange);
-  transform: translateX(3px);
+  box-shadow: 0 14px 28px -12px rgba(14, 15, 10, 0.26);
+}
+.s35-metric.mk-hover:hover .s35-metric__ico {
+  background: #fff;
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 .s35-metric:focus-visible {
   outline: 3px solid var(--orange);
   outline-offset: 2px;
 }
 .s35-metric__ico {
+  position: relative;
   width: 32px;
   height: 32px;
   border-radius: 9px;
@@ -329,6 +344,29 @@
   justify-content: center;
   color: var(--ink);
   flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Ambient scan pulse: a soft orange ring breathes through the metric icons
+   top to bottom (staggered by --mk-i) while the slide is open, reading as the
+   case being read down toward the orange "why it matters" focal. Invisible at
+   rest, so the exported/frozen frame stays clean. */
+.s35-metric__scan {
+  position: absolute;
+  inset: -3px;
+  border-radius: 11px;
+  border: 1.5px solid var(--orange);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s35-metric__scan {
+  animation: s35-scan 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--mk-i, 0) * 0.45s);
+}
+@keyframes s35-scan {
+  0%, 100% { opacity: 0; transform: scale(0.86); }
+  10%      { opacity: 0.55; transform: scale(1); }
+  26%      { opacity: 0; transform: scale(1.06); }
 }
 .s35-metric__ico svg {
   stroke: currentColor;
@@ -371,6 +409,7 @@
 
 /* why it matters - the single orange focal */
 .s35-why {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -380,6 +419,8 @@
   border-radius: 14px;
 }
 .s35-why__kicker {
+  position: relative;
+  z-index: 1;
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -387,7 +428,28 @@
   color: var(--orange-text);
   flex-shrink: 0;
 }
+/* Live focal glow: a soft orange halo that breathes behind the single orange
+   focal while the slide is open, so the takeaway reads as the live destination
+   the scanned metrics resolve into. Invisible at rest (opacity 0), so the
+   resting design and the frozen export frame are byte-for-byte unchanged. */
+.s35-why__halo {
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 0 0 2px var(--orange), 0 0 26px -2px rgba(255, 122, 69, 0.55);
+}
+.screen[data-active="true"] .s35-why__halo {
+  animation: s35-halo 3.6s ease-in-out infinite;
+}
+@keyframes s35-halo {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 0.85; }
+}
 .s35-why__lead {
+  position: relative;
+  z-index: 1;
   margin-top: 12px;
   font-family: var(--font-headline);
   font-weight: 600;
@@ -397,6 +459,8 @@
   color: var(--ink);
 }
 .s35-why__foot {
+  position: relative;
+  z-index: 1;
   margin-top: auto;
   padding-top: 14px;
   border-top: 1px solid var(--border);
@@ -409,6 +473,23 @@
   font-size: 14px;
   line-height: 1.5;
   color: var(--body);
+}
+
+/* ---- bespoke-motion export / reduced-motion guard ----
+   Freeze the ambient scan ring and the focal halo to their invisible rest
+   state so the PDF, screenshots and the overflow gate stay byte-for-byte
+   static. (The kit class mk-hover is already guarded in motion-kit.css.) */
+html[data-export] .s35-metric__scan,
+html[data-export] .s35-why__halo {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s35-metric__scan,
+  .s35-why__halo {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* ---- CTA safe zone ---- */

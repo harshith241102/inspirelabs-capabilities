@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, EvidenceTag, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -113,7 +114,9 @@ function BuiltVisual({ kind }: { kind: 'signals' | 'measure' }) {
       <span className="s05-built s05-built--signals">
         <span className="s05-built__bars" aria-hidden="true">
           {bars.map((h, i) => (
-            <span key={i} style={{ height: `${h}%` }} />
+            <span key={i} style={{ height: `${h}%` }}>
+              <span className="s05-built__fill" style={{ ['--mk-i']: i } as CSSProperties} />
+            </span>
           ))}
         </span>
         <span className="s05-built__tag">
@@ -158,7 +161,9 @@ export default function Screen05() {
       <div className="s05-board">
         <div className="s05-rail" aria-hidden="true">
           <span className="s05-rail__cap mono">Assets already in motion</span>
-          <span className="s05-rail__line" />
+          <span className="s05-rail__line">
+            <span className="s05-rail__spark" />
+          </span>
         </div>
 
         <div className="s05-grid" role="list">
@@ -180,7 +185,7 @@ export default function Screen05() {
                       <img src={t.logo.src} alt={t.logo.alt} />
                     </span>
                   )}
-                  <span className="s05-tile__num mono">{i + 1}</span>
+                  <span className={`s05-tile__num mono${t.accent ? ' mk-breathe' : ''}`}>{i + 1}</span>
                 </span>
 
                 <span className="s05-tile__body">

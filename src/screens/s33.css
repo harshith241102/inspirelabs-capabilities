@@ -47,10 +47,16 @@
   box-shadow: var(--float-sm);
   transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 }
+/* Hover accent: the lift (-5px) is owned by .mk-hover (export-guarded in the
+   motion kit). This rule only adds the resting-look-preserving accent: a
+   crisper border + stronger float, and the icon tile picks up the orange. */
 .s33-stage:hover {
-  transform: translateY(-3px);
   border-color: var(--grey);
   box-shadow: var(--float);
+}
+.s33-stage.is-locked:hover .s33-stage__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 .s33-stage:focus-visible {
   outline: 3px solid var(--orange);
@@ -285,4 +291,67 @@
   font-weight: 500;
   line-height: 1.5;
   color: var(--ink);
+}
+
+/* ============================================================
+   IN-SLIDE FLOW  -  the system advancing through the live gate
+   ------------------------------------------------------------
+   One coherent loop, only while the slide is open: the active
+   stage's "In motion" dot breathes, and an orange spark travels
+   the live gate connector from stage 1 toward the next stage -
+   the partnership working through its first review gate.
+   Rest state = clean static board (spark invisible, dot solid),
+   so export + reduced-motion freeze the authored look.
+   ============================================================ */
+
+/* The live "In motion" dot breathes while the slide is open. */
+.screen[data-active="true"] .s33-stage.is-active .s33-dot {
+  animation: s33-dot-breathe 2.4s ease-in-out infinite;
+}
+@keyframes s33-dot-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.6; }
+}
+
+/* Travelling spark along the live gate connector (hidden at rest). */
+.s33-gate__spark {
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.18);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s33-gate.is-live .s33-gate__spark {
+  animation: s33-gate-spark 2.4s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+}
+@keyframes s33-gate-spark {
+  0% { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  86% { opacity: 1; }
+  100% { transform: translateX(70px); opacity: 0; }
+}
+
+/* Export / reduced-motion: deterministic clean static frame. */
+html[data-export] .s33-gate__spark,
+html[data-export] .s33-stage.is-active .s33-dot {
+  animation: none !important;
+}
+html[data-export] .s33-gate__spark {
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s33-gate__spark,
+  .s33-stage.is-active .s33-dot {
+    animation: none !important;
+  }
+  .s33-gate__spark {
+    opacity: 0 !important;
+  }
 }

@@ -95,7 +95,7 @@ export default function Screen36() {
             <div className="s36-cell" key={s.no} role="listitem">
               <Reveal i={i} from="up" distance={16} className="s36-stage-wrap">
                 <article
-                  className={`s36-stage is-${s.state}`}
+                  className={`s36-stage mk-hover is-${s.state}`}
                   aria-label={`${s.label}, ${s.state === 'active' ? 'in motion' : 'locked'}`}
                 >
                   <div className="s36-stage__top">
@@ -146,6 +146,7 @@ export default function Screen36() {
                   aria-hidden="true"
                 >
                   <span className="s36-link__bar" />
+                  <span className="s36-link__spark" aria-hidden="true" />
                   <span className="s36-link__node">
                     <Icon name={s.state === 'active' ? 'arrow' : 'shield'} size={13} />
                   </span>

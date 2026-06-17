@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, MockTag, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -112,6 +113,14 @@ export default function Screen27() {
             </div>
 
             <div className="s27-room__grid">
+              {/* live handoff flow: work moves agents -> review -> output while the
+                  studio is open. Two staggered sparks ride the column dividers;
+                  opacity 0 at rest so the export frame stays clean. */}
+              <div className="s27-flow" aria-hidden="true">
+                <span className="s27-flow__spark s27-flow__spark--a mk-spark" style={{ ['--mk-dx']: '188px' } as CSSProperties} />
+                <span className="s27-flow__spark s27-flow__spark--b mk-spark" style={{ ['--mk-dx']: '150px', ['--mk-i']: 1 } as CSSProperties} />
+              </div>
+
               {/* COLUMN 1 - agents by workstream */}
               <section className="s27-col s27-col--agents" aria-label="Agents by workstream">
                 <header className="s27-col__head">
@@ -125,7 +134,7 @@ export default function Screen27() {
                       <button
                         type="button"
                         role="listitem"
-                        className={`s27-stream is-${w.state}${w.asset ? ' has-asset' : ''}`}
+                        className={`s27-stream mk-hover is-${w.state}${w.asset ? ' has-asset' : ''}`}
                         onClick={() => openWorkstream(w)}
                       >
                         {w.asset ? (
@@ -157,7 +166,7 @@ export default function Screen27() {
                 </header>
                 <div className="s27-review">
                   {reviewQueue.map((r) => (
-                    <div key={r.label} className={`s27-rev is-${r.state}`}>
+                    <div key={r.label} className={`s27-rev mk-hover is-${r.state}`}>
                       <span className="s27-rev__top">
                         <span className="s27-rev__label">{r.label}</span>
                         <span className={`s27-rev__state s27-rev__state--${r.state} mono`}>
@@ -187,7 +196,7 @@ export default function Screen27() {
                 </header>
                 <div className="s27-out">
                   {outputQueue.map((o) => (
-                    <div key={o.label} className={`s27-outrow${o.cleared ? ' is-cleared' : ''}`}>
+                    <div key={o.label} className={`s27-outrow mk-hover${o.cleared ? ' is-cleared' : ''}`}>
                       <span className="s27-outrow__ico">
                         <Icon name={o.cleared ? 'check' : 'shield'} size={14} />
                       </span>

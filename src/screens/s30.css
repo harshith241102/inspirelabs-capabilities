@@ -103,9 +103,15 @@
   box-shadow: var(--float-sm);
   transition: border-color 0.16s ease, transform 0.16s ease;
 }
+/* hover accent: lift comes from .mk-hover; this adds the orange border,
+   a stronger shadow and an icon emphasis so the read "responds". */
 .s30-read:hover {
   border-color: var(--orange);
-  transform: translateX(3px);
+  box-shadow: 0 14px 30px -14px rgba(14, 15, 10, 0.22);
+}
+.s30-read:hover .s30-read__ico {
+  border-color: var(--orange);
+  color: var(--orange-text);
 }
 .s30-read:focus-visible {
   outline: 3px solid var(--orange);
@@ -122,6 +128,7 @@
   justify-content: center;
   flex-shrink: 0;
   color: var(--ink);
+  transition: border-color 0.18s ease, color 0.18s ease;
 }
 .s30-read__ico svg {
   stroke: currentColor;
@@ -355,6 +362,52 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   flex-shrink: 0;
+}
+
+/* ============================================================
+   MOTION  -  in-slide flow (live ping) + hover accent
+   ONE flow animation: the cockpit's live-monitoring dot pulses an
+   expanding ring while the slide is open, signalling "tracking on,
+   reading from connected sources". Rest state hides the ring
+   (opacity 0), so export / reduced-motion freeze a clean frame.
+   Hover lift is provided by the kit class .mk-hover on each read.
+   ============================================================ */
+.s30-bar__ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--ai-complete);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s30-bar__ping {
+  animation: s30-ping 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+@keyframes s30-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.9);
+    opacity: 0;
+  }
+}
+
+/* hard stop in export + reduced-motion: clean static cockpit */
+html[data-export] .s30-bar__ping,
+html[data-export] .s30-read.mk-hover {
+  animation: none !important;
+}
+html[data-export] .s30-bar__ping {
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s30-bar__ping {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* ---- CTA safe zone ---- */

@@ -161,10 +161,18 @@
   cursor: pointer;
   transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
+.s21-event__ico {
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
 .s21-event:hover {
   border-color: var(--as);
-  transform: translateY(-2px);
-  box-shadow: var(--float);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.16), var(--float);
+}
+.s21-event:hover .s21-event__ico {
+  background: rgba(59, 130, 246, 0.16);
+  border-color: var(--as);
+  transform: scale(1.06);
 }
 .s21-event:focus-visible {
   outline: 3px solid var(--as);
@@ -204,6 +212,7 @@
   color: var(--ink);
 }
 .s21-link {
+  position: relative;
   width: 40px;
   flex-shrink: 0;
   height: 2px;
@@ -396,4 +405,51 @@
 }
 .s21-foot .cta-row {
   flex-shrink: 0;
+}
+
+/* ============================================================
+   IN-SLIDE MOTION  -  pre-pixel signal flow + focal breathe
+   Rest state = the static event path (export / reduced-motion
+   render a clean frame). The flow loops only while the slide is
+   active; the orange boundary focal breathes via the kit class.
+   ============================================================ */
+
+/* the live signal: a blue spark streams each connector left to
+   right, reading as the pre-pixel decision flowing through the
+   four GrabOn events toward the pixel boundary. Hidden at rest. */
+.s21-link__spark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: var(--as, #3b82f6);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s21-link__spark {
+  animation: s21-signal 2.2s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+  animation-delay: calc(var(--mk-i, 0) * 0.26s);
+}
+@keyframes s21-signal {
+  0%   { opacity: 0; transform: translateX(0); }
+  14%  { opacity: 1; }
+  82%  { opacity: 1; transform: translateX(40px); }
+  100% { opacity: 0; transform: translateX(40px); }
+}
+
+/* hard stop in export + reduced-motion: clean, dot-free static path */
+html[data-export] .s21-link__spark {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s21-link__spark {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }

@@ -92,10 +92,10 @@ export default function Screen14() {
               <button
                 key={r.label}
                 type="button"
-                className={`s14-row${r.accent ? ' s14-row--accent' : ''}`}
+                className={`s14-row mk-hover${r.accent ? ' s14-row--accent' : ''}`}
                 onClick={() => openRow(r.label, r.note)}
               >
-                <span className="s14-row__n">{i + 1}</span>
+                <span className={`s14-row__n${r.accent ? ' mk-breathe' : ''}`}>{i + 1}</span>
                 <span className="s14-row__ico">
                   <Icon name={r.icon} size={17} />
                 </span>
@@ -105,6 +105,7 @@ export default function Screen14() {
             ))}
           </div>
           <div className="s14-measure">
+            <span className="s14-measure__scan" aria-hidden="true" />
             <span className="s14-measure__head">
               <Icon name="chart" size={16} />
               Creator-wise performance, where available

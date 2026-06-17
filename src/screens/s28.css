@@ -153,6 +153,107 @@
   outline-offset: 3px;
 }
 
+/* ============================================================
+   IN-SLIDE MOTION (additive; rest state == current static look)
+   1) hover: the two proof screenshots lift + gain an orange edge
+   2) flow:  a live spark travels the status strip while open
+   3) focal: the central orange arrow node breathes / pings
+   All guarded for export + reduced-motion below.
+   ============================================================ */
+
+/* 1) Hover on the repeating proof cards (RankDrive scan / WriteGenius output).
+   The hovered surface lifts and responds with an orange frame + lifted shadow.
+   AnnotatedShot exposes no className, so this is a bespoke :hover scoped here. */
+.s28-split .dk-annot {
+  transition: transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.s28-split .dk-annot .dk-annot__frame {
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.s28-split .dk-annot:hover {
+  transform: translateY(-5px);
+}
+.s28-split .dk-annot:hover .dk-annot__frame {
+  border-color: var(--orange);
+  box-shadow: var(--float);
+}
+
+/* 2) Live flow spark: a small orange dot travels the status strip left to
+   right while the slide is open, illustrating the pipeline running from the
+   real scan through to the real output. Hidden at rest (opacity 0). */
+.s28-flow {
+  position: relative;
+  flex-shrink: 0;
+}
+.s28-flow__spark {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.18);
+  opacity: 0;
+  pointer-events: none;
+}
+#ai-search-content[data-active='true'] .s28-flow__spark {
+  animation: s28-travel 4.2s cubic-bezier(0.55, 0, 0.45, 1) infinite;
+}
+@keyframes s28-travel {
+  0% { left: 30px; opacity: 0; }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { left: calc(100% - 30px); opacity: 0; }
+}
+
+/* 3) Central orange arrow focal: a soft ping ring expands from the node while
+   open, signalling the scan handing off to the output. Invisible at rest. */
+.s28-arrow {
+  position: relative;
+}
+.s28-arrow__ping {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+  opacity: 0;
+  pointer-events: none;
+}
+#ai-search-content[data-active='true'] .s28-arrow__ping {
+  animation: s28-ping 4.2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+@keyframes s28-ping {
+  0%, 70% { transform: scale(1); opacity: 0; }
+  78% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* Export + reduced-motion: freeze a clean static frame (no lift, no spark). */
+html[data-export] .s28-split .dk-annot,
+html[data-export] .s28-split .dk-annot .dk-annot__frame {
+  transition: none !important;
+  transform: none !important;
+}
+html[data-export] .s28-flow__spark,
+html[data-export] .s28-arrow__ping {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s28-split .dk-annot,
+  .s28-split .dk-annot .dk-annot__frame {
+    transition: none !important;
+    transform: none !important;
+  }
+  .s28-flow__spark,
+  .s28-arrow__ping {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
 /* Bottom takeaway: a single full-width NetBox anchors the slide, matching the
    other content slides. Block footer with a small top gap; the flex body above
    gives up the freed space so the canvas stays within 1080px. */

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Screen } from '../primitives/Screen';
 import { DeckHeader, NetBox, EvidenceTag, MockTag } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
@@ -141,7 +142,7 @@ export default function Screen24() {
                 <Reveal i={i} step={0.05} from="up" distance={14}>
                   <button
                     type="button"
-                    className={`s24-node s24-node--${s.kind}`}
+                    className={`s24-node s24-node--${s.kind} mk-hover`}
                     onClick={() => openStage(s, i)}
                   >
                     <span className="s24-node__top">
@@ -161,7 +162,7 @@ export default function Screen24() {
                     </span>
 
                     {s.kind === 'focal' && (
-                      <span className="s24-node__badge mono">AudienceSeed core</span>
+                      <span className="s24-node__badge mono mk-breathe">AudienceSeed core</span>
                     )}
                     {s.kind === 'report' && (
                       <span className="s24-node__ai" aria-hidden="true">
@@ -178,6 +179,10 @@ export default function Screen24() {
                 {i < stages.length - 1 && (
                   <span className={`s24-link s24-link--${s.kind}`} aria-hidden="true">
                     <Icon name="arrow" size={16} />
+                    <span
+                      className="s24-flowdot"
+                      style={{ ['--mk-i']: i } as CSSProperties}
+                    />
                   </span>
                 )}
               </div>

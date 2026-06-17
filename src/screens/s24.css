@@ -107,8 +107,33 @@
   transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 .s24-node:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
   border-color: var(--grey);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 16px 34px rgba(14, 15, 10, 0.13);
+}
+/* Per-kind hover accent: the hovered stage adopts its channel colour and
+   its icon tile lifts in emphasis, so the unit feels like it responds. */
+.s24-node--source:hover,
+.s24-node--signal:hover {
+  border-color: var(--as);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 16px 34px rgba(37, 99, 235, 0.18);
+}
+.s24-node--source:hover .s24-node__ico,
+.s24-node--signal:hover .s24-node__ico {
+  background: var(--as);
+  border-color: var(--as);
+  color: #fff;
+}
+.s24-node--focal:hover {
+  border-color: var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 20px 44px rgba(255, 122, 69, 0.28);
+}
+.s24-node--brand:hover {
+  border-color: var(--ink);
+}
+.s24-node--report:hover {
+  border-color: var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 16px 34px rgba(255, 122, 69, 0.16);
 }
 .s24-node:focus-visible {
   outline: 3px solid var(--orange);
@@ -300,6 +325,45 @@
 }
 .s24-link--brand {
   color: var(--grey);
+}
+
+/* ---------- In-slide flow: a signal pulse travels each connector ----------
+   A small dot rides each arrow gap left -> right while the slide is open,
+   reading as one approved signal flowing stage-to-stage through the pipeline.
+   It inherits the connector's channel colour (blue signal / orange focal /
+   grey brand). Hidden at rest; only runs on the active slide. */
+.s24-flowdot {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
+  opacity: 0;
+  pointer-events: none;
+}
+.screen[data-active="true"] .s24-flowdot {
+  animation: s24-flowdot 2.4s cubic-bezier(0.45, 0, 0.5, 1) infinite;
+  animation-delay: calc(var(--mk-i, 0) * 0.42s);
+}
+@keyframes s24-flowdot {
+  0% { opacity: 0; transform: translateX(0); }
+  14% { opacity: 1; }
+  78% { opacity: 1; transform: translateX(26px); }
+  100% { opacity: 0; transform: translateX(26px); }
+}
+html[data-export] .s24-flowdot {
+  animation: none !important;
+  opacity: 0 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s24-flowdot {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* ---------- Pinned compliance guardrail ---------- */

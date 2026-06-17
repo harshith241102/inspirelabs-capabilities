@@ -146,6 +146,7 @@ export default function Screen34() {
                 <MockTag>Category surface · case proof pending</MockTag>
               </div>
               <div className="s34-shot__plate">
+                <span className="s34-shot__plate-scan" aria-hidden="true" />
                 <span className="s34-shot__plate-cat">{selectedLabel}</span>
                 <span className="s34-shot__plate-sys">Same system. Category-specific proof.</span>
               </div>
@@ -174,7 +175,7 @@ export default function Screen34() {
                     key={o.value}
                     type="button"
                     role="listitem"
-                    className={`s34-cat${active ? ' is-active' : ''}`}
+                    className={`s34-cat mk-hover${active ? ' is-active' : ''}`}
                     aria-pressed={active}
                     onClick={() => setSelected(o.value)}
                   >
@@ -211,7 +212,7 @@ export default function Screen34() {
             </span>
             <div className="s34-metrics__chips">
               {proof.metrics.map((m) => (
-                <span key={m} className="s34-metric">{m}</span>
+                <span key={m} className="s34-metric mk-hover">{m}</span>
               ))}
             </div>
           </div>
