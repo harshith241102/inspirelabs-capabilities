@@ -174,7 +174,7 @@ export const copy: Record<number, ScreenCopy> = {
     headline: 'Placements extend demand into external ecosystems.',
     subheadline:
       'Inspirelabs can extend brand demand into partner ecosystems, affiliate publishers, content channels, social surfaces, push channels, and campaign-specific promotions.',
-    support: 'These surfaces are shown separately so the reader sees the breadth without losing clarity.',
+    support: 'Every activation family resolves to one measurable action you can track.',
     cards: ['Strategic Partnerships', 'Affiliate Marketing Platforms', 'Channel Amplification', 'Integrated Campaign Promotions'],
     cta: 'Start with strategic partnerships',
     drawer: 'Each family drawer previews where it runs, what it needs, and what can be measured.',
@@ -185,11 +185,11 @@ export const copy: Record<number, ScreenCopy> = {
     subheadline:
       'Inspirelabs helps brands activate offers, engagement moments, and acquisition paths across partner-owned surfaces.',
     support:
-      'Use 145+ strategic partnerships as approved proof. Use 200M+ only as potential reachable audience through partner ecosystems, not guaranteed reach.',
+      'Partner ecosystems become measurable growth surfaces, not just added reach.',
     cards: ['Fintech', 'BFSI', 'Payments', 'Telecom', 'Commerce', 'Entertainment', 'Loyalty', 'Engagement'],
     cta: 'Continue to affiliate platforms',
     aiChip: 'partnerships',
-    drawer: 'Partner drawers should show surface example, offer moment, tracked action, and reporting input.',
+    drawer: 'Each partner surface carries an offer moment and a tracked action, reported where measurement is in place.',
   },
   17: {
     eyebrow: 'Where your brand shows up',
@@ -240,7 +240,7 @@ export const copy: Record<number, ScreenCopy> = {
     support: 'GrabOn discovery, offer comparison, coupon reveal, and outbound click can all happen before website or app arrival.',
     cards: ['Discovery', 'Comparison', 'Coupon reveal', 'Outbound click', 'Brand arrival'],
     cta: 'See signal depth',
-    drawer: 'The drawer can define each event and the data source required to use it.',
+    drawer: 'Each pre-pixel event carries intent that can be captured where the data source is available.',
   },
   22: {
     eyebrow: 'AudienceSeed',
@@ -364,11 +364,11 @@ export const copy: Record<number, ScreenCopy> = {
   34: {
     eyebrow: 'Results by category',
     headline: 'The system stays consistent. Proof changes by category.',
-    subheadline: 'Each case should show the relevant problem, activated capabilities, metric groups, and evidence status.',
-    support: 'Use placeholders when final proof is not yet available.',
+    subheadline: 'Each case shows the brand problem, the capabilities activated, the metric groups, and the evidence status.',
+    support: 'The same system applies across every category. What changes is the proof, shown on each case’s own evidence.',
     cards: ['Fashion and Beauty', 'BFSI and Fintech', 'Commerce and Marketplace', 'Entertainment and OTT', 'Travel and Mobility', 'Gaming and Rummy', 'Electronics and Devices', 'Kids and Family', 'Other'],
     cta: 'View case format',
-    drawer: 'Category drawers show relevant surfaces, acceptable metric groups, available proof, and missing proof.',
+    drawer: 'Each category shows its relevant surfaces, the metric groups that apply, and the proof available so far.',
   },
   35: {
     eyebrow: 'Results by category',

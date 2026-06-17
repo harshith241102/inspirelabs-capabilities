@@ -130,7 +130,7 @@ export default function Screen10() {
                       { heading: 'Measurement, where applicable', items: p.metrics },
                       {
                         heading: 'What not to assume',
-                        body: 'This is B2B software discovery. Comparison visuals and traffic figures need approval before client-facing use.',
+                        body: 'Comparison views are illustrative; the figures shown are examples, not measured results.',
                       },
                     ],
                   })

@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-const TOTAL = 39;
+const TOTAL = 38;
 const SLACK = 2; // px tolerance for sub-pixel rounding
 
 function pngSize(file) {

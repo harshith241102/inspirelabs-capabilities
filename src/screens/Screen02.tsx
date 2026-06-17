@@ -1,6 +1,7 @@
 import { Screen } from '../primitives/Screen';
+import { NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
-import { Icon, type IconName } from '../primitives/icons';
+import { Icon } from '../primitives/icons';
 import { AnnotatedShot } from '../primitives/deck';
 import { useApp } from '../state/store';
 import { copy } from '../content/copy';
@@ -8,30 +9,21 @@ import { openingTailoring } from '../content/setup';
 import { ASSETS } from '../lib/assets';
 import './s02.css';
 
-/* The broader Inspirelabs system that GrabOn expands into. This expansion is
-   FIXED for every reader; only the intro headline + support copy adapt (by
-   familiarity). Commerce intent is the fixed anchor focal because GrabOn is the
-   commerce-intent surface the system expands from. */
-type ModuleKey = 'commerce' | 'distribution' | 'signals' | 'studio' | 'commitments';
-
-const moduleTiles: { key: ModuleKey; label: string; sub: string; icon: IconName }[] = [
-  { key: 'commerce', label: 'Commerce intent', sub: 'Reach shoppers as decisions form', icon: 'store' },
-  { key: 'distribution', label: 'Distribution', sub: 'Owned and activation surfaces', icon: 'share' },
-  { key: 'signals', label: 'Shopper signals', sub: 'AudienceSeed by Inspirelabs', icon: 'signal' },
-  { key: 'studio', label: 'AI Growth Studio', sub: 'Human-reviewed agents', icon: 'spark' },
-  { key: 'commitments', label: 'Measurable commitments', sub: 'Accountable growth partnership', icon: 'target' },
-];
+/* Screen 2 - Repositioning hero. This is the "bigger picture" reframe: the
+   reader knows GrabOn (a commerce surface); Inspirelabs is the connected
+   growth system behind it. Kept deliberately minimal - the five modules are
+   detailed on the next screen, so this one only does the reframe. The intro
+   headline + support adapt to the setup answer (familiarity). */
 
 export default function Screen02() {
   const c = copy[2];
   const { setup, setupComplete } = useApp();
   const tailored = openingTailoring[setup.familiarity];
-  // Only the intro headline + support adapt, and only by familiarity.
   const headline = setupComplete ? tailored.headline : c.fallback!;
   const sub = setupComplete ? tailored.support : c.support!;
 
   return (
-    <Screen index={2} tone="light" id="tailored-hero" label="Tailored hero">
+    <Screen index={2} tone="light" id="bigger-picture" label="The bigger picture">
       <header className="s-header s02-head">
         <Reveal from="up" distance={12}>
           <span className="eyebrow">{c.eyebrow}</span>
@@ -45,7 +37,7 @@ export default function Screen02() {
       </header>
 
       <div className="s02-body">
-        {/* Dominant visual: the flagship GrabOn surface, promoted to a large proof object */}
+        {/* Dominant proof object: the flagship GrabOn surface */}
         <Reveal className="s02-hero" from="up" distance={18}>
           <AnnotatedShot
             src={ASSETS.grabonHome}
@@ -61,53 +53,35 @@ export default function Screen02() {
           </span>
         </Reveal>
 
-        {/* Expansion: the broader Inspirelabs growth system GrabOn extends into */}
-        <aside className="s02-expand">
-          <div className="s02-expand__lead">
-            <span className="s02-expand__kicker mono">Expands into the Inspirelabs system</span>
-            <span className="s02-expand__note">
-              The same five-part system for every reader.
-            </span>
+        {/* The reframe: what you may know -> what actually powers it */}
+        <Reveal from="right" distance={20} className="s02-reframe">
+          <div className="s02-reframe__card s02-reframe__from mk-hover">
+            <span className="s02-reframe__tag mono">What you may know</span>
+            <span className="s02-reframe__name">GrabOn</span>
+            <span className="s02-reframe__cap">A commerce surface where shoppers are ready to buy.</span>
           </div>
 
-          <div className="s02-mods">
-            {/* In-slide flow: an expansion pulse travels down the spine from the
-                commerce anchor (GrabOn) into the rest of the system. Decorative
-                only; base-hidden + export/reduced-motion guarded in s02.css. */}
-            <span className="s02-mods__rail" aria-hidden="true">
-              <span className="s02-mods__pulse" />
+          <span className="s02-reframe__shift" aria-hidden="true">
+            <span className="s02-reframe__rail" />
+            <span className="s02-reframe__spark" />
+            <span className="s02-reframe__chev">
+              <Icon name="arrowDown" size={18} />
             </span>
-            {moduleTiles.map((m, i) => {
-              // Fixed anchor focal for every reader: commerce intent (GrabOn).
-              const anchor = m.key === 'commerce';
-              return (
-                <Reveal
-                  key={m.key}
-                  i={i}
-                  step={0.06}
-                  from="right"
-                  distance={14}
-                  className={`s02-mod mk-hover${anchor ? ' s02-mod--on' : ''}`}
-                >
-                  <span className={`s02-mod__ico${anchor ? ' mk-breathe' : ''}`}>
-                    <Icon name={m.icon} size={19} />
-                  </span>
-                  <span className="s02-mod__txt">
-                    <span className="s02-mod__label">{m.label}</span>
-                    <span className="s02-mod__sub">{m.sub}</span>
-                  </span>
-                </Reveal>
-              );
-            })}
+          </span>
+
+          <div className="s02-reframe__card s02-reframe__to mk-hover">
+            <span className="s02-reframe__mark mk-breathe" aria-hidden="true">
+              <img src={ASSETS.symbolInkCrop} alt="" />
+            </span>
+            <span className="s02-reframe__tag mono">What powers it</span>
+            <span className="s02-reframe__name">Inspirelabs</span>
+            <span className="s02-reframe__cap">The connected growth system behind it.</span>
           </div>
-        </aside>
+        </Reveal>
       </div>
 
       <footer className="s02-foot">
-        <p className="s02-fixed mono">
-          <Icon name="layers" size={14} />
-          The walkthrough is the same for every reader. Only this intro and the proof-by-category slides adapt to your setup.
-        </p>
+        <NetBox>{c.support}</NetBox>
       </footer>
     </Screen>
   );

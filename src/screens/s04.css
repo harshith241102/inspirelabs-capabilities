@@ -288,41 +288,10 @@
   max-width: 22ch;
 }
 
-/* ---------- Takeaway pinned inside the map ---------- */
-.s04-take {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding-top: 22px;
-  border-top: 1px solid var(--card-bd);
-}
-.s04-take__bar {
-  width: 4px;
-  align-self: stretch;
-  min-height: 26px;
-  border-radius: 2px;
-  background: var(--orange);
-  flex-shrink: 0;
-}
-.s04-take__text {
-  font-family: var(--font-body);
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--ink);
-}
-
-/* ---------- Footer: one primary CTA, quiet mono note ---------- */
+/* ---------- Footer net-line ---------- */
 .s04-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-.s04-foot__note {
-  font-size: 12.5px;
-  letter-spacing: 0.03em;
-  color: var(--grey);
+  padding-top: 12px;
 }
 
 /* ============================================================
@@ -360,7 +329,7 @@
   background: var(--orange);
   box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.16);
   opacity: 0;
-  z-index: 2;
+  z-index: 0; /* behind the station nodes (z-index 1) so the spark flows under them */
   pointer-events: none;
 }
 .screen[data-active="true"] .s04-flowdot {

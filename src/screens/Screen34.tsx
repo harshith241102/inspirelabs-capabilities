@@ -164,7 +164,7 @@ export default function Screen34() {
         <aside className="s34-rail">
           <div className="s34-rail__top">
             <span className="s34-rail__cap">
-              {setupComplete ? 'Your category from setup is selected' : 'Select a category'}
+              {setupComplete ? 'Selected category' : 'Select a category'}
             </span>
             <div className="s34-cats" role="list">
               {categoryOptions.map((o) => {

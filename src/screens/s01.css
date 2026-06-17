@@ -318,3 +318,50 @@
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* ============================================================
+   MOTION  -  setup hover lift + a "live" pulse on the current
+   selection (additive). Kept light - this is a focused form.
+   Rest state unchanged; frozen in export / reduced-motion.
+   ============================================================ */
+.s01-seg__opt {
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease,
+    box-shadow 0.16s ease, transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.s01-seg__opt:hover {
+  transform: translateY(-2px);
+}
+.s01-select select {
+  transition: border-color 0.16s ease, box-shadow 0.16s ease,
+    transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.s01-select select:hover {
+  transform: translateY(-2px);
+}
+.screen[data-active="true"] .s01-seg__opt.is-active {
+  animation: s01-live 2.6s ease-in-out infinite;
+}
+@keyframes s01-live {
+  0%, 100% { box-shadow: 0 6px 18px rgba(255, 122, 69, 0.18); }
+  50% { box-shadow: 0 6px 22px rgba(255, 122, 69, 0.34); }
+}
+
+/* export / reduced-motion: freeze a clean static console */
+html[data-export] .s01-seg__opt,
+html[data-export] .s01-select select {
+  transition: none !important;
+  transform: none !important;
+}
+html[data-export] .s01-seg__opt.is-active {
+  animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .s01-seg__opt,
+  .s01-select select {
+    transition: none !important;
+    transform: none !important;
+  }
+  .s01-seg__opt.is-active {
+    animation: none !important;
+  }
+}

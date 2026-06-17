@@ -109,7 +109,7 @@ export default function Screen35() {
                 <div className="s35-problem">
                   <span className="s35-field-k mono">Growth problem</span>
                   <p className="s35-problem__text">
-                    The specific growth problem this brand needed solved, stated in one line a similar brand would recognise.
+                    The brand&rsquo;s core growth problem, in one line.
                   </p>
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function Screen35() {
                   <span className="s35-why__halo" aria-hidden="true" />
                   <span className="s35-why__kicker mono">Why it matters</span>
                   <p className="s35-why__lead">
-                    What a similar brand can expect to learn from this case, framed as relevance, not a promised result.
+                    What a similar brand can expect to learn from this case.
                   </p>
                   <div className="s35-why__foot">
                     <span className="s35-field-k mono">Similar brands</span>

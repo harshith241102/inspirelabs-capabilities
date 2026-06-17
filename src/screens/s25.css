@@ -308,6 +308,9 @@
 .screen[data-active="true"] .s25-action--live::after {
   animation: s25-focal-breathe 3.2s ease-in-out infinite;
 }
+/* Breathe is carried mainly by opacity; the halo blur/spread is capped so its
+   reach (blur + spread + the 2px inset) stays well inside the grid gutter and
+   cannot bleed toward the footer. */
 @keyframes s25-focal-breathe {
   0%, 100% {
     opacity: 0.55;
@@ -315,7 +318,7 @@
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 22px 2px rgba(255, 122, 69, 0.32);
+    box-shadow: 0 0 8px 0 rgba(255, 122, 69, 0.32);
   }
 }
 html[data-export] .s25-action--live::after,

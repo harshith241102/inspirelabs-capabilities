@@ -328,4 +328,79 @@
   margin-top: 3px;
 }
 
+/* ============================================================
+   MOTION  -  cover hover + ambient "one system" flow (additive only)
+   Surface tiles + capability blocks lift on hover; ambient motion runs
+   only while the cover is the active slide. Rest state = the static
+   cover, so export / reduced-motion render a clean frame.
+   ============================================================ */
+.cover__surface,
+.cover__chip {
+  transition: transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+.cover__surface:hover,
+.cover__chip:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange);
+  box-shadow: 0 14px 30px rgba(255, 122, 69, 0.16);
+}
+.cover__chip-ico {
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+.cover__chip:hover .cover__chip-ico {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+/* ambient: the surfaces run on one core, the brand grows out of it */
+.screen[data-active="true"] .cover__platform-mark {
+  animation: cover-core 2.8s ease-in-out infinite;
+}
+@keyframes cover-core {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.28); }
+}
+.screen[data-active="true"] .cover__system-link svg {
+  animation: cover-down 1.8s ease-in-out infinite;
+}
+@keyframes cover-down {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(3px); opacity: 1; }
+}
+.screen[data-active="true"] .cover__platform-out svg {
+  animation: cover-out 1.8s ease-in-out infinite;
+}
+@keyframes cover-out {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+/* export / reduced-motion: freeze a clean static cover */
+html[data-export] .cover__surface,
+html[data-export] .cover__chip,
+html[data-export] .cover__chip-ico {
+  transition: none !important;
+  transform: none !important;
+}
+html[data-export] .cover__platform-mark,
+html[data-export] .cover__system-link svg,
+html[data-export] .cover__platform-out svg {
+  animation: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover__surface,
+  .cover__chip,
+  .cover__chip-ico {
+    transition: none !important;
+    transform: none !important;
+  }
+  .cover__platform-mark,
+  .cover__system-link svg,
+  .cover__platform-out svg {
+    animation: none !important;
+  }
+}
+
 /* Mobile companion: the canvas is width-scaled, so layout is preserved. */

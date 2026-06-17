@@ -226,6 +226,8 @@
   color: #fff;
 }
 .s12-path__label {
+  position: relative;
+  z-index: 2;
   font-family: var(--font-headline);
   font-weight: 600;
   font-size: 16px;
@@ -235,6 +237,7 @@
 }
 .s12-path__link {
   position: relative;
+  z-index: 0;
   flex: 1 1 auto;
   height: 2px;
   min-width: 34px;
@@ -253,6 +256,7 @@
    rest (mk-spark base opacity 0) so export/reduced-motion freeze clean. */
 .s12-path__spark {
   position: absolute;
+  z-index: 0;
   top: 50%;
   left: -3px;
   width: 7px;

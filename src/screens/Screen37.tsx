@@ -120,13 +120,6 @@ export default function Screen37() {
                 The Inspirelabs team will prepare a proof-led partnership discussion, built around the
                 stage-gated roadmap and measurable growth commitments.
               </p>
-              <div className="s37-pending">
-                <Icon name="shield" size={15} />
-                <span>
-                  Backend delivery is pending integration. Your details are held in this session and are not yet routed
-                  to a CRM or inbox.
-                </span>
-              </div>
             </Reveal>
           ) : (
             <Reveal from="left" className="s37-panel">
@@ -184,13 +177,6 @@ export default function Screen37() {
                   By sending this, you agree the Inspirelabs team can use these details to prepare the
                   partnership discussion. We do not share them outside that purpose.
                 </p>
-                <div className="s37-pending">
-                  <Icon name="shield" size={15} />
-                  <span>
-                    Backend is pending integration. Details are held in this session only, with no CRM, inbox, or
-                    analytics destination connected yet.
-                  </span>
-                </div>
               </form>
             </Reveal>
           )}

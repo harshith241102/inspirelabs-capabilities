@@ -119,7 +119,7 @@ export default function Screen15() {
             <i style={{ ['--mk-i']: 2 } as CSSProperties} />
             <i style={{ ['--mk-i']: 3 } as CSSProperties} />
           </span>
-          <span className="s15-origin__note">Four external families, shown separately</span>
+          <span className="s15-origin__note">Four activation families</span>
         </div>
 
         {/* Four activation lanes reading as one map */}

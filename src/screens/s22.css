@@ -464,14 +464,17 @@
   border: 2px solid var(--orange);
   opacity: 0;
   pointer-events: none;
+  /* sit behind the rung content so the pulse can never cover the label /
+     meter / freshness pill, even mid-expand */
+  z-index: -1;
 }
 .screen[data-active="true"] .s22-rung__ico.is-focal::after {
   animation: s22-intent-ping 2.6s cubic-bezier(0.4, 0, 0.4, 1) infinite;
 }
 @keyframes s22-intent-ping {
   0%   { opacity: 0.55; transform: scale(1); }
-  70%  { opacity: 0; transform: scale(1.85); }
-  100% { opacity: 0; transform: scale(1.85); }
+  70%  { opacity: 0; transform: scale(1.16); }
+  100% { opacity: 0; transform: scale(1.16); }
 }
 html[data-export] .s22-rung__ico.is-focal::after {
   animation: none !important;

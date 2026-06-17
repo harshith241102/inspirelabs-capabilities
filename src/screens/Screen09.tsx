@@ -118,7 +118,7 @@ export default function Screen09() {
           <aside className="s09-rail">
             <div className="s09-rail__head">
               <span className="s09-rail__title">Placement inventory</span>
-              <span className="s09-rail__cap mono">Real surfaces, shown separately</span>
+              <span className="s09-rail__cap mono">On the live GrabOn surface</span>
             </div>
             <div className="s09-rail__list" role="list">
               {placements.map((pl) => (

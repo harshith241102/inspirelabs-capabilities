@@ -1,8 +1,7 @@
-/* Screen 02 - Tailored repositioning hero (proof-split).
-   Authored for the 1920x1080 logical canvas. Fixed px only.
-   GrabOn home is promoted to the dominant proof object; the broader
-   Inspirelabs system sits beside it as a labelled expansion, and the
-   setup answer drives the single orange focal. */
+/* Screen 02 - Repositioning hero. GrabOn is the dominant proof object; a
+   compact reframe beside it makes the "you know GrabOn, Inspirelabs is the
+   system behind it" point. The five modules are detailed on Screen 03, so
+   this screen stays a clean reframe. Fixed px for the 1920x1080 canvas. */
 
 .s02-head {
   display: flex;
@@ -69,247 +68,151 @@
   stroke-linejoin: round;
 }
 
-/* ---------- Expansion column ---------- */
-.s02-expand {
-  width: 480px;
+/* ---------- Reframe column: what you know -> what powers it ---------- */
+.s02-reframe {
+  width: 420px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  align-items: stretch;
+  justify-content: center;
   min-height: 0;
 }
-.s02-expand__lead {
+.s02-reframe__card {
+  background: #fff;
+  border: 1px solid var(--card-bd);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: var(--float-sm);
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  flex-shrink: 0;
+  gap: 6px;
+  position: relative;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
 }
-.s02-expand__kicker {
+.s02-reframe__card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 18px 40px rgba(255, 122, 69, 0.16);
+}
+.s02-reframe__to {
+  border: 2px solid var(--orange);
+  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 16px 36px rgba(255, 122, 69, 0.16);
+}
+.s02-reframe__tag {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--grey);
 }
-.s02-expand__note {
-  align-self: flex-start;
+.s02-reframe__name {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+.s02-reframe__cap {
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
+  font-size: 14.5px;
+  line-height: 1.4;
   color: var(--muted-text);
+  max-width: 30ch;
 }
-.s02-tailor svg {
-  color: var(--orange);
-  flex-shrink: 0;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.s02-mods {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  justify-content: space-between;
-  position: relative;
-}
-
-/* ---------- In-slide flow: expansion pulse down the spine ----------
-   The commerce anchor (top tile) expands INTO the rest of the system; a
-   single orange dot travels the icon column top -> bottom while the slide
-   is open. The dashed rail sits behind the icons at a whisper. Both the
-   rail and dot are invisible/static at rest, so export + reduced-motion
-   freeze a clean frame (guards at the foot of this file). */
-.s02-mods__rail {
+.s02-reframe__mark {
   position: absolute;
-  left: 40px; /* icon-column centre: 18px tile pad + 23px (half of 46px icon) */
   top: 18px;
-  bottom: 18px;
-  width: 2px;
-  border-left: 2px dashed rgba(255, 122, 69, 0.22);
-  opacity: 0;
-  pointer-events: none;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: block;
 }
-.screen[data-active="true"] .s02-mods__rail {
-  opacity: 1;
-  transition: opacity 0.5s ease 0.45s;
+.s02-reframe__mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
 }
-.s02-mods__pulse {
+
+/* the shift connector between the two cards */
+.s02-reframe__shift {
+  position: relative;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 100%;
+}
+.s02-reframe__rail {
   position: absolute;
-  left: -3px; /* centres the 8px dot on the 2px rail (icon-column centre) */
-  top: 0;
+  top: 6px;
+  bottom: 6px;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  border-left: 2px dashed rgba(255, 122, 69, 0.3);
+}
+.s02-reframe__spark {
+  position: absolute;
+  left: 50%;
+  top: 6px;
   width: 8px;
   height: 8px;
-  margin-top: -4px; /* centre the dot on its top position */
+  margin-left: -4px;
   border-radius: 50%;
   background: var(--orange);
   box-shadow: 0 0 0 4px rgba(255, 122, 69, 0.16);
   opacity: 0;
 }
-.screen[data-active="true"] .s02-mods__pulse {
-  animation: s02-expand-pulse 3.4s cubic-bezier(0.4, 0, 0.5, 1) infinite;
-  animation-delay: 0.55s;
+.screen[data-active="true"] .s02-reframe__spark {
+  animation: s02-shift 2.2s cubic-bezier(0.4, 0, 0.5, 1) infinite;
+  animation-delay: 0.5s;
 }
-/* `top` is a percentage of the rail height, so the travel adapts to the
-   column without any hardcoded pixel distance. */
-@keyframes s02-expand-pulse {
-  0%   { opacity: 0; top: 0%; }
-  8%   { opacity: 1; }
-  82%  { opacity: 1; top: 100%; }
-  92%  { opacity: 0; top: 100%; }
-  100% { opacity: 0; top: 100%; }
+@keyframes s02-shift {
+  0% { opacity: 0; top: 6px; }
+  15% { opacity: 1; }
+  80% { opacity: 1; top: 42px; }
+  100% { opacity: 0; top: 42px; }
 }
-
-.s02-mod {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #fff;
-  border: 1px solid var(--card-bd);
-  border-radius: 14px;
-  padding: 15px 18px;
-  box-shadow: var(--float-sm);
+.s02-reframe__chev {
   position: relative;
-  z-index: 1; /* tiles sit above the decorative rail */
-}
-
-/* Hover accent: the tile responds - orange hairline border + lifted shadow
-   + icon emphasis. The mk-hover kit class supplies the translateY(-5px). */
-.s02-mod:hover {
-  border-color: var(--orange);
-  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 18px 40px rgba(255, 122, 69, 0.18);
-}
-.s02-mod:hover .s02-mod__ico {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: #fff;
-}
-/* Keep the anchor's heavier border/shadow on hover (it is already orange). */
-.s02-mod--on:hover {
-  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.05), 0 22px 46px rgba(255, 122, 69, 0.24);
-}
-.s02-mod--on {
-  border: 2px solid var(--orange);
-  padding: 14px 17px;
-  box-shadow: 0 1px 2px rgba(14, 15, 10, 0.04), 0 16px 36px rgba(255, 122, 69, 0.16);
-}
-.s02-mod__ico {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: #f2f3f5;
-  border: 1px solid var(--card-bd);
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--orange);
+  color: var(--orange-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink);
-  flex-shrink: 0;
-  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
 }
-.s02-mod__ico svg {
+.s02-reframe__chev svg {
   stroke: currentColor;
   fill: none;
-  stroke-width: 1.7;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.s02-mod--on .s02-mod__ico {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: #fff;
-}
-.s02-mod__txt {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-.s02-mod__label {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  line-height: 1.1;
-}
-.s02-mod__sub {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--muted-text);
-  line-height: 1.3;
-}
-.s02-mod__flag {
-  margin-left: auto;
-  flex-shrink: 0;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--orange-text);
-  background: rgba(255, 122, 69, 0.1);
-  border: 1px solid var(--orange);
-  border-radius: 7px;
-  padding: 5px 9px;
-}
 
-/* ---------- export / reduced-motion: freeze a clean static frame ----------
-   The rail + travelling dot are purely ambient; at rest both are invisible,
-   so the PDF/screenshot path and overflow gate stay byte-for-byte unchanged.
-   (The mk-hover lift and mk-breathe icon pulse are already guarded by the
-   motion kit.) */
-html[data-export] .s02-mods__rail,
-html[data-export] .s02-mods__pulse {
-  animation: none !important;
-  opacity: 0 !important;
-  transition: none !important;
-}
-html[data-export] .s02-mod__ico {
-  transition: none !important;
-}
-@media (prefers-reduced-motion: reduce) {
-  .s02-mods__rail,
-  .s02-mods__pulse {
-    animation: none !important;
-    opacity: 0 !important;
-    transition: none !important;
-  }
-  .s02-mod__ico {
-    transition: none !important;
-  }
-}
-
-/* ---------- CTA safe zone ---------- */
+/* ---------- footer net-line ---------- */
 .s02-foot {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 26px;
+  padding-top: 8px;
 }
-.s02-fixed {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  max-width: 540px;
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.4;
-  color: var(--grey);
+
+/* ---------- export / reduced-motion: freeze the ambient spark ---------- */
+html[data-export] .s02-reframe__spark {
+  animation: none !important;
+  opacity: 0 !important;
 }
-.s02-fixed svg {
-  color: var(--orange);
-  flex-shrink: 0;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+@media (prefers-reduced-motion: reduce) {
+  .s02-reframe__spark {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* Mobile companion: the canvas is width-scaled, so the deck layout is preserved.
@@ -318,7 +221,7 @@ html[data-export] .s02-mod__ico {
   .s02-body {
     flex-direction: column;
   }
-  .s02-expand {
+  .s02-reframe {
     width: 100%;
   }
 }

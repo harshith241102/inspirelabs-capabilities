@@ -1,5 +1,5 @@
 import { Screen } from '../primitives/Screen';
-import { DeckHeader } from '../primitives/ui';
+import { DeckHeader, NetBox } from '../primitives/ui';
 import { Reveal } from '../primitives/Reveal';
 import { Icon, type IconName } from '../primitives/icons';
 import { useDrawer } from '../components/Drawer';
@@ -102,19 +102,11 @@ export default function Screen04() {
               </div>
             </Reveal>
           </div>
-
-          {/* Takeaway pinned to the map, not a separate card rhythm */}
-          <Reveal i={7} from="up" distance={12} className="s04-take">
-            <span className="s04-take__bar" aria-hidden="true" />
-            <p className="s04-take__text">{c.support}</p>
-          </Reveal>
         </div>
       </div>
 
       <footer className="s04-foot">
-        <span className="s04-foot__note mono">
-          This sets up the signal blind spot AudienceSeed closes later
-        </span>
+        <NetBox>{c.support}</NetBox>
       </footer>
     </Screen>
   );

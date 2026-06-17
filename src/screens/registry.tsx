@@ -40,7 +40,6 @@ import Screen29 from './Screen29';
 import Screen30 from './Screen30';
 import Screen31 from './Screen31';
 import Screen32 from './Screen32';
-import Screen33 from './Screen33';
 import Screen34 from './Screen34';
 import Screen35 from './Screen35';
 import Screen36 from './Screen36';
@@ -91,7 +90,6 @@ export const deckScreens: DeckEntry[] = [
   { Component: Screen30, copy: 30 },
   { Component: Screen31, copy: 31 },
   { Component: Screen32, copy: 32 },
-  { Component: Screen33, copy: 33 },
   { Component: Screen34, copy: 34 },
   { Component: Screen35, copy: 35 },
   { Component: Screen36, copy: 36 },
